@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\FrontController;
+use App\Http\Controllers\PemilikSampelController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +16,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [FrontController::class, 'trackingsampel'])->name('home');
+Route::get('/tarif', [FrontController::class, 'tarifpengujian'])->name('tarifpengujian');
+
+// Route::middleware(['auth'])->group(function () {
+    Route::get('admin', function () {
+        return view('admin.index');
+    });
+    Route::prefix('admin')->group(function () {
+        Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+        Route::prefix('master')->group(function () {
+            Route::resource('pemiliksampel', PemilikSampelController::class);
+            Route::get('dtpemiliksampel', [PemilikSampelController::class, 'dtpemiliksampel'])->name('dtpemiliksampel');
+        });
+    });
+// });
