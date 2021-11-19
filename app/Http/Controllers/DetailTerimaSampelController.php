@@ -29,7 +29,7 @@ class DetailTerimaSampelController extends Controller
     public function index($id)
     {
         $permintaan = TerimaSampel::find($id);
-        $title = 'Detail Penerimaan Sampel (' . $permintaan->no_urut_penerimaan . ')';
+        $title = 'Detail Penerimaan Sampel<br>'.'<b>'.$permintaan->kategori->nama_kategori.'</b>'.' (' . $permintaan->no_urut_penerimaan . ')';
         return view('admin.terimasampel.detailterimasampel', compact('title', 'id'));
     }
 
@@ -90,6 +90,7 @@ class DetailTerimaSampelController extends Controller
         return response(['status' => 1, 'msg' => 'Hapus data berhasil.']);
     }
 
+    // detail terima sampel
     public function deleteparameteruji($id)
     {
         UjiProduk::destroy($id);
@@ -128,5 +129,14 @@ class DetailTerimaSampelController extends Controller
     {
         $data = UjiProduk::with('parameter')->where('id_produk_sampel', $id)->get();
         return $data;
+    }
+
+    public function printkajiulang($id)
+    {
+        $title = 'Kaji Ulang Sampel';
+        $permintaan = TerimaSampel::find($id);
+        $produksampel = ProdukSampel::where('id_permintaan', $id)->get();
+
+        return view('prints.kajiulang', compact('title', 'permintaan', 'produksampel'));
     }
 }

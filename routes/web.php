@@ -55,5 +55,8 @@ Route::prefix('admin')->group(function () {
     //data parameter per produksampel for update list parameter
     Route::get('listparameterdetailterimasampel/{id}', [DetailTerimaSampelController::class, 'datadetailparameteruji'])->name('datadetailparameteruji');
 
+    // print
+    Route::get('printkajiulang/{idProdukSampel}', [DetailTerimaSampelController::class, 'printkajiulang'])->name('print.kajiulang');
+
 });
 // });
