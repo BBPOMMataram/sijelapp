@@ -37,7 +37,7 @@ class TerimaSampelController extends Controller
     public function index()
     {
         $title = 'Penerimaan Sampel';
-        return view('admin.master.terimasampel', compact('title'));
+        return view('admin.terimasampel.terimasampel', compact('title'));
     }
 
     public function store(Request $request)

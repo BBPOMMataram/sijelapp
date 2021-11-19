@@ -41,7 +41,7 @@
     </div><!-- /.container-fluid -->
 </section>
 <!-- /.content -->
-@include('modals.master.detailterimasampel')
+@include('modals.terimasampel.detailterimasampel')
 @endsection
 @push('scripts')
 <script>

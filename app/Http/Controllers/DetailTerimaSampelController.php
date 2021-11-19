@@ -30,7 +30,7 @@ class DetailTerimaSampelController extends Controller
     {
         $permintaan = TerimaSampel::find($id);
         $title = 'Detail Penerimaan Sampel (' . $permintaan->no_urut_penerimaan . ')';
-        return view('admin.master.detailterimasampel', compact('title', 'id'));
+        return view('admin.terimasampel.detailterimasampel', compact('title', 'id'));
     }
 
     public function store(Request $request, $id_permintaan)
