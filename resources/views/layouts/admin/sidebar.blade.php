@@ -59,24 +59,32 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{{ route('kategori.index') }}" class="nav-link @if(Request::is('admin/master/kategori')) active @endif">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Kategori</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Parameter Uji</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="pages/layout/fixed-sidebar.html" class="nav-link">
+                <a href="{{ route('metodeuji.index') }}" class="nav-link @if(Request::is('admin/master/metodeuji')) active @endif">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Metode Uji</p>
                 </a>
               </li>
+              <li class="nav-item">
+                <a href="{{ route('parameteruji.index') }}" class="nav-link @if(Request::is('admin/master/parameteruji')) active @endif">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Parameter Uji</p>
+                </a>
+              </li>
             </ul>
+          </li>
+          <li class="nav-item">
+            <a href="{{ route('terimasampel.index') }}" class="nav-link @if(Request::is('admin/terimasampel')) active @endif">
+              <i class="nav-icon fab fa-500px"></i>
+              <p>
+                Terima Sampel
+              </p>
+            </a>
           </li>
         </ul>
       </nav>

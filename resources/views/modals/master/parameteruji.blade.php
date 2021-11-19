@@ -1,4 +1,4 @@
-<div class="modal fade" id="modalpemiliksampel">
+<div class="modal fade" id="modalparameteruji">
   <div class="modal-dialog">
     <div class="modal-content bg-primary">
       <div class="modal-header">
@@ -13,22 +13,12 @@
           <div class="card-body">
             <input type="hidden" name="id" id="id">
             <div class="form-group">
-              {{-- <label for="instansi">Instansi</label> --}}
-              <input type="text" class="form-control" id="instansi" name="instansi" placeholder="Instansi">
+              <label for="namaparameter">Nama Parameter</label>
+              <input type="text" class="form-control" id="namaparameter" name="namaparameter" placeholder="Nama Parameter">
             </div>
             <div class="form-group">
-              {{-- <label for="namapetugas">Nama Petugas</label> --}}
-              <input type="text" class="form-control" id="namapetugas" name="namapetugas" placeholder="Nama Petugas">
-            </div>
-            <div class="form-group">
-              {{-- <label for="teleponpetugas">Telepon Petugas</label> --}}
-              <input type="text" class="form-control" id="teleponpetugas" name="teleponpetugas"
-                placeholder="Telepon Petugas">
-            </div>
-            <div class="form-group">
-              {{-- <label for="alamatinstansi">Alamat Instansi</label> --}}
-              <textarea class="form-control" rows="2" id="alamatinstansi" name="alamatinstansi"
-                placeholder="Alamat Instansi"></textarea>
+              <label for="metode">Metode</label>
+              <select name="metode" id="metode" class="select2"></select>
             </div>
           </div>
           <!-- /.card-body -->

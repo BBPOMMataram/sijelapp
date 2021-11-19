@@ -12,22 +12,20 @@
                     <div class="card-header">
                         <h3 class="card-title">
                             <button type="button" class="btn btn-primary" data-toggle="modal"
-                                data-target="#modalpemiliksampel">+</button>
-
+                                data-target="#modalmetodeuji">+</button>
                         </h3>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table id="pemiliksampel" class="table table-bordered table-striped w-100">
+                            <table id="metodeuji" class="table table-bordered table-striped w-100">
                                 <thead>
                                     <tr>
-                                        <th>No</th>
-                                        <th>Nama Instansi</th>
-                                        <th>Nama Petugas</th>
-                                        <th>Telepon Petugas</th>
-                                        <th>Alamat Instansi</th>
-                                        <th>Actions</th>
+                                        <th class="align-middle">No</th>
+                                        <th class="align-middle">Metode</th>
+                                        <th class="align-middle">Kode</th>
+                                        <th class="align-middle">Biaya (Rp)</th>
+                                        <th class="align-middle">Actions</th>
                                     </tr>
                                 </thead>
                             </table>
@@ -42,7 +40,7 @@
     </div><!-- /.container-fluid -->
 </section>
 <!-- /.content -->
-@include('modals.pemiliksampel.form')
+@include('modals.master.metodeuji')
 @endsection
 @push('scripts')
 <script>
@@ -54,36 +52,33 @@
             timer: 5000
         });
 
-        const dttable = $("#pemiliksampel").DataTable({
-            responsive: true,
+        const dttable = $("#metodeuji").DataTable({
+            select: true,
             serverside: true,
+            select: true,
             ajax: {
-                url: "{{ route('dtpemiliksampel') }}"
+                url: "{{ route('dtmetodeuji') }}"
             },
             columns: [
                 {data: 'DT_RowIndex'},
-                {data: 'nama_pemilik'},
-                {data: 'nama_petugas'},
-                {data: 'telepon_petugas'},
-                {data: 'alamat_pemilik'},
+                {data: 'metode'},
+                {data: 'kode_layanan'},
+                {data: 'biaya', render: $.fn.dataTable.render.number(',', null, null, 'Rp. ')},
                 {data: 'actions', className: 'text-center align-middle'},
-                {data: 'id_pemilik', visible: false}
             ]
         });
 
         //when submit adding
-        $('#modalpemiliksampel').on('click', '.submit.adding', function(evt){
+        $('#modalmetodeuji').on('click', '.submit.adding', function(evt){
             evt.preventDefault();
 
             let fd = new FormData($('form')[0]);
-            const url = "{{ route('pemiliksampel.store') }}"
+            fd.append('_token', "{{ csrf_token() }}");
+            const url = "{{ route('metodeuji.store') }}";
 
             $.ajax({
                 type: 'POST',
                 url: url,
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
                 data: fd,
                 cache: false,
                 processData: false,
@@ -93,7 +88,7 @@
                         icon: 'success',
                         title: '&nbsp;' + response.msg,
                     })
-                    $('#modalpemiliksampel').modal('hide');
+                    $('#modalmetodeuji').modal('hide');
                     dttable.ajax.reload(null, false);
                 },
                 error: function(err){
@@ -118,8 +113,8 @@
         $('table').on('click', '.delete', function(e){
             e.preventDefault();
             const rowData = dttable.row($(this).parents('tr')).data();
-            const id = rowData['id_pemilik'];
-            let url = "{{ route('pemiliksampel.destroy', "_id") }}";
+            const id = rowData['id_kode_layanan'];
+            let url = "{{ route('metodeuji.destroy', "_id") }}";
             url = url.replace('_id', id);
 
             Swal.fire({
@@ -147,34 +142,59 @@
             });
         });
 
+        //show modal for show data
+        $('table').on('click', '.show', function(e){
+            e.preventDefault();
+            const rowData = dttable.row($(this).parents('tr')).data();
+            const id = rowData['id_kode_layanan'];
+
+            $('#modalmetodeuji').modal('show');
+
+            const formatter = new Intl.NumberFormat('id-ID', {
+                style: 'currency',
+                currency: 'IDR',
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 0,
+            });
+            const biaya = formatter.format(rowData['biaya'])
+            //fill form
+            $('#metode').val(rowData['metode']).prop('disabled', true);
+            $('#kodelayanan').val(rowData['kode_layanan']).prop('disabled', true);
+            $('#biaya').val(biaya).prop('disabled', true);
+            $('.submit').css('display', 'none')
+            $('.modal-title').text('Detail data');
+            // $('#id').val(id);
+        });
+
+
         //show modal for editing
         $('table').on('click', '.edit', function(e){
             e.preventDefault();
             const rowData = dttable.row($(this).parents('tr')).data();
-            const id = rowData['id_pemilik'];
+            const id = rowData['id_kode_layanan'];
 
-            $('#modalpemiliksampel').modal('show');
+            $('#modalmetodeuji').modal('show');
             //switch to editing mode
-            $('#modalpemiliksampel .submit').addClass('editing');
-            $('#modalpemiliksampel .submit').removeClass('adding');
+            $('#modalmetodeuji .submit').addClass('editing');
+            $('#modalmetodeuji .submit').removeClass('adding');
 
             //fill form editing
-            $('#instansi').val(rowData['nama_pemilik']);
-            $('#namapetugas').val(rowData['nama_petugas']);
-            $('#teleponpetugas').val(rowData['telepon_petugas']);
-            $('#alamatinstansi').val(rowData['alamat_pemilik']);
+            $('#metode').val(rowData['metode']);
+            $('#kodelayanan').val(rowData['kode_layanan']);
+            $('#biaya').val(rowData['biaya']);
             $('#id').val(id);
+            $('.modal-title').text('Ubah Data');
         });
 
         //when submit editing
-        $('#modalpemiliksampel').on('click', '.submit.editing', function(e){
+        $('#modalmetodeuji').on('click', '.submit.editing', function(e){
             e.preventDefault();
 
             let fd = new FormData($('form')[0]);
             fd.append('_method', 'PUT');
             fd.append('_token', '{{ csrf_token() }}');
 
-            let url = "{{ route('pemiliksampel.update',"_id") }}";
+            let url = "{{ route('metodeuji.update',"_id") }}";
             const id = fd.get('id');
             url = url.replace('_id', id);
             
@@ -191,7 +211,7 @@
                             icon: 'success',
                             title: '&nbsp;'+response.msg,
                         })
-                        $('#modalpemiliksampel').modal('hide');
+                        $('#modalmetodeuji').modal('hide');
                         dttable.ajax.reload(null, false);
                     }else{
                         Toast.fire({
@@ -220,15 +240,19 @@
         });
 
         //when modal close switch to adding and reset form
-        $('#modalpemiliksampel').on('hidden.bs.modal', function(e){
-            $('#modalpemiliksampel .submit').addClass('adding');
-            $('#modalpemiliksampel .submit').removeClass('editing');
+        $('#modalmetodeuji').on('hidden.bs.modal', function(e){
+            $('#modalmetodeuji .submit').addClass('adding');
+            $('#modalmetodeuji .submit').removeClass('editing');
 
             $(this).find('form').trigger('reset');
+            $(this).find('form input').prop('disabled', false);
+            $(this).find('form textarea').prop('disabled', false);
+            $('.submit').css('display', 'inline-block')
+            $('.modal-title').text('Form Tambah Data');
         });
 
         //when modal open autofocus first field
-        $('#modalpemiliksampel').on('shown.bs.modal', function(e){
+        $('#modalmetodeuji').on('shown.bs.modal', function(e){
             $('input:text:visible:first').focus();
         });
 

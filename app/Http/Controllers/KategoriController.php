@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\PemilikSampel;
+use App\Models\Kategori;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 
-class PemilikSampelController extends Controller
+class KategoriController extends Controller
 {
-    public function dtpemiliksampel()
+    public function dtkategori()
     {
-        $data = PemilikSampel::where('status', 1)->orderBy('nama_pemilik');
+        $data = Kategori::where('status', 1)->orderBy('nama_kategori');
         return DataTables::of($data)
             ->addIndexColumn()
             ->addColumn('actions', function ($data) {
@@ -29,8 +29,8 @@ class PemilikSampelController extends Controller
      */
     public function index()
     {
-        $title = 'Pemilik Sampel';
-        return view('admin.master.pemiliksampel', compact('title'));
+        $title = 'Kategori';
+        return view('admin.master.kategori', compact('title'));
     }
 
     /**
@@ -52,18 +52,12 @@ class PemilikSampelController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'instansi' => 'required',
-            'namapetugas' => 'required',
-            'teleponpetugas' => 'required',
-            'alamatinstansi' => 'required',
+            'namakategori' => 'required',
         ]);
 
-        $data = new PemilikSampel();
+        $data = new Kategori();
 
-        $data->nama_pemilik = $request->instansi;
-        $data->nama_petugas = $request->namapetugas;
-        $data->telepon_petugas = $request->teleponpetugas;
-        $data->alamat_pemilik = $request->alamatinstansi;
+        $data->nama_kategori = $request->namakategori;
         $data->save();
 
         return response(['status' => 1, 'msg' => 'Tambah data berhasil.']);
@@ -101,18 +95,12 @@ class PemilikSampelController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'instansi' => 'required',
-            'namapetugas' => 'required',
-            'teleponpetugas' => 'required',
-            'alamatinstansi' => 'required',
+            'namakategori' => 'required',
         ]);
 
-        $data = PemilikSampel::find($id);
+        $data = Kategori::find($id);
 
-        $data->nama_pemilik = $request->instansi;
-        $data->nama_petugas = $request->namapetugas;
-        $data->telepon_petugas = $request->teleponpetugas;
-        $data->alamat_pemilik = $request->alamatinstansi;
+        $data->nama_kategori = $request->namakategori;
         if(!$data->isDirty()){
             return response(['status' => 0, 'msg' => 'Tidak ada perubahan data.']);
         }
@@ -129,7 +117,7 @@ class PemilikSampelController extends Controller
      */
     public function destroy($id)
     {
-        PemilikSampel::destroy($id);
+        Kategori::destroy($id);
 
         return response(['status' => 1, 'msg' => 'Hapus data berhasil.']);
     }

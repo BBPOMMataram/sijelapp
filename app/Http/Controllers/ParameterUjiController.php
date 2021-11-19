@@ -2,15 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\PemilikSampel;
+use App\Models\ParameterUji;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 
-class PemilikSampelController extends Controller
+class ParameterUjiController extends Controller
 {
-    public function dtpemiliksampel()
+    public function dtparameteruji()
     {
-        $data = PemilikSampel::where('status', 1)->orderBy('nama_pemilik');
+        $data = ParameterUji::with('metodeuji')
+            ->where('status', 1)
+            ->orderBy('parameter_uji');
         return DataTables::of($data)
             ->addIndexColumn()
             ->addColumn('actions', function ($data) {
@@ -29,8 +31,8 @@ class PemilikSampelController extends Controller
      */
     public function index()
     {
-        $title = 'Pemilik Sampel';
-        return view('admin.master.pemiliksampel', compact('title'));
+        $title = 'Metode Uji';
+        return view('admin.master.parameteruji', compact('title'));
     }
 
     /**
@@ -52,18 +54,14 @@ class PemilikSampelController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'instansi' => 'required',
-            'namapetugas' => 'required',
-            'teleponpetugas' => 'required',
-            'alamatinstansi' => 'required',
+            'namaparameter' => 'required',
+            'metode' => 'required',
         ]);
 
-        $data = new PemilikSampel();
+        $data = new ParameterUji();
 
-        $data->nama_pemilik = $request->instansi;
-        $data->nama_petugas = $request->namapetugas;
-        $data->telepon_petugas = $request->teleponpetugas;
-        $data->alamat_pemilik = $request->alamatinstansi;
+        $data->parameter_uji = $request->namaparameter;
+        $data->id_kode_layanan = $request->metode;
         $data->save();
 
         return response(['status' => 1, 'msg' => 'Tambah data berhasil.']);
@@ -101,19 +99,16 @@ class PemilikSampelController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'instansi' => 'required',
-            'namapetugas' => 'required',
-            'teleponpetugas' => 'required',
-            'alamatinstansi' => 'required',
+            'namaparameter' => 'required',
+            'metode' => 'required',
         ]);
 
-        $data = PemilikSampel::find($id);
+        $data = ParameterUji::find($id);
 
-        $data->nama_pemilik = $request->instansi;
-        $data->nama_petugas = $request->namapetugas;
-        $data->telepon_petugas = $request->teleponpetugas;
-        $data->alamat_pemilik = $request->alamatinstansi;
-        if(!$data->isDirty()){
+        $data->parameter_uji = $request->namaparameter;
+        $data->id_kode_layanan = $request->metode;
+
+        if (!$data->isDirty()) {
             return response(['status' => 0, 'msg' => 'Tidak ada perubahan data.']);
         }
         $data->save();
@@ -129,7 +124,7 @@ class PemilikSampelController extends Controller
      */
     public function destroy($id)
     {
-        PemilikSampel::destroy($id);
+        ParameterUji::destroy($id);
 
         return response(['status' => 1, 'msg' => 'Hapus data berhasil.']);
     }
