@@ -75,32 +75,41 @@
                                     <th style="border: 1px solid #000; width:20%;">Jumlah Biaya Pengujian</th>
                                 </tr>
                                 @php 
-                                $total = 0
+                                $total = 0;
+                                $totalpersampel = 0;
                                 @endphp
                                 @foreach ($produksampel as $item)
-                                <tr>                
-                                    <td style="border: 1px solid #000; width:5%; text-align: center">{{ $loop->iteration }}</td>
-                                    <td style="border: 1px solid #000; width:40%; font-size: 11px;" colspan="4">{{ $item->nama_produk }}</td>
-                                </tr>
-                                    @foreach ($item->ujiproduk as $item)
+                                    <tr>                
+                                        <td style="border: 1px solid #000; width:5%; text-align: center">{{ $loop->iteration }}</td>
+                                        <td style="border: 1px solid #000; width:40%; font-size: 11px;" colspan="4">{{ $item->nama_produk }}</td>
+                                    </tr>
+                                    @foreach ($item->ujiproduk as $i)
+                                        <tr>
+                                            <td style="border: 1px solid #000; font-size: 11px;"></td>
+                                            <td style="border: 1px solid #000; font-size: 11px; text-align: left;"> {{ $i->parameter->parameter_uji . ' ('. $i->parameter->metodeuji->metode .')' }}</td>
+                                            <td style="border: 1px solid #000; font-size: 11px; text-align: center;">{{ $i->jumlah_pengujian }}</td>
+                                            <td style="border: 1px solid #000; font-size: 11px; text-align: center;">{{ $i->parameter->metodeuji->kode_layanan }}</td>
+                                            <td style="border: 1px solid #000; font-size: 11px; text-align: center;">{{ number_format($i->parameter->metodeuji->biaya,0,',','.') }}</td>
+                                            <td style="border: 1px solid #000; font-size: 11px; text-align: right;">{{ number_format($i->parameter->metodeuji->biaya * $i->jumlah_pengujian,0,',','.') }}</td>
+                                        </tr>
+                                        @php
+                                        $total += $i->parameter->metodeuji->biaya * $i->jumlah_pengujian;
+                                        $totalpersampel += $i->parameter->metodeuji->biaya * $i->jumlah_pengujian;
+                                        @endphp
+                                    @endforeach
                                     <tr>
-                                        <td style="border: 1px solid #000; font-size: 11px;"></td>
-                                        <td style="border: 1px solid #000; font-size: 11px; text-align: left;"> {{ $item->parameter->parameter_uji . ' ('. $item->parameter->metodeuji->metode .')' }}</td>
-                                        <td style="border: 1px solid #000; font-size: 11px; text-align: center;">{{ $item->jumlah_pengujian }}</td>
-                                        <td style="border: 1px solid #000; font-size: 11px; text-align: center;">{{ $item->parameter->metodeuji->kode_layanan }}</td>
-                                        <td style="border: 1px solid #000; font-size: 11px; text-align: center;">{{ number_format($item->parameter->metodeuji->biaya,0,',','.') }}</td>
-                                        <td style="border: 1px solid #000; font-size: 11px; text-align: right;">{{ number_format($item->parameter->metodeuji->biaya * $item->jumlah_pengujian,0,',','.') }}</td>
+                                        <td colspan="5" style="border: 1px solid #000; font-size: 11px;">Total biaya per sampel ({{ $item->nama_produk }})</td>
+                                        <td style="border: 1px solid #000; font-size: 11px; text-align: right; font-weight: bold;">{{ number_format($totalpersampel,0,',','.') }}</td>
                                     </tr>
                                     @php
-                                    $total += $item->parameter->metodeuji->biaya * $item->jumlah_pengujian
+                                        $totalpersampel = 0; //reset subtotal
                                     @endphp
-                                    @endforeach
                                 @endforeach
                             
                                 <div style="clear: both;"></div>
                                 <tr>
                                     <td colspan="5" style="border: 1px solid #000; font-size: 11px;">Total Biaya (Rp)</td>
-                                    <td style="border: 1px solid #000; font-size: 11px; text-align: right;">{{ number_format($total,0,',','.') }}</td>
+                                    <td style="border: 1px solid #000; font-size: 11px; text-align: right; font-weight: bold;">{{ number_format($total,0,',','.') }}</td>
                                 </tr>
                                 </table>
                             </div>
@@ -144,7 +153,7 @@
                             <div style="width: 54%; float: left; margin-top: 10px;">
                                 <p style="font-size: 11px;">PNBP Balai Besar POM</p><br>
                                 <p style="font-size: 11px; margin-top: -32px;">di Mataram</p><br><br>            
-                                <p style="font-size: 11px;">Miftahul Azizah, A.Md</p><br>
+                                <p style="font-size: 11px;">Miftahul Azizah, A.Md.</p><br>
                             </div>
                             <div style="width: 25%; float: right; margin-top: 10px;">
                                 <p style="font-size: 11px;">Mataram, 31 Januari 2020</p><br>
@@ -169,14 +178,15 @@
 <!-- /.content -->
 @endsection
 @push('scripts')
-    <script src='https://cdn.tiny.cloud/1/s12j0hwmr9utgkygqnc7se5sym4az21leofblzpc1vapbr4p/tinymce/5/tinymce.min.js' referrerpolicy="origin">
-  </script>
-  <script>
+<script src='https://cdn.tiny.cloud/1/s12j0hwmr9utgkygqnc7se5sym4az21leofblzpc1vapbr4p/tinymce/5/tinymce.min.js'
+    referrerpolicy="origin">
+</script>
+<script>
     tinymce.init({
         selector: '#kajiulang',
         plugins: 'print',
         menubar: "file",
         toolbar: "print"
     });
-  </script>
+</script>
 @endpush
