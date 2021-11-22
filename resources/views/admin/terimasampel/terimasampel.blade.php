@@ -7,12 +7,13 @@
         <!-- Main row -->
         <div class="row">
             <div class="col-12">
-
                 <div class="card">
                     <div class="card-header">
                         <h3 class="card-title">
                             <button type="button" class="btn btn-primary" data-toggle="modal"
                                 data-target="#modalterimasampel">+</button>
+                            {{-- <label for="id_kategori_filter">Kategori</label> --}}
+                            <select type="text" id="id_kategori_filter" name="id_kategori_filter" class="select2"></select>
                         </h3>
                     </div>
                     <!-- /.card-header -->
@@ -57,8 +58,8 @@
             timer: 5000
         });
 
-        const dttable = $("#terimasampel").DataTable({
-            // responsive: true,
+        const dttable = $("#terimasampel").dataTable({
+            responsive: true,
             serverside: true,
             select: true,
             ajax: {
@@ -75,6 +76,7 @@
                 {data: 'jumlah_sampel'},
                 {data: 'created_at'},
                 {data: 'actions', className: 'text-center align-middle'},
+                {data: 'id_kategori', visible: false},
             ]
         });
 
@@ -272,6 +274,7 @@
                 url: "{{ route('dtkategori') }}",
                 success: function (response) {
                     $("#id_kategori").append("<option value=''>==Pilih Kategori==</option>"); 
+                    $("#id_kategori_filter").append("<option value=''>==Pilih Kategori==</option>"); 
                     var len = 0;
                     if(response['data'] != null){
                         len = response['data'].length;
@@ -287,6 +290,7 @@
                         var option = "<option value='"+id+"'>"+namakategori+"</option>";
                             
                         $("#id_kategori").append(option); 
+                        $("#id_kategori_filter").append(option); 
                         }
                     }
                 }
@@ -324,18 +328,29 @@
         $('.select2').select2({
             width: 'resolve'
         });
+
+        $('#id_kategori_filter').change(function (e) { 
+            e.preventDefault();
+            const idKat = $(this).val();
+            dttable.fnFilter("^"+idKat+"$", 10, true);
+        });
         
     }); // end doc ready
 </script>
 @endpush
 @push('styles')
-    <style>
-        /* for select2 */
-        span.select2 {
-            width: 100% !important;
-        }
-        .select2-container .select2-selection--single {
-            height: inherit;
-        }
-    </style>
+<style>
+    /* for select2 */
+    span.select2 {
+        width: 100% !important;
+    }
+
+    .card-title span.select2 {
+        width: fit-content !important;
+    }
+
+    .select2-container .select2-selection--single {
+        height: inherit;
+    }
+</style>
 @endpush
