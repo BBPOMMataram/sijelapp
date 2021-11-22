@@ -9,7 +9,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">
+                        <h3 class="card-title w-100">
                             <button type="button" class="btn btn-primary" data-toggle="modal"
                                 data-target="#modalterimasampel">+</button>
                             {{-- <label for="id_kategori_filter">Kategori</label> --}}
@@ -58,7 +58,7 @@
             timer: 5000
         });
 
-        const dttable = $("#terimasampel").dataTable({
+        const dttable = $("#terimasampel").DataTable({
             responsive: true,
             serverside: true,
             select: true,
@@ -67,7 +67,7 @@
             },
             columns: [
                 {data: 'no_urut'},
-                {data: 'kategori.nama_kategori'},
+                {data: 'id_kategori'},
                 {data: 'pemiliksampel.nama_pemilik'},
                 {data: 'kode_sampel'},
                 {data: 'nama_sampel'},
@@ -332,7 +332,11 @@
         $('#id_kategori_filter').change(function (e) { 
             e.preventDefault();
             const idKat = $(this).val();
-            dttable.fnFilter("^"+idKat+"$", 10, true);
+            if(idKat){
+                dttable.column(10).search("^"+idKat+"$", true).draw();
+            }else{
+                dttable.column(10).search('').draw();
+            }
         });
         
     }); // end doc ready
@@ -346,7 +350,7 @@
     }
 
     .card-title span.select2 {
-        width: fit-content !important;
+        width: 200px !important;
     }
 
     .select2-container .select2-selection--single {
