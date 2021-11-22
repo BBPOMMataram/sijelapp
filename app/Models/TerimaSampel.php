@@ -12,6 +12,8 @@ class TerimaSampel extends Model
     protected $primaryKey = 'id_permintaan';
     protected $table = 'permintaan';
 
+    protected $dates = ['tanggal_terima'];
+
     // public $timestamps = false;
 
     /**

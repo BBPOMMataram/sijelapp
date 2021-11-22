@@ -135,8 +135,17 @@ class DetailTerimaSampelController extends Controller
     {
         $title = 'Kaji Ulang Sampel';
         $permintaan = TerimaSampel::find($id);
-        $produksampel = ProdukSampel::where('id_permintaan', $id)->get();
+        $produksampel = ProdukSampel::with(['ujiproduk'])->where('id_permintaan', $id)->get();
 
         return view('prints.kajiulang', compact('title', 'permintaan', 'produksampel'));
+    }
+
+    public function printfplp($id)
+    {
+        $title = 'FPLP BADAN POM';
+        $permintaan = TerimaSampel::find($id);
+        $produksampel = ProdukSampel::with(['ujiproduk', 'ujiproduk.parameter.metodeuji'])->where('id_permintaan', $id)->get();
+
+        return view('prints.fplp', compact('title', 'permintaan', 'produksampel'));
     }
 }

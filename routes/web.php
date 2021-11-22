@@ -57,6 +57,7 @@ Route::prefix('admin')->group(function () {
 
     // print
     Route::get('printkajiulang/{idProdukSampel}', [DetailTerimaSampelController::class, 'printkajiulang'])->name('print.kajiulang');
+    Route::get('printfplp/{idProdukSampel}', [DetailTerimaSampelController::class, 'printfplp'])->name('print.fplp');
 
 });
 // });

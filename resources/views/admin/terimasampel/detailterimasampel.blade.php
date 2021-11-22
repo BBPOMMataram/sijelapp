@@ -16,9 +16,12 @@
                         </h3>
                         <div class="card-tools">
                             <ul class="nav nav-pills ml-auto">
-                              <li class="nav-item mr-3">
-                                <a target="_blank" href="{{ route('print.kajiulang', $id) }}" class="btn btn-secondary"><i class="fas fa-print mr-1"></i>Kaji Ulang</a>
-                              </li>
+                                <li class="nav-item mr-1">
+                                  <a target="_blank" href="{{ route('print.kajiulang', $id) }}" class="btn btn-light"><i class="fas fa-print mr-1"></i>Kaji Ulang</a>
+                                </li>
+                                <li class="nav-item mr-3">
+                                  <a target="_blank" href="{{ route('print.fplp', $id) }}" class="btn btn-light"><i class="fas fa-print mr-1"></i>FPLP</a>
+                                </li>
                             </ul>
                           </div>
                     </div>
