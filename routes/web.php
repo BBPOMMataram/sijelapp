@@ -8,6 +8,7 @@ use App\Http\Controllers\MetodeUjiController;
 use App\Http\Controllers\ParameterUjiController;
 use App\Http\Controllers\PemilikSampelController;
 use App\Http\Controllers\TerimaSampelController;
+use App\Http\Controllers\TrackingSampelController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -55,6 +56,10 @@ Route::prefix('admin')->group(function () {
     //data parameter per produksampel for update list parameter
     Route::get('listparameterdetailterimasampel/{id}', [DetailTerimaSampelController::class, 'datadetailparameteruji'])->name('datadetailparameteruji');
 
+    Route::get('statussampel', [TrackingSampelController::class, 'index'])->name('statussampel.index');
+    Route::post('statussampel/{id}', [TrackingSampelController::class, 'nextstep'])->name('statussampel.nextstep');
+    Route::get('dtstatussampel', [TrackingSampelController::class, 'dtstatussampel'])->name('dtstatussampel');
+    Route::get('liststatussampel', [TrackingSampelController::class, 'liststatussampel'])->name('liststatussampel');
     // print
     Route::get('printkajiulang/{idProdukSampel}', [DetailTerimaSampelController::class, 'printkajiulang'])->name('print.kajiulang');
     Route::get('printfplp/{idProdukSampel}', [DetailTerimaSampelController::class, 'printfplp'])->name('print.fplp');

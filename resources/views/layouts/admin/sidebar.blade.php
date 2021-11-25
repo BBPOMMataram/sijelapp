@@ -86,6 +86,73 @@
               </p>
             </a>
           </li>
+          <li class="nav-item">
+            <a href="{{ route('statussampel.index') }}" class="nav-link @if(Request::is('admin/statussampel')) active @endif">
+              <i class="nav-icon fas fa-thermometer-half"></i>
+              <p>
+                Status Sampel
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ route('statussampel.index') }}" class="nav-link @if(Request::is('admin/sampelsudahdiambil')) active @endif">
+              <i class="nav-icon fas fa-check-double"></i>
+              <p>
+                Sampel Selesai
+              </p>
+            </a>
+          </li>
+          <li class="nav-item @if(Request::is('admin/master/*')) menu-open @endif">
+            <a href="#" class="nav-link @if(Request::is('admin/master/*')) active @endif">
+              <i class="nav-icon fas fa-clipboard-list"></i>
+              <p>
+                Laporan
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ route('pemiliksampel.index') }}" class="nav-link @if(Request::is('admin/master/pemiliksampel')) active @endif">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Pemilik Sampel</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('kategori.index') }}" class="nav-link @if(Request::is('admin/master/kategori')) active @endif">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Kategori</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('metodeuji.index') }}" class="nav-link @if(Request::is('admin/master/metodeuji')) active @endif">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Metode Uji</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('parameteruji.index') }}" class="nav-link @if(Request::is('admin/master/parameteruji')) active @endif">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Parameter Uji</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a href="{{ route('statussampel.index') }}" class="nav-link @if(Request::is('admin/sampelsudahdiambil')) active @endif">
+              <i class="nav-icon fas fa-cogs"></i>
+              <p>
+                Pengaturan
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ route('statussampel.index') }}" class="nav-link @if(Request::is('admin/sampelsudahdiambil')) active @endif">
+              <i class="nav-icon fas fa-door-open"></i>
+              <p>
+                Keluar
+              </p>
+            </a>
+          </li>
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

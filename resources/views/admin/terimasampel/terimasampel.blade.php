@@ -22,7 +22,7 @@
                             <table id="terimasampel" class="table table-bordered table-striped w-100">
                                 <thead>
                                     <tr>
-                                        <th class="align-middle">No</th>
+                                        <th class="align-middle">No Urut Penerimaan</th>
                                         <th class="align-middle">Kategori</th>
                                         <th class="align-middle">Pemilik Sampel</th>
                                         <th class="align-middle">Kode Sampel</th>
@@ -59,15 +59,16 @@
         });
 
         const dttable = $("#terimasampel").DataTable({
-            responsive: true,
+            // responsive: true,
             serverside: true,
             select: true,
+            ordering: false,
             ajax: {
                 url: "{{ route('dtterimasampel') }}"
             },
             columns: [
                 {data: 'no_urut'},
-                {data: 'id_kategori'},
+                {data: 'kategori.nama_kategori'},
                 {data: 'pemiliksampel.nama_pemilik'},
                 {data: 'kode_sampel'},
                 {data: 'nama_sampel'},
@@ -77,7 +78,26 @@
                 {data: 'created_at'},
                 {data: 'actions', className: 'text-center align-middle'},
                 {data: 'id_kategori', visible: false},
-            ]
+            ],
+            "drawCallback": function(settings){
+                tippy('.delete', {
+                    content: 'Delete',
+                    trigger: 'mouseenter',
+                    animation: 'scale',
+                });
+
+                tippy('.edit', {
+                    content: 'Edit',
+                    trigger: 'mouseenter',
+                    animation: 'scale',
+                });
+
+                tippy('.show', {
+                    content: 'View',
+                    trigger: 'mouseenter',
+                    animation: 'scale',
+                })
+            },
         });
 
         fillkategori();

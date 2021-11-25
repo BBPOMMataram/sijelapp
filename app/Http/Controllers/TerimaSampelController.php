@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\StatusSampel;
 use App\Models\TerimaSampel;
+use App\Models\TrackingSampel;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -11,7 +13,7 @@ class TerimaSampelController extends Controller
     public function dtterimasampel()
     {
         $data = TerimaSampel::with('pemiliksampel', 'kategori')
-            ->where('status', 1)->orderBy('created_at');
+            ->where('status', 1)->orderBy('created_at', 'desc');
         return DataTables::of($data)
             ->addIndexColumn()
             ->addColumn('created_at', function($data){
@@ -29,11 +31,7 @@ class TerimaSampelController extends Controller
             ->rawColumns(['actions', 'no_urut'])
             ->toJson();
     }
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    
     public function index()
     {
         $title = 'Penerimaan Sampel';
@@ -64,6 +62,11 @@ class TerimaSampelController extends Controller
         $data->id_kategori = $request->id_kategori;
 
         $data->save();
+
+        //add data for tracking sampel
+        $datatracking = new TrackingSampel();
+        $datatracking->id_permintaan = $data->id_permintaan;
+        $datatracking->save();
 
         return response(['status' => 1, 'msg' => 'Tambah data berhasil.']);
     }
@@ -108,6 +111,7 @@ class TerimaSampelController extends Controller
     public function destroy($id)
     {
         TerimaSampel::destroy($id);
+        TrackingSampel::where('id_permintaan', $id)->delete();
 
         return response(['status' => 1, 'msg' => 'Hapus data berhasil.']);
     }
