@@ -8,15 +8,10 @@
         <div class="row">
             <div class="col-12">
                 <div class="card">
-                    <div class="card-header">
-                        <h3 class="card-title">
-                            <select type="text" id="id_status_sampel" name="id_status_sampel" class="select2"></select>
-                        </h3>
-                    </div>
                     <!-- /.card-header -->
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table id="tblstatussampel" class="table table-bordered table-striped w-100">
+                            <table id="sampelselesai" class="table table-bordered table-striped w-100">
                                 <thead>
                                     <tr>
                                         <th class="align-middle">No Urut Penerimaan</th>
@@ -51,14 +46,8 @@
         timer: 2000
     });
 
-    const dttable = $("#tblstatussampel").DataTable({
+    const dttable = $("#sampelselesai").DataTable({
         "drawCallback": function(settings){
-            tippy('.nextstep', {
-                content: 'Next Step',
-                trigger: 'mouseenter',
-                animation: 'scale',
-            });
-
             tippy('.show', {
                 content: 'View',
                 trigger: 'mouseenter',
@@ -69,7 +58,7 @@
         serverside: true,
         select: true,
         ajax: {
-            url: "{{ route('dtstatussampel') }}"
+            url: "{{ route('dtsampelselesai') }}"
         },
         columns: [
             {data: 'permintaan.no_urut_penerimaan'},
@@ -82,34 +71,6 @@
             {data: 'id_status_sampel', visible: false},
         ],
     });
-
-    //fill select kategori
-    function fillstatussampel() {
-        $.ajax({
-            type: "GET",
-            url: "{{ route('liststatussampel') }}",
-            success: function (response) {
-                $("#id_status_sampel").append("<option value=''>==Pilih Status==</option>"); 
-                var len = 0;
-                if(response != null){
-                    len = response.length;
-                }
-
-                if(len > 0){
-                    // Read data and create <option >
-                    for(var i=0; i<len; i++){
-
-                    var id = response[i].id;
-                    var label = response[i].label;
-
-                    var option = "<option value='"+id+"'>"+label+"</option>";
-                        
-                    $("#id_status_sampel").append(option); 
-                    }
-                }
-            }
-        });
-    }
 
     function dtdetailterimasampel(idpermintaan){
         let url = "{{ route('dtdetailterimasampel', "_id") }}";
@@ -159,9 +120,6 @@
     }
 
     $(function () {
-        fillstatussampel();
-        $('.select2').select2();
-
         //show modal for show data
         $('table').on('click', '.show', function(e){
             e.preventDefault();
@@ -198,57 +156,6 @@
             $('#waktuestimasi').text(rowData.tanggal_estimasi);
         });
 
-        $('table').on('click', '.nextstep', function (e) { 
-            e.preventDefault();
-
-            const rowData = dttable.row($(this).parents('tr')).data();
-            const id = rowData['id_tracking'];
-            let url = "{{ route('statussampel.nextstep', "_id") }}"
-            url = url.replace('_id', id);
-            data = {_token: "{{ csrf_token() }}"}
-
-            $.ajax({
-                type: "POST",
-                url,
-                data,
-                success: function (response) {
-                    if(response.status){
-                        Toast.fire({
-                            icon: 'success',
-                            title: '&nbsp;'+response.msg,
-                        })
-                    }else{
-                        Toast.fire({
-                            icon: 'warning',
-                            title: '&nbsp;'+response.msg,
-                        })
-                    }
-                    dttable.ajax.reload(null, false);
-                }
-            });
-        });
-
-        $('#id_status_sampel').change(function (e) { 
-            e.preventDefault();
-            const idStatus = $(this).val();
-            if(idStatus){
-                dttable.column(7).search("^"+idStatus+"$", true).draw();
-            }else{
-                dttable.column(7).search('').draw();
-            }
-        });
     }); // end doc ready
 </script>
-@endpush
-@push('styles')
-<style>
-    /* for select2 */
-    .card-title span.select2 {
-        width: 200px !important;
-    }
-
-    .select2-container .select2-selection--single {
-        height: inherit;
-    }
-</style>
 @endpush

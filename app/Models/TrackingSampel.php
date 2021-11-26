@@ -11,6 +11,18 @@ class TrackingSampel extends Model
     protected $primaryKey = 'id_tracking';
     protected $table = 'tracking_sampel';
 
+    protected $dates = [
+        'tanggal_verifikasi',
+        'tanggal_kaji_ulang',
+        'tanggal_pembayaran',
+        'tanggal_pengujian',
+        'tanggal_selesai_uji',
+        'tanggal_legalisir',
+        'tanggal_selesai',
+        'tanggal_diambil',
+        'tanggal_estimasi',
+    ];
+
     public $timestamps = false;
     
     public function permintaan()

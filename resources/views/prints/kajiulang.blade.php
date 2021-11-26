@@ -86,16 +86,18 @@
                                     @foreach ($item->ujiproduk as $i)
                                         <tr>
                                             <td style="border: 1px solid #000; font-size: 11px;"></td>
-                                            <td style="border: 1px solid #000; font-size: 11px; text-align: left;"> {{ $i->parameter->parameter_uji . ' ('. $i->parameter->metodeuji->metode .')' }}</td>
+                                            <td style="border: 1px solid #000; font-size: 11px; text-align: left;">@isset($i->parameter){{ $i->parameter->parameter_uji ?? '-' . ' ('. $i->parameter->metodeuji->metode .')' }}@endisset</td>
                                             <td style="border: 1px solid #000; font-size: 11px; text-align: center;">{{ $i->jumlah_pengujian }}</td>
-                                            <td style="border: 1px solid #000; font-size: 11px; text-align: center;">{{ $i->parameter->metodeuji->kode_layanan }}</td>
-                                            <td style="border: 1px solid #000; font-size: 11px; text-align: center;">{{ number_format($i->parameter->metodeuji->biaya,0,',','.') }}</td>
-                                            <td style="border: 1px solid #000; font-size: 11px; text-align: right;">{{ number_format($i->parameter->metodeuji->biaya * $i->jumlah_pengujian,0,',','.') }}</td>
+                                            <td style="border: 1px solid #000; font-size: 11px; text-align: center;">@isset($i->parameter){{ $i->parameter->metodeuji->kode_layanan }}@endisset</td>
+                                            <td style="border: 1px solid #000; font-size: 11px; text-align: center;">@isset($i->parameter){{ number_format($i->parameter->metodeuji->biaya,0,',','.') }}@endisset</td>
+                                            <td style="border: 1px solid #000; font-size: 11px; text-align: right;">@isset($i->parameter){{ number_format($i->parameter->metodeuji->biaya * $i->jumlah_pengujian,0,',','.') }}@endisset</td>
                                         </tr>
+                                        @isset($i->parameter)
                                         @php
                                         $total += $i->parameter->metodeuji->biaya * $i->jumlah_pengujian;
                                         $totalpersampel += $i->parameter->metodeuji->biaya * $i->jumlah_pengujian;
                                         @endphp
+                                        @endisset
                                     @endforeach
                                     <tr>
                                         <td colspan="5" style="border: 1px solid #000; font-size: 11px;">Total biaya per sampel ({{ $item->nama_produk }})</td>
@@ -185,8 +187,10 @@
     tinymce.init({
         selector: '#kajiulang',
         plugins: 'print',
-        menubar: "file",
-        toolbar: "print"
+        menubar: false,
+        toolbar: "print",
+        branding: false,
+        toolbar_sticky: true,
     });
 </script>
 @endpush

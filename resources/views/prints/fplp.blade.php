@@ -20,7 +20,7 @@
                             <div style="width:100%;">
                                 <table width="90%" style="margin-left: auto; margin-right: auto; font-size: 12px;">
                                     <tr>
-                                        <td style="width:50%; border:1px solid #000; padding: 0; padding-left: 2px;">Tanggal: {{ $permintaan->created_at ? $permintaan->created_at->isoFormat('D MMM Y') : $permintaan->tanggal_terima ? $permintaan->tanggal_terima->isoFormat('D MMM Y') : '-'}}</td>
+                                        <td style="width:50%; border:1px solid #000; padding: 0; padding-left: 2px;">Tanggal: @if($permintaan->created_at ) {{ $permintaan->created_at->isoFormat('D MMM Y') }} @elseif ($permintaan->tanggal_terimga) {{ $permintaan->tanggal_terima->isoFormat('D MMM Y') }} @else - @endif</td>
                                         <td style="width:50%; border:1px solid #000; padding: 0; padding-left: 2px;">Nomor FP-LP : 1170.4.0120.0000-0000/N-INS/2</td>
                                     </tr>
                                 </table>
@@ -150,8 +150,9 @@
     tinymce.init({
         selector: '#fplp',
         plugins: 'print',
-        menubar: "file",
-        toolbar: "print"
+        menubar: false,
+        toolbar: "print",
+        branding: false,
     });
 </script>
 @endpush

@@ -95,7 +95,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{ route('statussampel.index') }}" class="nav-link @if(Request::is('admin/sampelsudahdiambil')) active @endif">
+            <a href="{{ route('sampelselesai') }}" class="nav-link @if(Request::is('admin/sampelselesai')) active @endif">
               <i class="nav-icon fas fa-check-double"></i>
               <p>
                 Sampel Selesai

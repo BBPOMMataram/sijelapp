@@ -37,8 +37,71 @@ class TrackingSampelController extends Controller
                 $res = '-';
                 if ($data->permintaan) {
                     if ($data->permintaan->created_at) {
-                        $res = $data->permintaan->created_at->isoFormat('D MMM Y \p\u\k\u\l H:mm');
+                        $res = $data->permintaan->created_at->isoFormat('D MMM Y \p\u\k\u\l H:mm:ss');
                     }
+                }
+                return $res;
+            })
+            ->addColumn('tanggal_verifikasi', function ($data) {
+                $res = '-';
+                if ($data->tanggal_verifikasi) {
+                    $res = $data->tanggal_verifikasi->isoFormat('D MMM Y \p\u\k\u\l H:mm:ss');
+                }
+                return $res;
+            })
+            ->addColumn('tanggal_kaji_ulang', function ($data) {
+                $res = '-';
+                if ($data->tanggal_kaji_ulang) {
+                    $res = $data->tanggal_kaji_ulang->isoFormat('D MMM Y \p\u\k\u\l H:mm:ss');
+                }
+                return $res;
+            })
+            ->addColumn('tanggal_pembayaran', function ($data) {
+                $res = '-';
+                if ($data->tanggal_pembayaran) {
+                    $res = $data->tanggal_pembayaran->isoFormat('D MMM Y \p\u\k\u\l H:mm:ss');
+                }
+                return $res;
+            })
+            ->addColumn('tanggal_pengujian', function ($data) {
+                $res = '-';
+                if ($data->tanggal_pengujian) {
+                    $res = $data->tanggal_pengujian->isoFormat('D MMM Y \p\u\k\u\l H:mm:ss');
+                }
+                return $res;
+            })
+            ->addColumn('tanggal_selesai_uji', function ($data) {
+                $res = '-';
+                if ($data->tanggal_selesai_uji) {
+                    $res = $data->tanggal_selesai_uji->isoFormat('D MMM Y \p\u\k\u\l H:mm:ss');
+                }
+                return $res;
+            })
+            ->addColumn('tanggal_legalisir', function ($data) {
+                $res = '-';
+                if ($data->tanggal_legalisir) {
+                    $res = $data->tanggal_legalisir->isoFormat('D MMM Y \p\u\k\u\l H:mm:ss');
+                }
+                return $res;
+            })
+            ->addColumn('tanggal_selesai', function ($data) {
+                $res = '-';
+                if ($data->tanggal_selesai) {
+                    $res = $data->tanggal_selesai->isoFormat('D MMM Y \p\u\k\u\l H:mm:ss');
+                }
+                return $res;
+            })
+            ->addColumn('tanggal_diambil', function ($data) {
+                $res = '-';
+                if ($data->tanggal_diambil) {
+                    $res = $data->tanggal_diambil->isoFormat('D MMM Y \p\u\k\u\l H:mm:ss');
+                }
+                return $res;
+            })
+            ->addColumn('tanggal_estimasi', function ($data) {
+                $res = '-';
+                if ($data->tanggal_estimasi) {
+                    $res = $data->tanggal_estimasi->isoFormat('D MMM Y \p\u\k\u\l H:mm:ss');
                 }
                 return $res;
             })
@@ -107,5 +170,118 @@ class TrackingSampelController extends Controller
 
         $data->save();
         return response(['status' => 1, 'msg' => 'Berhasil update data.']);
+    }
+
+    public function sampelselesai()
+    {
+        $title = 'Sampel Selesai (Sudah diambil)';
+        return view('admin.sampelselesai', compact('title'));
+    }
+
+    public function dtsampelselesai()
+    {
+        $data = TrackingSampel::with(['permintaan', 'status', 'permintaan.pemiliksampel'])
+            ->where('id_status_sampel', 8)//id status sampel diambil
+            ->orderBy('id_tracking', 'desc');
+        return DataTables::of($data)
+            ->addIndexColumn()
+            ->addColumn('permintaan.no_urut_penerimaan', function ($data) {
+                return $data->permintaan ? $data->permintaan->no_urut_penerimaan : '-';
+            })
+            ->addColumn('permintaan.kode_sampel', function ($data) {
+                return $data->permintaan ? $data->permintaan->kode_sampel : '-';
+            })
+            ->addColumn('permintaan.pemiliksampel.nama_pemilik', function ($data) {
+                return $data->permintaan ? $data->permintaan->pemiliksampel->nama_pemilik : '-';
+            })
+            ->addColumn('permintaan.pemiliksampel.nama_petugas', function ($data) {
+                return $data->permintaan ? $data->permintaan->pemiliksampel->nama_petugas : '-';
+            })
+            ->addColumn('permintaan.pemiliksampel.telepon_petugas', function ($data) {
+                return $data->permintaan ? $data->permintaan->pemiliksampel->telepon_petugas : '-';
+            })
+            ->addColumn('status.label', function ($data) {
+                return $data->status ? $data->status->label : '-';
+            })
+            ->addColumn('permintaan.created_at', function ($data) {
+                $res = '-';
+                if ($data->permintaan) {
+                    if ($data->permintaan->created_at) {
+                        $res = $data->permintaan->created_at->isoFormat('D MMM Y \p\u\k\u\l H:mm:ss');
+                    }
+                }
+                return $res;
+            })
+            ->addColumn('tanggal_verifikasi', function ($data) {
+                $res = '-';
+                if ($data->tanggal_verifikasi) {
+                    $res = $data->tanggal_verifikasi->isoFormat('D MMM Y \p\u\k\u\l H:mm:ss');
+                }
+                return $res;
+            })
+            ->addColumn('tanggal_kaji_ulang', function ($data) {
+                $res = '-';
+                if ($data->tanggal_kaji_ulang) {
+                    $res = $data->tanggal_kaji_ulang->isoFormat('D MMM Y \p\u\k\u\l H:mm:ss');
+                }
+                return $res;
+            })
+            ->addColumn('tanggal_pembayaran', function ($data) {
+                $res = '-';
+                if ($data->tanggal_pembayaran) {
+                    $res = $data->tanggal_pembayaran->isoFormat('D MMM Y \p\u\k\u\l H:mm:ss');
+                }
+                return $res;
+            })
+            ->addColumn('tanggal_pengujian', function ($data) {
+                $res = '-';
+                if ($data->tanggal_pengujian) {
+                    $res = $data->tanggal_pengujian->isoFormat('D MMM Y \p\u\k\u\l H:mm:ss');
+                }
+                return $res;
+            })
+            ->addColumn('tanggal_selesai_uji', function ($data) {
+                $res = '-';
+                if ($data->tanggal_selesai_uji) {
+                    $res = $data->tanggal_selesai_uji->isoFormat('D MMM Y \p\u\k\u\l H:mm:ss');
+                }
+                return $res;
+            })
+            ->addColumn('tanggal_legalisir', function ($data) {
+                $res = '-';
+                if ($data->tanggal_legalisir) {
+                    $res = $data->tanggal_legalisir->isoFormat('D MMM Y \p\u\k\u\l H:mm:ss');
+                }
+                return $res;
+            })
+            ->addColumn('tanggal_selesai', function ($data) {
+                $res = '-';
+                if ($data->tanggal_selesai) {
+                    $res = $data->tanggal_selesai->isoFormat('D MMM Y \p\u\k\u\l H:mm:ss');
+                }
+                return $res;
+            })
+            ->addColumn('tanggal_diambil', function ($data) {
+                $res = '-';
+                if ($data->tanggal_diambil) {
+                    $res = $data->tanggal_diambil->isoFormat('D MMM Y \p\u\k\u\l H:mm:ss');
+                }
+                return $res;
+            })
+            ->addColumn('tanggal_estimasi', function ($data) {
+                $res = '-';
+                if ($data->tanggal_estimasi) {
+                    $res = $data->tanggal_estimasi->isoFormat('D MMM Y \p\u\k\u\l H:mm:ss');
+                }
+                return $res;
+            })
+            ->addColumn('actions', function ($data) {
+
+                $btn = '<a href="#"><i class="fas fa-eye text-primary show"></i></a>';
+                $data->status ? $btn : $btn = '-';
+                return $btn;
+            })
+            ->rawColumns(['actions'])
+            ->toJson();
     }
 }

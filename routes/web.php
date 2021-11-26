@@ -60,6 +60,9 @@ Route::prefix('admin')->group(function () {
     Route::post('statussampel/{id}', [TrackingSampelController::class, 'nextstep'])->name('statussampel.nextstep');
     Route::get('dtstatussampel', [TrackingSampelController::class, 'dtstatussampel'])->name('dtstatussampel');
     Route::get('liststatussampel', [TrackingSampelController::class, 'liststatussampel'])->name('liststatussampel');
+    Route::get('sampelselesai', [TrackingSampelController::class, 'sampelselesai'])->name('sampelselesai');
+    Route::get('dtsampelselesai', [TrackingSampelController::class, 'dtsampelselesai'])->name('dtsampelselesai');
+
     // print
     Route::get('printkajiulang/{idProdukSampel}', [DetailTerimaSampelController::class, 'printkajiulang'])->name('print.kajiulang');
     Route::get('printfplp/{idProdukSampel}', [DetailTerimaSampelController::class, 'printfplp'])->name('print.fplp');
