@@ -121,6 +121,8 @@
                         <th class="align-middle">Parameter Uji</th>
                         <th class="align-middle">Jumlah Pengujian</th>
                         <th class="align-middle">Biaya</th>
+                        <th class="align-middle">Tersangka</th>
+                        <th class="align-middle">Saksi Ahli</th>
                       </tr>
                     </thead>
                   </table>

@@ -154,6 +154,8 @@
                     }
                     return res;
                     }},
+                {data: 'tersangka', render: function(data, type, row){ return data ? data : '-'; }},
+                {data: 'saksi_ahli', render: function(data, type, row){ return data ? data : '-'; }},
             ]
         });
     }

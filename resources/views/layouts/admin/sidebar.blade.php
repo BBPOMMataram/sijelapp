@@ -14,7 +14,7 @@
           <img src="{{ asset('vendor/admin/dist/img/user2-160x160.jpg') }}" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">Admin</a>
+          <a href="#" class="d-block">{{ Auth::user()->name }}</a>
         </div>
       </div>
 
@@ -134,7 +134,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{ route('statussampel.index') }}" class="nav-link @if(Request::is('admin/sampelsudahdiambil')) active @endif">
+            <a href="{{ route('logout') }}" class="nav-link @if(Request::is('admin/sampelsudahdiambil')) active @endif">
               <i class="nav-icon fas fa-door-open"></i>
               <p>
                 Keluar
