@@ -4,11 +4,13 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DetailTerimaSampelController;
 use App\Http\Controllers\FrontController;
 use App\Http\Controllers\KategoriController;
+use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\MetodeUjiController;
 use App\Http\Controllers\ParameterUjiController;
 use App\Http\Controllers\PemilikSampelController;
 use App\Http\Controllers\TerimaSampelController;
 use App\Http\Controllers\TrackingSampelController;
+use Illuminate\Routing\RouteGroup;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -67,5 +69,10 @@ Route::prefix('admin')->group(function () {
     Route::get('printkajiulang/{idProdukSampel}', [DetailTerimaSampelController::class, 'printkajiulang'])->name('print.kajiulang');
     Route::get('printfplp/{idProdukSampel}', [DetailTerimaSampelController::class, 'printfplp'])->name('print.fplp');
 
+    // report
+    Route::prefix('laporan')->group(function () {
+        Route::get('/jumlahsampel', [LaporanController::class, 'jumlahsampel'])->name('laporan.jumlahsampel');
+        Route::get('/rekapsampel', [LaporanController::class, 'rekapsampel'])->name('laporan.rekapsampel');
+    });
 });
 // });

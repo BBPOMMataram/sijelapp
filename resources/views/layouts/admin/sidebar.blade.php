@@ -112,27 +112,15 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{{ route('pemiliksampel.index') }}" class="nav-link @if(Request::is('admin/master/pemiliksampel')) active @endif">
+                <a href="{{ route('laporan.jumlahsampel') }}" class="nav-link @if(Request::is('admin/laporan/jumlahsampel')) active @endif">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Pemilik Sampel</p>
+                  <p>Jumlah Sampel</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{ route('kategori.index') }}" class="nav-link @if(Request::is('admin/master/kategori')) active @endif">
+                <a href="#" class="nav-link @if(Request::is('admin/laporan/rekapsampel')) active @endif">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Kategori</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{{ route('metodeuji.index') }}" class="nav-link @if(Request::is('admin/master/metodeuji')) active @endif">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Metode Uji</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{{ route('parameteruji.index') }}" class="nav-link @if(Request::is('admin/master/parameteruji')) active @endif">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Parameter Uji</p>
+                  <p>Rekap Sampel</p>
                 </a>
               </li>
             </ul>
