@@ -24,6 +24,7 @@
                                         <th class="align-middle">Instansi</th>
                                         <th class="align-middle">Nama Petugas</th>
                                         <th class="align-middle">Telepon Petugas</th>
+                                        <th class="align-middle">Resi</th>
                                         <th class="align-middle">Status Sampel</th>
                                         <th class="align-middle">Actions</th>
                                     </tr>
@@ -77,6 +78,7 @@
             {data: 'permintaan.pemiliksampel.nama_pemilik'},
             {data: 'permintaan.pemiliksampel.nama_petugas'},
             {data: 'permintaan.pemiliksampel.telepon_petugas'},
+            {data: 'permintaan.resi', render: function(data){ return data ? data : '-'; }},
             {data: 'status.label'},
             {data: 'actions', className: 'text-center align-middle'},
             {data: 'id_status_sampel', visible: false},

@@ -158,7 +158,7 @@
                                 <p style="font-size: 11px;">Miftahul Azizah, A.Md.</p><br>
                             </div>
                             <div style="width: 25%; float: right; margin-top: 10px;">
-                                <p style="font-size: 11px;">Mataram, 31 Januari 2020</p><br>
+                                <p style="font-size: 11px;">Mataram, {{ now()->isoFormat('D MMMM Y') }}</p><br>
                                 <p style="font-size: 11px; margin-top: -32px;">Pemilik / Pembawa Sampel</p><br><br>            
                                 <p style="font-size: 11px;">{{ $permintaan->pemiliksampel->nama_petugas }}</p><br>            
                             </div>        

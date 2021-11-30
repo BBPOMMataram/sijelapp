@@ -6,6 +6,7 @@ use App\Models\StatusSampel;
 use App\Models\TerimaSampel;
 use App\Models\TrackingSampel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Yajra\DataTables\Facades\DataTables;
 
 class TerimaSampelController extends Controller
@@ -61,6 +62,7 @@ class TerimaSampelController extends Controller
         $data->nama_sampel = $request->nama_sampel;
         $data->id_kategori = $request->id_kategori;
 
+        $data->resi = Str::random(6);
         $data->save();
 
         //add data for tracking sampel

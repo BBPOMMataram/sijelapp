@@ -73,8 +73,9 @@ Route::middleware(['auth'])->group(function () {
         // report
         Route::prefix('laporan')->group(function () {
             Route::get('/jumlahsampel', [LaporanController::class, 'jumlahsampel'])->name('laporan.jumlahsampel');
-            Route::get('/rekapsampel', [LaporanController::class, 'rekapsampel'])->name('laporan.rekapsampel');
-        });
+            Route::get('rekapsampel', [LaporanController::class, 'rekapsampel'])->name('laporan.rekapsampel');
+            Route::get('dtrepaksampel', [LaporanController::class, 'dtrekapsampel'])->name('dtrekapsampel');
+    });
     });
     Route::get('logout', function(){
         Auth::logout();
@@ -91,4 +92,7 @@ Route::match(['get', 'post'], 'register', function () {
 Route::match(['get', 'post'], 'password/reset', function () {
     abort(404);
 });
+
+Route::get('dttrackingsampel/{id}', [FrontController::class, 'dttrackingsampel'])->name('dttrackingsampel');
+
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

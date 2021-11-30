@@ -23,4 +23,14 @@ class ProdukSampel extends Model
     {
         return $this->hasMany(UjiProduk::class, 'id_produk_sampel', 'id_produk_sampel');
     }
+
+    /**
+     * Get the permintaan that owns the ProdukSampel
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function permintaan()
+    {
+        return $this->belongsTo(TerimaSampel::class, 'id_permintaan', 'id_permintaan');
+    }
 }

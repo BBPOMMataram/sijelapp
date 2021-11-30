@@ -35,4 +35,14 @@ class TerimaSampel extends Model
     {
         return $this->belongsTo(Kategori::class, 'id_kategori', 'id_kategori');
     }
+
+    /**
+     * Get the tracking associated with the TerimaSampel
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function tracking()
+    {
+        return $this->hasOne(TrackingSampel::class, 'id_permintaan', 'id_permintaan');
+    }
 }

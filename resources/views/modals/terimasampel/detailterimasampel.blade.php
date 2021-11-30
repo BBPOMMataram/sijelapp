@@ -26,6 +26,25 @@
                   <input type="text" class="form-control" id="kode_sampel" name="kode_sampel" placeholder="Kode Sampel">
                 </div>
               </div>
+              <div class="col-4">
+                <div class="form-group">
+                  <label for="nomor_surat">Nomor Surat</label>
+                  <input type="text" class="form-control" id="nomor_surat" name="nomor_surat"
+                    placeholder="Nomor Surat">
+                </div>
+              </div>
+              <div class="col-4">
+                <div class="form-group">
+                  <label for="tanggal_surat">Tanggal Surat</label>
+                  <input type="date" class="form-control" id="tanggal_surat" name="tanggal_surat" placeholder="Tanggal Surat">
+                </div>
+              </div>
+              <div class="col-4">
+                <div class="form-group">
+                  <label for="tersangka">Tersangka</label>
+                  <input type="text" class="form-control" id="tersangka" name="tersangka" placeholder="Tersangka">
+                </div>
+              </div>
             </div>
             <div class="row">
               <div class="col-9">

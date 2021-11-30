@@ -127,7 +127,7 @@ class DetailTerimaSampelController extends Controller
 
     public function datadetailparameteruji($id)
     {
-        $data = UjiProduk::with('parameter')->where('id_produk_sampel', $id)->get();
+        $data = UjiProduk::with(['parameter', 'parameter.metodeuji'])->where('id_produk_sampel', $id)->get();
         return $data;
     }
 

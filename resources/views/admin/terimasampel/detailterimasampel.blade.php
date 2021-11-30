@@ -36,6 +36,11 @@
                                         <th class="align-middle">Parameter Uji</th>
                                         <th class="align-middle">Jumlah Pengujian</th>
                                         <th class="align-middle">Biaya</th>
+                                        <th class="align-middle">Nomor Surat</th>
+                                        <th class="align-middle">Tgl Surat</th>
+                                        <th class="align-middle">Tersangka</th>
+                                        <th class="align-middle">Hasil Uji</th>
+                                        <th class="align-middle">Saksi Ahli</th>
                                         <th class="align-middle">Actions</th>
                                     </tr>
                                 </thead>
@@ -100,6 +105,11 @@
                 }
                 return res;
                 }},
+            {data: 'nomor_surat', render: function(data, type, row){ return data ? data : '-'; }},
+            {data: 'tanggal_surat', render: function(data, type, row){ return data ? data : '-'; }},
+            {data: 'tersangka', render: function(data, type, row){ return data ? data : '-'; }},
+            {data: 'hasil_uji', render: function(data, type, row){ return data ? data : '-'; }},
+            {data: 'saksi_ahli', render: function(data, type, row){ return data ? data : '-'; }},
             {data: 'actions', className: 'text-center align-middle'},
         ]
     });
@@ -137,7 +147,7 @@
                 let list = '';
                 for (const key in res) {
                     if(res[key].parameter){
-                        list += '<li>'+res[key].parameter.parameter_uji+'('+res[key].jumlah_pengujian+') <i onclick="deleteparameteruji('+ res[key].id_uji_produk +','+ idProdukSampel +')" class="fas fa-trash text-danger" style="cursor:pointer;"></i></li>';
+                        list += '<li>'+res[key].parameter.parameter_uji+'('+res[key].parameter.metodeuji.metode+')'+'('+res[key].jumlah_pengujian+') <i onclick="deleteparameteruji('+ res[key].id_uji_produk +','+ idProdukSampel +')" class="fas fa-trash text-danger" style="cursor:pointer;"></i></li>';
                     }else{
                         list += '<li>Not found('+res[key].jumlah_pengujian+') <i onclick="deleteparameteruji('+ res[key].id_uji_produk +','+ id_produk_sampel +')" class="fas fa-trash text-danger" style="cursor:pointer;"></i></li>';
                     }
@@ -452,8 +462,9 @@
 
                         var id = response['data'][i].id_parameter;
                         var paramteruji = response['data'][i].parameter_uji;
+                        var metode = response['data'][i].metodeuji.metode;
 
-                        var option = "<option value='"+id+"'>"+paramteruji+"</option>";
+                        var option = "<option value='"+id+"'>"+paramteruji+" ("+metode+")"+"</option>";
                             
                         $("#id_parameter").append(option); 
                         }

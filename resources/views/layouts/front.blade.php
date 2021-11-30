@@ -25,6 +25,8 @@ https://templatemo.com/tm-550-diagoona
         integrity="sha512-zpbTFOStBclqD3+SaV5Uz1WAKh9d2/vOtaFYpSLkosymyJKnO+M4vu2CK2U4ZjkRCJ7+RvLnISpNrCfJki5JXA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://unpkg.com/tippy.js@6/animations/scale.css" />
+    <link rel="stylesheet" type="text/css"
+    href="https://cdn.datatables.net/v/dt/dt-1.11.3/r-2.2.9/sl-1.3.3/datatables.min.css" />
     @stack('styles')
 </head>
 
@@ -96,6 +98,7 @@ https://templatemo.com/tm-550-diagoona
     <script src="{{ asset('vendor/front/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('vendor/front/js/jquery.backstretch.min.js') }}"></script>
     <script src="{{ asset('vendor/front/js/templatemo-script.js') }}"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.11.3/r-2.2.9/sl-1.3.3/datatables.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script src="https://unpkg.com/@popperjs/core@2"></script>
     <script src="https://unpkg.com/tippy.js@6"></script>

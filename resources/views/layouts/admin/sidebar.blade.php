@@ -102,8 +102,8 @@
               </p>
             </a>
           </li>
-          <li class="nav-item @if(Request::is('admin/master/*')) menu-open @endif">
-            <a href="#" class="nav-link @if(Request::is('admin/master/*')) active @endif">
+          <li class="nav-item @if(Request::is('admin/laporan/*')) menu-open @endif">
+            <a href="#" class="nav-link @if(Request::is('admin/laporan/*')) active @endif">
               <i class="nav-icon fas fa-clipboard-list"></i>
               <p>
                 Laporan
@@ -118,7 +118,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link @if(Request::is('admin/laporan/rekapsampel')) active @endif">
+                <a href="{{ route('laporan.rekapsampel') }}" class="nav-link @if(Request::is('admin/laporan/rekapsampel')) active @endif">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Rekap Sampel</p>
                 </a>
