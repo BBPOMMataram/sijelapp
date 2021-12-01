@@ -134,7 +134,7 @@
                 }
                 return res;
                 }},
-            {data: 'tandaterima', render: function(data, type, row){ return data ? data : '-'; }},
+            {data: 'tandaterima'},
         ]
     });
 

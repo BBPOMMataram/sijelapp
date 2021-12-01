@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\ProdukSampel;
 use App\Models\TerimaSampel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Facades\DataTables;
 
 class LaporanController extends Controller
@@ -27,25 +28,25 @@ class LaporanController extends Controller
     {
         $data = ProdukSampel::with(
             [
-                'ujiproduk' => function($q){
+                'ujiproduk' => function ($q) {
                     // $q->orderBy('id_uji_produk');
                 },
-                'ujiproduk.parameter' => function($q){
+                'ujiproduk.parameter' => function ($q) {
                     // $q->orderBy('id_parameter');
                 },
-                'ujiproduk.parameter.metodeuji' => function($q){
+                'ujiproduk.parameter.metodeuji' => function ($q) {
                     // $q->orderBy('id_kode_layanan');
                 },
-                'permintaan.pemiliksampel' => function($q){
+                'permintaan.pemiliksampel' => function ($q) {
                     // $q->orderBy('id_pemilik');
                 },
-                'permintaan.kategori' => function($q){
+                'permintaan.kategori' => function ($q) {
                     // $q->orderBy('id_kategori');
                 },
-                'permintaan.tracking' => function($q){
+                'permintaan.tracking' => function ($q) {
                     // $q->orderBy('id_tracking');
                 },
-                'permintaan' => function($q){
+                'permintaan' => function ($q) {
                     // $q->latest();
                 },
             ],
@@ -97,6 +98,15 @@ class LaporanController extends Controller
                     return '-';
                 }
             })
+            ->addColumn('tandaterima', function ($data) {
+                $tt = '-';
+                if (isset($data->permintaan->tracking->tanda_terima)) {
+                    $tt = '<img src="'.Storage::url($data->permintaan->tracking->tanda_terima).'" width="60px">';
+                }
+
+                return $tt;
+            })
+            ->rawColumns(['tandaterima'])
             ->toJson();
     }
 

@@ -27,7 +27,8 @@ https://templatemo.com/tm-550-diagoona
     <link rel="stylesheet" href="https://unpkg.com/tippy.js@6/animations/scale.css" />
     <link rel="stylesheet" type="text/css"
     href="https://cdn.datatables.net/v/dt/dt-1.11.3/r-2.2.9/sl-1.3.3/datatables.min.css" />
-    @stack('styles')
+  <link rel="stylesheet" href="{{ asset('vendor/admin/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css') }}">
+  @stack('styles')
 </head>
 
 <body>
@@ -102,7 +103,8 @@ https://templatemo.com/tm-550-diagoona
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script src="https://unpkg.com/@popperjs/core@2"></script>
     <script src="https://unpkg.com/tippy.js@6"></script>
-    @stack('scripts')
+  <script src="{{ asset('vendor/admin/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
+  @stack('scripts')
 </body>
 
 </html>

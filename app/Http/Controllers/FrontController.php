@@ -6,6 +6,7 @@ use App\Models\ProdukSampel;
 use App\Models\TerimaSampel;
 use App\Models\TrackingSampel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Facades\DataTables;
 
 class FrontController extends Controller
@@ -121,6 +122,31 @@ class FrontController extends Controller
             })
             ->rawColumns(['actions'])
             ->toJson();
+    }
+
+    public function submittandaterima(Request $request, $id)
+    {
+        // dd($request->all());
+        $this->validate($request, [
+            'tanda_terima' => 'required',
+            'nama_pengambil' => 'required',
+        ]);
+
+        $data = TrackingSampel::where('id_permintaan', $id)->first();
+
+        $data->tanggal_diambil = now();
+        $data->nama_pengambil = $request->nama_pengambil;
+        $data->id_status_sampel += 1;
+
+        if($data->save()){
+            $signed = $request->tanda_terima;
+            $encoded_image = explode(",", $signed)[1];
+            $decoded_image = base64_decode($encoded_image);
+            Storage::put('signatures/' . $data->id_tracking . '.png', $decoded_image);
+            $data->tanda_terima = 'signatures/' . $data->id_tracking . '.png';
+            $data->save();
+        }
+        return response(['status' => 1, 'msg' => 'Berhasil, Terima kasih.']);
     }
 
     public function tarifpengujian()

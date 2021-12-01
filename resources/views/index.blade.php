@@ -81,7 +81,7 @@
         //fill form
         //detail sampel
         dtdetailterimasampel(rowData['id_permintaan']);
-        $('#id_permintaan').text(rowData['id_permintaan'])
+
         $('#modaltrackingtitle').text("Tracking Sampel No Resi : "+rowData.permintaan.resi)
         // data status
         $('#statussampel').text(rowData.status.label)
@@ -109,9 +109,11 @@
         $('#waktudiambil').text(rowData.tanggal_diambil);
         $('#waktuestimasi').text(rowData.tanggal_estimasi);
 
-        if (rowData.tanggal_selesai !== '-') {
+        if (rowData.tanggal_selesai !== '-' && rowData.tanggal_diambil === '-') {
             const btnAmbil = '<button class="btn btn-sm btn-info rounded" id="ambilsampel">AMBIL SAMPEL</button>';
+            $('.btnContainer').empty();
             $('.btnContainer').append(btnAmbil);
+            $('#id_permintaan').val(rowData['id_permintaan'])
         }else{
             $('.btnContainer').empty();
         }
@@ -142,39 +144,76 @@
         $('body').on('click', '#ambilsampel', function(e){
             e.preventDefault();
             $('#modaltandaterima').modal('show');
+            $('#nama_pengambil').val('')
+            signaturePad.clear();
+        });
 
-        })
+        $('#clear-signature').click(function(e){
+            signaturePad.clear();
+        });
 
-      
+        $('body').on('click', '#submittandaterima', function(e){
+            e.preventDefault();
+            const idpermintaan = $('#id_permintaan').val();
+            const namapengambil = $('#nama_pengambil').val();
+            let url = "{{ route('submittandaterima', "_id") }}";
+            url = url.replace('_id', idpermintaan);
 
-      function ResetForm(){
-        $('#name').val('')
-        $('#email').val('')
-        $('#photo').val('')
-        signaturePad.clear();
-        $('#position').prop('selectedIndex', 0);
-      }
+            let tandaterima;
+            
+            if(!signaturePad.isEmpty()){
+                tandaterima = signaturePad.toDataURL();
+            }
 
-      $('#clear-signature').click(function(){
-        signaturePad.clear();
-      })
 
-      updateBidang();
+            data = {
+                '_token': '{{ csrf_token() }}',
+                'tanda_terima': tandaterima,
+                'nama_pengambil': namapengambil,
+            }
+            $.ajax({
+                type: "POST",
+                url,
+                data,
+                success: function (response) {
+                    if(response.status){
+                        Swal.fire({
+                            title: 'Success',
+                            text: response.msg,
+                            icon: 'success'
+                        })
 
-      function updateBidang(){
-        if($('#position').val() === 'pemohon'){
-          $('#bidang').attr('disabled', false);
-        }else{
-          $('#bidang').attr('disabled', true);
-        }
-      }
+                        $('#modaltracking').modal('hide');
+                        $('#modaltandaterima').modal('hide');
+                    }
+                },
+                error: function(err){
+                    if(err.status == 422){
+                    console.log(err.responseJSON);
+                    let errMsg = '';
+                    $.each(err.responseJSON.errors, function (indexInArray, valueOfElement) {
+                        $.each(valueOfElement, function (indexInArray, valueOfElement) { 
+                        errMsg += '<li class="text-left">' + valueOfElement + '</li>';
+                        });
+                    });
+                    Swal.fire({
+                        title: err.responseJSON.message,
+                        html: '<ul>' + errMsg + '</ul>',
+                    })
+                    }
+                }
+            });
+        });
 
-      $('#position').change(function (e) { 
-        e.preventDefault();
-        updateBidang();
-      });
 
     });
 
 </script>
+@endpush
+@push('styles')
+<style>
+    .modal {
+        overflow-y: auto;
+    }
+</style>
 @endpush

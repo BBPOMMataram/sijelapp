@@ -48,7 +48,6 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('terimasampel', TerimaSampelController::class);
         Route::get('dtterimasampel', [TerimaSampelController::class, 'dtterimasampel'])->name('dtterimasampel');
         //detailterimasampel
-        Route::get('dtdetailterimasampel/{idProdukSampel}', [DetailTerimaSampelController::class, 'dtdetailterimasampel'])->name('dtdetailterimasampel');
         Route::get('detailterimasampel/{idProdukSampel}', [DetailTerimaSampelController::class, 'index'])->name('detailterimasampel.index');
         Route::match(['put', 'patch'], 'detailterimasampel/{idProdukSampel}', [DetailTerimaSampelController::class, 'update'])->name('detailterimasampel.update');
         Route::delete('detailterimasampel/{idProdukSampel}', [DetailTerimaSampelController::class, 'destroy'])->name('detailterimasampel.destroy');
@@ -93,6 +92,8 @@ Route::match(['get', 'post'], 'password/reset', function () {
     abort(404);
 });
 
+Route::get('dtdetailterimasampel/{idProdukSampel}', [DetailTerimaSampelController::class, 'dtdetailterimasampel'])->name('dtdetailterimasampel');
 Route::get('dttrackingsampel/{id}', [FrontController::class, 'dttrackingsampel'])->name('dttrackingsampel');
 
+Route::post('submittandaterima/{id}', [FrontController::class, 'submittandaterima'])->name('submittandaterima');
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
