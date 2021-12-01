@@ -135,7 +135,7 @@ class DetailTerimaSampelController extends Controller
     {
         $title = 'Kaji Ulang Sampel';
         $permintaan = TerimaSampel::find($id);
-        $produksampel = ProdukSampel::with(['ujiproduk'])->where('id_permintaan', $id)->get();
+        $produksampel = ProdukSampel::with(['ujiproduk','ujiproduk.parameter', 'ujiproduk.parameter.metodeuji'])->where('id_permintaan', $id)->get();
 
         return view('prints.kajiulang', compact('title', 'permintaan', 'produksampel'));
     }

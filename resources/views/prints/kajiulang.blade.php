@@ -1,6 +1,9 @@
 @extends('layouts.admin.app')
 
 @section('content')
+{{-- @foreach ($produksampel as $item)
+    {{ dd($item->ujiproduk[0]->parameter->metodeuji->metode) }}
+@endforeach --}}
 <!-- Main content -->
 <section class="content">
     <div class="container-fluid">
@@ -84,9 +87,10 @@
                                         <td style="border: 1px solid #000; width:40%; font-size: 11px;" colspan="4">{{ $item->nama_produk }}</td>
                                     </tr>
                                     @foreach ($item->ujiproduk as $i)
+                                    {{-- {{ dd($item->ujiproduk) }} --}}
                                         <tr>
                                             <td style="border: 1px solid #000; font-size: 11px;"></td>
-                                            <td style="border: 1px solid #000; font-size: 11px; text-align: left;">@isset($i->parameter){{ $i->parameter->parameter_uji ?? '-' . ' ('. $i->parameter->metodeuji->metode .')' }}@endisset</td>
+                                            <td style="border: 1px solid #000; font-size: 11px; text-align: left;">@isset($i->parameter){{ $i->parameter->parameter_uji . ' ('. $i->parameter->metodeuji->metode .')' }}@endisset</td>
                                             <td style="border: 1px solid #000; font-size: 11px; text-align: center;">{{ $i->jumlah_pengujian }}</td>
                                             <td style="border: 1px solid #000; font-size: 11px; text-align: center;">@isset($i->parameter){{ $i->parameter->metodeuji->kode_layanan }}@endisset</td>
                                             <td style="border: 1px solid #000; font-size: 11px; text-align: center;">@isset($i->parameter){{ number_format($i->parameter->metodeuji->biaya,0,',','.') }}@endisset</td>
@@ -100,7 +104,7 @@
                                         @endisset
                                     @endforeach
                                     <tr>
-                                        <td colspan="5" style="border: 1px solid #000; font-size: 11px;">Total biaya per sampel ({{ $item->nama_produk }})</td>
+                                        <td colspan="5" style="border: 1px solid #000; font-size: 11px;">Total biaya per sampel</td>
                                         <td style="border: 1px solid #000; font-size: 11px; text-align: right; font-weight: bold;">{{ number_format($totalpersampel,0,',','.') }}</td>
                                     </tr>
                                     @php
