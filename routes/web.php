@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BiayaSampelController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DetailTerimaSampelController;
 use App\Http\Controllers\FrontController;
@@ -11,6 +12,7 @@ use App\Http\Controllers\PemilikSampelController;
 use App\Http\Controllers\TerimaSampelController;
 use App\Http\Controllers\TrackingSampelController;
 use Illuminate\Routing\RouteGroup;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -38,6 +40,7 @@ Route::middleware(['auth'])->group(function () {
                 'kategori' => KategoriController::class,
                 'metodeuji' => MetodeUjiController::class,
                 'parameteruji' => ParameterUjiController::class,
+                'biayauji' => BiayaSampelController::class,
             ]);
             Route::get('dtpemiliksampel', [PemilikSampelController::class, 'dtpemiliksampel'])->name('dtpemiliksampel');
             Route::get('dtkategori', [KategoriController::class, 'dtkategori'])->name('dtkategori');
@@ -92,8 +95,18 @@ Route::match(['get', 'post'], 'password/reset', function () {
     abort(404);
 });
 
+// tracking sampel
 Route::get('dtdetailterimasampel/{idProdukSampel}', [DetailTerimaSampelController::class, 'dtdetailterimasampel'])->name('dtdetailterimasampel');
 Route::get('dttrackingsampel/{id}', [FrontController::class, 'dttrackingsampel'])->name('dttrackingsampel');
 
 Route::post('submittandaterima/{id}', [FrontController::class, 'submittandaterima'])->name('submittandaterima');
-// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+//biaya sampel
+Route::get('dtbiayauji',[BiayaSampelController::class, 'dtbiayauji'])->name('dtbiayauji');
+Route::get('dtjenissampel',[BiayaSampelController::class, 'dtjenissampel'])->name('dtjenissampel');
+
+Route::get('dthargaproduk/{id?}',[BiayaSampelController::class, 'dthargaproduk'])->name('dthargaproduk');
+
+Route::get('/storagelink', function(){
+    Artisan::call('storage:link');
+});

@@ -162,6 +162,14 @@
   <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
   <script src="https://unpkg.com/@popperjs/core@2"></script>
   <script src="https://unpkg.com/tippy.js@6"></script>
+  <script>
+    $(function () {
+      //fixing autofocus error select2
+      $(document).on('select2:open', () => {
+            document.querySelector('.select2-search__field').focus();
+        });
+    });
+  </script>
   @stack('scripts')
 </body>
 

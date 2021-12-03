@@ -2,55 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ParameterUji;
+use App\Models\BiayaSampel;
+use App\Models\JenisSampel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables;
 
-class ParameterUjiController extends Controller
+class BiayaSampelController extends Controller
 {
-    public function dtparameteruji()
-    {
-        $data = ParameterUji::with('metodeuji')
-            ->where('status', 1)
-            ->orderBy('parameter_uji');
-        return DataTables::of($data)
-            ->addIndexColumn()
-            ->addColumn('actions', function ($data) {
-                $btn = '<a href="#"><i class="fas fa-eye text-primary show"></i></a>';
-                $btn .= '<a href="#"><i class="fas fa-pen text-info edit mx-1"></i></a>';
-                // $btn .= '<a href="#"><i class="fas fa-trash text-danger delete"></i></a>';
-                return $btn;
-            })
-            ->rawColumns(['actions'])
-            ->toJson();
-    }
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        $title = 'Metode Uji';
-        return view('admin.master.parameteruji', compact('title'));
+        $title = 'Biaya Uji';
+        return view('admin.master.biayauji', compact('title'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $this->validate($request, [
@@ -128,4 +93,40 @@ class ParameterUjiController extends Controller
 
         return response(['status' => 1, 'msg' => 'Hapus data berhasil.']);
     }
+
+    public function dtbiayauji()
+    {
+        $data = BiayaSampel::all();
+        return DataTables::of($data)
+            ->addIndexColumn()
+            ->addColumn('actions', function ($data) {
+                $btn = '<a href="#"><i class="fas fa-eye text-primary show"></i></a>';
+                $btn .= '<a href="#"><i class="fas fa-pen text-info edit mx-1"></i></a>';
+                // $btn .= '<a href="#"><i class="fas fa-trash text-danger delete"></i></a>';
+                return $btn;
+            })
+            ->rawColumns(['actions'])
+            ->toJson();
+    }
+
+    public function dtjenissampel()
+    {
+        $data = JenisSampel::all();
+        return DataTables::of($data)
+            ->addIndexColumn()
+            ->toJson();
+    }
+
+    public function dthargaproduk($id = null)
+    {
+        $data = DB::table('harga_produk')->get();
+        if ($id) {
+            $data = DB::table('harga_produk')->where('id_produk', $id)->get();
+        }
+        return DataTables::of($data)
+            ->addIndexColumn()
+            ->rawColumns(['keterangan'])
+            ->toJson();
+    }
+    
 }

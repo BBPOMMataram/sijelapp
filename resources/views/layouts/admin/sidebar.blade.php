@@ -76,6 +76,12 @@
                   <p>Parameter Uji</p>
                 </a>
               </li>
+              <li class="nav-item">
+                <a href="{{ route('biayauji.index') }}" class="nav-link @if(Request::is('admin/master/biayauji')) active @endif">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Biaya Uji</p>
+                </a>
+              </li>
             </ul>
           </li>
           <li class="nav-item">

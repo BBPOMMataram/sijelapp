@@ -127,7 +127,7 @@
             e.preventDefault();
             $('#modaltracking').modal('show');
 
-            const resisampel = $('#resisampel').val(); //masih pake id permintaan, ntar ganti
+            const resisampel = $('#resisampel').val();
             let url = "{{ route('dttrackingsampel', "_id")}}";
             url = url.replace("_id", resisampel);
             
