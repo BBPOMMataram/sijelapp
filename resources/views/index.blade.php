@@ -21,7 +21,7 @@
 <script src="https://cdn.jsdelivr.net/npm/signature_pad@2.3.2/dist/signature_pad.min.js"></script>
 <script>
     tippy('#resisampel', {
-        content: 'input kode sampel',
+        content: 'input resi',
         trigger: 'mouseenter',
         animation: 'scale',
       });

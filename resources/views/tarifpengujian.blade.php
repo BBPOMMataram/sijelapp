@@ -69,7 +69,6 @@
             const id = $('#idSampel').val();
             let url = "{{ route('dthargaproduk', "_id")}}";
             url = url.replace("_id", id);
-            alert(id)
             
             $.ajax({
                 type: "GET",
