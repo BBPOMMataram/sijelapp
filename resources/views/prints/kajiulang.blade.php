@@ -142,6 +142,11 @@
                                 <div style="font-size:11px; border-bottom: 1px solid #000; float: left; width: 5%;">:</div>
                                 <div style="font-size:11px; border-bottom: 1px solid #000; border-right:1px solid #000;  float: left; width: 32.9%;">Ada / Tidak Ada
                                 </div>
+                                <div style="font-size:11px; border-bottom: 1px solid #000; border-left:1px solid #000; ; float: left; width: 5%;">5.</div>
+                                <div style="font-size:11px; border-bottom: 1px solid #000; float: left; width: 56.5%;">SDM</div>
+                                <div style="font-size:11px; border-bottom: 1px solid #000; float: left; width: 5%;">:</div>
+                                <div style="font-size:11px; border-bottom: 1px solid #000; border-right:1px solid #000;  float: left; width: 32.9%;">Ada / Tidak Ada
+                                </div>
                     
                                 <div style="font-size:11px; border-bottom: 1px solid #000; float: left; border-left:1px solid #000; width: 61.5%; text-align: left;">Tanggal Selesai Uji&nbsp;&nbsp;</div>
                                 <div style="font-size:11px; border-bottom: 1px solid #000; float: left; width: 5%;">:</div>
