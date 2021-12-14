@@ -11,21 +11,23 @@
         <!-- form start -->
         <form>
           <div class="card-body">
-            <input type="hidden" name="id" id="id">
+            {{-- <input type="hidden" name="id" id="id"> --}}
             <div class="row">
-              <div class="col-6">
+              <div class="col-12">
                 <div class="form-group">
-                  <label for="nama_produk">Jenis Produk</label>
-                  <input type="text" class="form-control" id="nama_produk" name="nama_produk"
-                    placeholder="Jenis Produk">
+                  <label for="nama_produk[]">Jenis Produk</label>
+                  {{-- <input type="text" class="form-control" id="nama_produk" name="nama_produk"
+                    placeholder="Jenis Produk"> --}}
+                  
+                  <select multiple="multiple" name="nama_produk[]" class="select2" id="jenisproduk"></select>
                 </div>
               </div>
-              <div class="col-6">
+              {{-- <div class="col-6">
                 <div class="form-group">
                   <label for="kode_sampel">Kode Sampel</label>
                   <input type="text" class="form-control" id="kode_sampel" name="kode_sampel" placeholder="Kode Sampel">
                 </div>
-              </div>
+              </div> --}}
               <div class="col-4">
                 <div class="form-group">
                   <label for="nomor_surat">Nomor Surat</label>
@@ -61,7 +63,7 @@
                   <button id='addparameteruji' class="btn btn-info mt-2">+</button>
               </div>
             </div>
-            <div id="listparameteruji" class="mt-2">
+            <div id="listparameteruji" class="mt-2 form-group row">
             </div>
           </div>
           <!-- /.card-body -->

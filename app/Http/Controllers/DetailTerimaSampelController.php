@@ -37,30 +37,43 @@ class DetailTerimaSampelController extends Controller
     {
         $this->validate($request, [
             'nama_produk' => 'required',
-            'kode_sampel' => 'required',
+            'p_uji' => 'required',
+            'p_uji.*' => 'required',
+            'j_uji.*' => 'required',
         ]);
-
-        //handle when kode sampel duplicate
-        $duplicateSampel = ProdukSampel::where([
-            'id_permintaan' => $id_permintaan,
-            'kode_sampel' => $request->kode_sampel
-        ])->first();
-
-        if ($duplicateSampel) {
-            return response(['status' => 0, 'msg' => 'Kode sampel sudah ada.', 'data' => $duplicateSampel]);
+        
+        $produksampel = ProdukSampel::whereIn('id_produk_sampel', $request->nama_produk)->get();
+        foreach ($produksampel as $value) {
+            foreach ($request->p_uji as $i => $v) {
+                $data = new UjiProduk();
+                $data->id_produk_sampel = $value->id_produk_sampel;
+                $data->id_parameter = $v;
+                $data->jumlah_pengujian = $request->j_uji[$i];
+                $data->save();
+            }
         }
+// dd($request->all());
+        // //handle when kode sampel duplicate
+        // $duplicateSampel = ProdukSampel::where([
+        //     'id_permintaan' => $id_permintaan,
+        //     'kode_sampel' => $request->kode_sampel
+        // ])->first();
 
-        $data = new ProdukSampel;
+        // if ($duplicateSampel) {
+        //     return response(['status' => 0, 'msg' => 'Kode sampel sudah ada.', 'data' => $duplicateSampel]);
+        // }
 
-        $data->id_permintaan = $id_permintaan;
-        $data->nama_produk = $request->nama_produk;
-        $data->kode_sampel = $request->kode_sampel;
+        // $data = new ProdukSampel;
 
-        $data->save();
+        // $data->id_permintaan = $id_permintaan;
+        // $data->nama_produk = $request->nama_produk;
+        // $data->kode_sampel = $request->kode_sampel;
 
-        $newIdProdukSampel = $data->id_produk_sampel;
+        // $data->save();
 
-        return response(['status' => 1, 'msg' => 'Tambah data berhasil.', 'newId' => $newIdProdukSampel]);
+        // $newIdProdukSampel = $data->id_produk_sampel;
+
+        return response(['status' => 1, 'msg' => 'Update data berhasil.']);
     }
 
     public function update(Request $request, $id)
@@ -106,6 +119,7 @@ class DetailTerimaSampelController extends Controller
         ], [], [
             'id_parameter' => "Parameter Uji"
         ]);
+
         $oldData = UjiProduk::where([
             'id_produk_sampel' => $id_produk_sampel,
             'id_parameter' => $request->id_parameter,

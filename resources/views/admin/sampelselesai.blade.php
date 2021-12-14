@@ -125,6 +125,7 @@
             e.preventDefault();
             const rowData = dttable.row($(this).parents('tr')).data();
             
+            $('#cancelstep').remove();
             $('#modalstatussampel').modal('show');
             //fill form
             //detail sampel

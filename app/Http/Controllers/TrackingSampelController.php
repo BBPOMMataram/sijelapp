@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ProdukSampel;
 use App\Models\StatusSampel;
 use App\Models\TrackingSampel;
 use Illuminate\Http\Request;
@@ -127,7 +128,7 @@ class TrackingSampelController extends Controller
         return view('admin.statussampel', compact('title'));
     }
 
-    public function nextstep($id_tracking)
+    public function nextstep(Request $request, $id_tracking)
     {
         $laststatus = StatusSampel::latest('id')->first();
 
@@ -147,9 +148,13 @@ class TrackingSampelController extends Controller
                 break;
             case 3:
                 $data->tanggal_pembayaran = now();
+                $data->tanggal_estimasi = $request->tanggal_estimasi;
                 break;
             case 4:
                 $data->tanggal_pengujian = now();
+                // $produksampel = ProdukSampel::where('id_permintaan', $data->id_permintaan)->get();
+                // $produksampel->hasil_uji = $request->hasil_uji;
+                // $produksampel->save();
                 break;
             case 5:
                 $data->tanggal_selesai_uji = now();
@@ -162,6 +167,9 @@ class TrackingSampelController extends Controller
                 break;
             case 8:
                 $data->tanggal_diambil = now();
+                // $produksampel = ProdukSampel::where('id_permintaan', $data->id_permintaan)->get();
+                // $produksampel->tersangka = $request->tersangka;
+                // $produksampel->save();
                 break;
             default:
                 return response(['status' => 0, 'msg' => 'Gagal update tanggal step.']);
@@ -170,6 +178,50 @@ class TrackingSampelController extends Controller
 
         $data->save();
         return response(['status' => 1, 'msg' => 'Berhasil update data.']);
+    }
+
+    public function cancelstep($id_tracking)
+    {
+        $data = TrackingSampel::find($id_tracking);
+        if ($data->id_status_sampel === 0) {
+            return response(['status' => 0, 'msg' => 'Sampel belum diverifikasi.']);
+        }
+
+        $data->id_status_sampel -= 1;
+
+        switch ($data->id_status_sampel) {
+            case 0:
+                $data->tanggal_verifikasi = null;
+                break;
+            case 1:
+                $data->tanggal_kaji_ulang = null;
+                break;
+            case 2:
+                $data->tanggal_pembayaran = null;
+                $data->tanggal_estimasi = null;
+                break;
+            case 3:
+                $data->tanggal_pengujian = null;
+                break;
+            case 4:
+                $data->tanggal_selesai_uji = null;
+                break;
+            case 5:
+                $data->tanggal_legalisir = null;
+                break;
+            case 6:
+                $data->tanggal_selesai = null;
+                break;
+            case 7:
+                $data->tanggal_diambil = null;
+                break;
+            default:
+                return response(['status' => 0, 'msg' => 'Gagal cancel step.']);
+                break;
+        }
+
+        $data->save();
+        return response(['status' => 1, 'msg' => 'Berhasil cancel step.']);
     }
 
     public function sampelselesai()

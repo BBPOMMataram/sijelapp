@@ -9,6 +9,7 @@ use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\MetodeUjiController;
 use App\Http\Controllers\ParameterUjiController;
 use App\Http\Controllers\PemilikSampelController;
+use App\Http\Controllers\Pengaturan\ProfilController;
 use App\Http\Controllers\StatusUjiController;
 use App\Http\Controllers\TerimaSampelController;
 use App\Http\Controllers\TrackingSampelController;
@@ -55,6 +56,8 @@ Route::middleware(['auth'])->group(function () {
         Route::delete('detailterimasampel/{idProdukSampel}', [DetailTerimaSampelController::class, 'destroy'])->name('detailterimasampel.destroy');
         Route::post('detailterimasampel/{idPermintaan}', [DetailTerimaSampelController::class, 'store'])->name('detailterimasampel.store');
 
+        Route::get('lastnourut/{idkategori}', [TerimaSampelController::class, 'lastnourut'])->name('lastnourut');
+
         Route::delete('listparameterdetailterimasampel/{id}', [DetailTerimaSampelController::class, 'deleteparameteruji'])->name('deleteparameteruji');
         Route::post('listparameterdetailterimasampel/{id}', [DetailTerimaSampelController::class, 'storeparameteruji'])->name('storeparameteruji');
         //data parameter per produksampel for update list parameter
@@ -66,6 +69,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('liststatussampel', [TrackingSampelController::class, 'liststatussampel'])->name('liststatussampel');
         Route::get('sampelselesai', [TrackingSampelController::class, 'sampelselesai'])->name('sampelselesai');
         Route::get('dtsampelselesai', [TrackingSampelController::class, 'dtsampelselesai'])->name('dtsampelselesai');
+        Route::post('cancelstatussampel/{id}', [TrackingSampelController::class, 'cancelstep'])->name('statussampel.cancelstep');
 
         Route::get('dtstatusuji', [StatusUjiController::class, 'dtstatusuji'])->name('dtstatusuji');
 
@@ -78,6 +82,10 @@ Route::middleware(['auth'])->group(function () {
             Route::get('jumlahsampel', [LaporanController::class, 'jumlahsampel'])->name('laporan.jumlahsampel');
             Route::get('rekapsampel', [LaporanController::class, 'rekapsampel'])->name('laporan.rekapsampel');
             Route::get('dtrepaksampel', [LaporanController::class, 'dtrekapsampel'])->name('dtrekapsampel');
+        });
+
+        Route::prefix('setting')->group(function(){
+            Route::get('profil', [ProfilController::class, 'index'])->name('setting.profil');
         });
     });
     Route::get('logout', function () {

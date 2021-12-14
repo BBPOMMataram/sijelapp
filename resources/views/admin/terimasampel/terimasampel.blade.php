@@ -13,7 +13,8 @@
                             <button type="button" class="btn btn-primary" data-toggle="modal"
                                 data-target="#modalterimasampel">+</button>
                             {{-- <label for="id_kategori_filter">Kategori</label> --}}
-                            <select type="text" id="id_kategori_filter" name="id_kategori_filter" class="select2"></select>
+                            <select type="text" id="id_kategori_filter" name="id_kategori_filter"
+                                class="select2"></select>
                         </h3>
                     </div>
                     <!-- /.card-header -->
@@ -356,6 +357,50 @@
                 dttable.column(10).search("^"+idKat+"$", true).draw();
             }else{
                 dttable.column(10).search('').draw();
+            }
+        });
+
+        $('.modal').on('change', '#id_kategori', function(e){
+            e.preventDefault();
+            let url = "{{ route('lastnourut',"_id") }}"
+            url = url.replace("_id", $(this).val());
+            
+            $.ajax({
+                type: "GET",
+                url,
+                success: function (response) {
+                    if(response.no_urut_penerimaan){
+                        let nourut = response.no_urut_penerimaan.substring(0,3);
+                        nourut = parseInt(nourut) + 1;
+                        nourut = ''+nourut;
+                        if(nourut.length === 1){
+                            nourut = '00' + nourut;
+                        }else if(nourut.length === 2){
+                            nourut = '0' + nourut;
+                        }
+                        nourut = nourut + "{{ now()->month . now()->year }}";
+                        $('#no_urut_penerimaan').val(nourut);
+                    }else{
+                        $('#no_urut_penerimaan').val('001' +"{{ now()->month . now()->year }}");
+                    }
+                }
+            });
+        });
+
+        $('.modal').on('change', '#kode_sampel, #jumlah_sampel', function(e){
+            e.preventDefault();
+            const kodesampel = $('#kode_sampel').val();
+            const jumlahsampel = $('#jumlah_sampel').val();
+            
+            let kode1 = kodesampel.substr(0, kodesampel.lastIndexOf('.') + 1);
+            let kode2 = kodesampel.substr(kodesampel.lastIndexOf('.') + 1);
+            let no = 0;
+            $('#namasampel_cont').empty();
+            for (let jml = 0; jml < jumlahsampel; jml++) {
+                no++;
+                let data = '<div class="col-sm-1"><input type="text" readonly class="form-control-plaintext text-center text-light font-weight-bold" value="'+no+'"></div><div class="col-sm-6 mb-1"><input type="text" class="form-control" name="nama_sampel_arr[]" placeholder="Nama Sampel"></div><div class="col-sm-5"><input type="text" class="form-control" name="kode_sampel_arr[]" value="'+ kode1+kode2 +'" readonly></div>';
+                kode2 = parseInt(kode2) + 1;
+                $('#namasampel_cont').append(data);
             }
         });
         

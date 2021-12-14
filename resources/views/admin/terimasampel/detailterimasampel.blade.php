@@ -7,7 +7,6 @@
         <!-- Main row -->
         <div class="row">
             <div class="col-12">
-
                 <div class="card">
                     <div class="card-header">
                         <h3 class="card-title">
@@ -41,7 +40,7 @@
                                         <th class="align-middle">Tersangka</th>
                                         <th class="align-middle">Hasil Uji</th>
                                         <th class="align-middle">Saksi Ahli</th>
-                                        <th class="align-middle">Actions</th>
+                                        {{-- <th class="align-middle">Actions</th> --}}
                                     </tr>
                                 </thead>
                             </table>
@@ -110,7 +109,7 @@
             {data: 'tersangka', render: function(data, type, row){ return data ? data : '-'; }},
             {data: 'hasil_uji', render: function(data, type, row){ return data ? data : '-'; }},
             {data: 'saksi_ahli', render: function(data, type, row){ return data ? data : '-'; }},
-            {data: 'actions', className: 'text-center align-middle'},
+            // {data: 'actions', className: 'text-center align-middle'},
         ]
     });
 
@@ -136,29 +135,64 @@
         });
     }
 
-    function updateList(idProdukSampel){
-        let urlParameterUji = "{{ route('datadetailparameteruji', "_idProd") }}"
-        urlParameterUji = urlParameterUji.replace('_idProd', idProdukSampel);
-        $.ajax({
-            type: "GET",
-            url: urlParameterUji,
-            success: function (res) {
-                $('#listparameteruji').empty();
-                let list = '';
-                for (const key in res) {
-                    if(res[key].parameter){
-                        list += '<li>'+res[key].parameter.parameter_uji+'('+res[key].parameter.metodeuji.metode+')'+'('+res[key].jumlah_pengujian+') <i onclick="deleteparameteruji('+ res[key].id_uji_produk +','+ idProdukSampel +')" class="fas fa-trash text-danger" style="cursor:pointer;"></i></li>';
-                    }else{
-                        list += '<li>Not found('+res[key].jumlah_pengujian+') <i onclick="deleteparameteruji('+ res[key].id_uji_produk +','+ id_produk_sampel +')" class="fas fa-trash text-danger" style="cursor:pointer;"></i></li>';
+    // function updateList(idProdukSampel){
+    //     let urlParameterUji = "{{ route('datadetailparameteruji', "_idProd") }}"
+    //     urlParameterUji = urlParameterUji.replace('_idProd', idProdukSampel);
+    //     $.ajax({
+    //         type: "GET",
+    //         url: urlParameterUji,
+    //         success: function (res) {
+    //             $('#listparameteruji').empty();
+    //             let list = '';
+    //             for (const key in res) {
+    //                 if(res[key].parameter){
+    //                     list += '<li>'+res[key].parameter.parameter_uji+'('+res[key].parameter.metodeuji.metode+')'+'('+res[key].jumlah_pengujian+') <i onclick="deleteparameteruji('+ res[key].id_uji_produk +','+ idProdukSampel +')" class="fas fa-trash text-danger" style="cursor:pointer;"></i></li>';
+    //                 }else{
+    //                     list += '<li>Not found('+res[key].jumlah_pengujian+') <i onclick="deleteparameteruji('+ res[key].id_uji_produk +','+ id_produk_sampel +')" class="fas fa-trash text-danger" style="cursor:pointer;"></i></li>';
+    //                 }
+    //             }
+    //             $('#listparameteruji').append('<ol>'+ list +'</ol>');
+    //         }
+    //     });
+    // }
+
+    function updateList(p_uji, j_uji, p_uji_text){
+        let data = '<input type="hidden" name="p_uji[]" value="'+p_uji+'" /><div class="col-10 mb-1"><input class="form-control" value="'+p_uji_text+'" readonly/></div><div class="col-2"><input name="j_uji[]" class="form-control" value="'+j_uji+'" readonly/></div>';
+
+        $('#listparameteruji').append(data);
+
+    }
+
+    function filljenissampel() {
+            $.ajax({
+                type: "GET",
+                url: "{{ route('dtdetailterimasampel', $id) }}",
+                success: function (response) {
+                    $("#jenisproduk").append("<option value=''>==Pilih Jenis Produk==</option>"); 
+                    var len = 0;
+                    if(response['data'] != null){
+                        len = response['data'].length;
+                    }
+
+                    if(len > 0){
+                        // Read data and create <option >
+                        for(var i=0; i<len; i++){
+
+                        var id = response['data'][i].id_produk_sampel;
+                        var namaproduk = response['data'][i].nama_produk;
+
+                        var option = "<option value='"+id+"'>"+namaproduk+"</option>";
+                            
+                        $("#jenisproduk").append(option); 
+                        }
                     }
                 }
-                $('#listparameteruji').append('<ol>'+ list +'</ol>');
-            }
-        });
-    }
+            });
+        }
 
     $(function () {
         fillparameteruji();
+        filljenissampel();
 
         //when submit adding
         $('#modaldetailterimasampel').on('click', '.submit.adding', function(evt){
@@ -181,14 +215,14 @@
                             icon: 'success',
                             title: '&nbsp;' + response.msg,
                         })
-                        // $('#modaldetailterimasampel').modal('hide');
-                        const btnSubmit = $('button.submit');
-                        btnSubmit.prop('disabled', true)
-                        btnSubmit.removeClass('adding');
-                        $('#id').val(response.newId);
-                        $('#nama_produk').prop('disabled', true);
-                        $('#kode_sampel').prop('disabled', true);
-                        $('#addparameteruji').click();
+                        $('#modaldetailterimasampel').modal('hide');
+                        // const btnSubmit = $('button.submit');
+                        // btnSubmit.prop('disabled', true)
+                        // btnSubmit.removeClass('adding');
+                        // $('#id').val(response.newId);
+                        // $('#nama_produk').prop('disabled', true);
+                        // $('#kode_sampel').prop('disabled', true);
+                        // $('#addparameteruji').click();
                         dttable.ajax.reload(null, false);
                     }else{
                         Toast.fire({
@@ -368,55 +402,63 @@
         });
 
         // add parameter in list
+        // $('#modaldetailterimasampel').on('click', '#addparameteruji', function(e){
+        //     e.preventDefault();
+
+        //     const btnSubmit = $('button.submit');
+        //     if(btnSubmit.hasClass('adding')){
+        //         $(btnSubmit).click();
+        //         return 0;
+        //     }
+            
+        //     let fd = new FormData($('form')[0]);
+        //     fd.append('_token', "{{ csrf_token() }}");
+            
+        //     const idProdukSampel = fd.get('id');
+        //     let url = "{{ route('storeparameteruji', "_idProdukSampel") }}";
+        //     url = url.replace('_idProdukSampel', idProdukSampel);
+
+        //     $.ajax({
+        //         type: 'POST',
+        //         url: url,
+        //         data: fd,
+        //         cache: false,
+        //         processData: false,
+        //         contentType: false,
+        //         success: function (response) {
+        //             Toast.fire({
+        //                 icon: 'success',
+        //                 title: '&nbsp;' + response.msg,
+        //             })
+        //             dttable.ajax.reload(null, false);
+        //             updateList(idProdukSampel);
+        //         },
+        //         error: function(err){
+        //             if(err.status == 422){
+        //             let errMsg = '';
+        //             $.each(err.responseJSON.errors, function (indexInArray, valueOfElement) {
+        //                 $.each(valueOfElement, function (indexInArray, valueOfElement) { 
+        //                 errMsg += '<li class="text-left">' + valueOfElement + '</li>';
+        //                 });
+        //             });
+
+        //             Swal.fire({
+        //                 icon: 'error',
+        //                 title: err.responseJSON.message,
+        //                 html: '<ul>' + errMsg + '</ul>',
+        //             })
+        //             }
+        //         }
+        //     });
+        // })
+
         $('#modaldetailterimasampel').on('click', '#addparameteruji', function(e){
             e.preventDefault();
-
-            const btnSubmit = $('button.submit');
-            if(btnSubmit.hasClass('adding')){
-                $(btnSubmit).click();
-                return 0;
-            }
-            
-            let fd = new FormData($('form')[0]);
-            fd.append('_token', "{{ csrf_token() }}");
-            
-            const idProdukSampel = fd.get('id');
-            let url = "{{ route('storeparameteruji', "_idProdukSampel") }}";
-            url = url.replace('_idProdukSampel', idProdukSampel);
-
-            $.ajax({
-                type: 'POST',
-                url: url,
-                data: fd,
-                cache: false,
-                processData: false,
-                contentType: false,
-                success: function (response) {
-                    Toast.fire({
-                        icon: 'success',
-                        title: '&nbsp;' + response.msg,
-                    })
-                    dttable.ajax.reload(null, false);
-                    updateList(idProdukSampel);
-                },
-                error: function(err){
-                    if(err.status == 422){
-                    let errMsg = '';
-                    $.each(err.responseJSON.errors, function (indexInArray, valueOfElement) {
-                        $.each(valueOfElement, function (indexInArray, valueOfElement) { 
-                        errMsg += '<li class="text-left">' + valueOfElement + '</li>';
-                        });
-                    });
-
-                    Swal.fire({
-                        icon: 'error',
-                        title: err.responseJSON.message,
-                        html: '<ul>' + errMsg + '</ul>',
-                    })
-                    }
-                }
-            });
-        })
+            const p_uji = $('#id_parameter').val();
+            const p_uji_text = $('#id_parameter').select2('data')[0].text;
+            const j_uji = $('#jumlah_pengujian').val();
+            updateList(p_uji, j_uji, p_uji_text);
+        });
 
         //when modal close switch to adding and reset form
         $('#modaldetailterimasampel').on('hidden.bs.modal', function(e){
@@ -450,7 +492,7 @@
                 type: "GET",
                 url: "{{ route('dtparameteruji') }}",
                 success: function (response) {
-                    $("#id_parameter").append("<option value=''>==Pilih Parameter Uji==</option>"); 
+                    // $("#id_parameter").append("<option value=''>==Pilih Parameter Uji==</option>"); 
                     var len = 0;
                     if(response['data'] != null){
                         len = response['data'].length;

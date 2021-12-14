@@ -137,13 +137,22 @@
               </li>
             </ul>
           </li>
-          <li class="nav-item">
-            <a href="{{ route('statussampel.index') }}" class="nav-link @if(Request::is('admin/sampelsudahdiambil')) active @endif">
+          <li class="nav-item @if(Request::is('admin/setting/*')) menu-open @endif">
+            <a href="#" class="nav-link @if(Request::is('admin/setting/*')) active @endif">
               <i class="nav-icon fas fa-cogs"></i>
               <p>
                 Pengaturan
+                <i class="fas fa-angle-left right"></i>
               </p>
             </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ route('setting.profil') }}" class="nav-link @if(Request::is('admin/setting/profil')) active @endif">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Profil</p>
+                </a>
+              </li>
+            </ul>
           </li>
           <li class="nav-item">
             <a href="{{ route('logout') }}" class="nav-link @if(Request::is('admin/sampelsudahdiambil')) active @endif">

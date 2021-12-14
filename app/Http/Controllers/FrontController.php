@@ -16,9 +16,16 @@ class FrontController extends Controller
         return view('index');
     }
 
-    public function dttrackingsampel($id)
+    public function dttrackingsampel(Request $request, $id)
     {
+        // $this->validate($request, [
+        //     'g-recaptcha-response' => 'required|captcha',
+        // ]);
+
         $permintaan = TerimaSampel::where('resi', $id)->first();
+        if (!$permintaan) {
+            return response(['status' => 0, 'msg' => 'Data Sampel tidak ditemukan.']);
+        }
         $data = TrackingSampel::with(['permintaan', 'status', 'permintaan.pemiliksampel'])
             ->where('id_permintaan', $permintaan->id_permintaan);
         return DataTables::of($data)

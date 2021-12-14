@@ -84,7 +84,7 @@
                                 @foreach ($produksampel as $item)
                                     <tr>                
                                         <td style="border: 1px solid #000; width:5%; text-align: center">{{ $loop->iteration }}</td>
-                                        <td style="border: 1px solid #000; width:40%; font-size: 11px;" colspan="4">{{ $item->nama_produk }}</td>
+                                        <td style="border: 1px solid #000; width:40%; font-size: 11px;" colspan="4">{{ $item->nama_produk . " (". $item->kode_sampel .")"}}</td>
                                     </tr>
                                     @foreach ($item->ujiproduk as $i)
                                     {{-- {{ dd($item->ujiproduk) }} --}}

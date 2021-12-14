@@ -56,10 +56,12 @@
                 </div>
               </div>
               <div class="col">
-                <div class="form-group">
-                  <label for="nama_sampel">Nama Sampel</label>
-                  <input type="text" class="form-control" id="nama_sampel" name="nama_sampel" placeholder="Nama Sampel" multiple>
-                </div>
+                <fieldset class="border p-2 pt-0">
+                  <legend class="w-auto px-1 my-0">List Nama Sampel</legend>
+                  <div class="form-group row" id="namasampel_cont">
+                    
+                  </div>
+                </fieldset>
               </div>
             </div>
           </div>

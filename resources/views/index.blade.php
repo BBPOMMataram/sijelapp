@@ -5,11 +5,14 @@
     <div class="tm-col-left"></div>
     <main class="tm-col-right">
         <section class="tm-content">
+            <form>
             <h2 class="mb-5 tm-content-title">Tracking Sampel</h2>
-            <div><input type="text" id="resisampel" placeholder="No Resi Sampel" class="form-control px-2 rounded"
+            <div><input type="text" id="resisampel" placeholder="No Resi Sampel" class="form-control px-2 rounded mb-1"
                     autofocus></div>
+            {{-- {!! NoCaptcha::display() !!} --}}
             <button type="button" class="btn btn-primary rounded mt-4 track">Track</button>
-        </section>
+        </form>
+    </section>
     </main>
 </div>
 
@@ -120,22 +123,53 @@
     }
     
     var canvas = document.querySelector("canvas");
-      var signaturePad = new SignaturePad(canvas);
+    var signaturePad = new SignaturePad(canvas);
     
     $(function () {
         $('body').on('click', 'button.track', function(e){
             e.preventDefault();
-            $('#modaltracking').modal('show');
 
             const resisampel = $('#resisampel').val();
             let url = "{{ route('dttrackingsampel', "_id")}}";
             url = url.replace("_id", resisampel);
             
+            let fd = new FormData($('form')[0]);
+            fd.append('_token', "{{ csrf_token() }}");
+            
             $.ajax({
                 type: "GET",
                 url,
+                // data: fd,
+                // cache: false,
+                // processData: false,
+                // contentType: false,
                 success: function (response) {
-                    filldata(response.data[0]);
+                    if(response.status !== 0){
+                        filldata(response.data[0]);
+                        $('#modaltracking').modal('show');
+                    }else{
+                        Swal.fire({
+                            title: 'Not Found',
+                            text: response.msg,
+                            icon: 'error'
+                        })
+                    }
+                },
+                error: function(err){
+                    if(err.status == 422){
+                    let errMsg = '';
+                    $.each(err.responseJSON.errors, function (indexInArray, valueOfElement) {
+                        $.each(valueOfElement, function (indexInArray, valueOfElement) { 
+                        errMsg += '<li class="text-left">' + valueOfElement + '</li>';
+                        });
+                    });
+
+                    Swal.fire({
+                        icon: 'error',
+                        title: err.responseJSON.message,
+                        html: '<ul>' + errMsg + '</ul>',
+                    })
+                    }
                 }
             });
             
@@ -204,11 +238,14 @@
                 }
             });
         });
-
-
+        
+        $('#modaltracking').on('hidden.bs.modal', function(){
+            location.reload();
+        })
     });
-
+    
 </script>
+{{-- {!! NoCaptcha::renderJs('id') !!} --}}
 @endpush
 @push('styles')
 <style>

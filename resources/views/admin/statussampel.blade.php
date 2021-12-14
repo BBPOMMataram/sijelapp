@@ -173,6 +173,7 @@
             
             $('#modalstatussampel').modal('show');
             //fill form
+            $('#id_tracking').val(rowData['id_tracking']);
             //detail sampel
             dtdetailterimasampel(rowData['id_permintaan']);
             // data status
@@ -211,6 +212,103 @@
             url = url.replace('_id', id);
             data = {_token: "{{ csrf_token() }}"}
 
+            const statusSampel = rowData['id_status_sampel'];
+            let text = '';
+            let icon = 'question';
+
+            switch (statusSampel) {
+                case 0:
+                    text = 'Apakah berkas sampel sudah diverifikasi & akan dilanjutkan ke kaji ulang?'
+                    break;
+                case 1:
+                    text = 'Apakah kaji ulang sudah selesai & siap lanjut ke pembayaran ?'
+                    break;
+                case 2:
+                    text = '<div style="text-align: -webkit-center;"><input type="datetime-local" class="form-control w-50" id="tglestimasi" /></div>'
+                    break;
+                case 3:
+                    text = 'Apakah pengujian sampel sudah selesai ?'
+                    // text += '<br>'
+                    // text += '<label for="hasil_uji">Hasil Uji</label>'
+                    // text += '<select id="hasil_uji" class="form-control">'
+                    // text += '<option>Positif</option>'
+                    // text += '<option>Negatif</option>'
+                    // text += '<option>TMS</option>'
+                    // text += '<option>MS</option>'
+                    // text += '</select>'
+                    break;
+                case 4:
+                    text = 'Apakah sudah selesai verifikasi LHU ?'
+                    break;
+                case 5:
+                    text = 'Apakah sampel sudah dilegalisir ?'
+                    break;
+                case 6:
+                    text = 'Apakah sampel sudah selesai ?'
+                    break;
+                case 7:
+                    text = 'Apakah sampel sudah diambil ?';
+                    // text += '<label>Nama Tersangka';
+                    // text += '<input class="form-control" type="text" id="tersangka" />';
+                    break;
+                case 8:
+                    text = 'Maaf sampel sudah diambil & selesai'
+                    icon = 'warning';
+                    break;
+                default:
+                    break;
+            }
+            
+            
+            Swal.fire({
+                title: 'Konfirmasi',
+                html: text,
+                icon: icon,
+                showCancelButton: true,
+            }).then(function(val){
+
+                if(statusSampel === 2){
+                    data.tanggal_estimasi = $('#tglestimasi').val();
+                }
+                if(statusSampel === 3){
+                    data.hasil_uji = $('#hasil_uji').val();
+                }
+                // if(statusSampel === 7){
+                //     data.tersangka = $('#tersangka').val();
+                // }
+
+                if(val.isConfirmed){
+                    $.ajax({
+                        type: "POST",
+                        url,
+                        data,
+                        success: function (response) {
+                            if(response.status){
+                                Toast.fire({
+                                    icon: 'success',
+                                    title: '&nbsp;'+response.msg,
+                                })
+                            }else{
+                                Toast.fire({
+                                    icon: 'warning',
+                                    title: '&nbsp;'+response.msg,
+                                })
+                            }
+                            dttable.ajax.reload(null, false);
+                        }
+                    });
+                }
+            });
+        });
+
+        $('.modal').on('click', '#cancelstep', function (e) { 
+            e.preventDefault();
+
+            const id = $('#id_tracking').val();
+            let url = "{{ route('statussampel.cancelstep', "_id") }}"
+            url = url.replace('_id', id);
+            data = {_token: "{{ csrf_token() }}"}
+
             $.ajax({
                 type: "POST",
                 url,
@@ -228,6 +326,7 @@
                         })
                     }
                     dttable.ajax.reload(null, false);
+                    $('#modalstatussampel').modal('hide');
                 }
             });
         });
@@ -236,9 +335,9 @@
             e.preventDefault();
             const idStatus = $(this).val();
             if(idStatus){
-                dttable.column(7).search("^"+idStatus+"$", true).draw();
+                dttable.column(8).search("^"+idStatus+"$", true).draw();
             }else{
-                dttable.column(7).search('').draw();
+                dttable.column(8).search('').draw();
             }
         });
     }); // end doc ready

@@ -2,14 +2,15 @@
   <div class="modal-dialog modal-xl">
     <div class="modal-content bg-primary">
       <div class="modal-header">
-        <h4 class="modal-title">Detail Data <b class="kodesampel"></b></h4>
+        <input type="hidden" id="id_tracking">
+        <h4 class="modal-title">Detail Data <b class="kodesampel"></b> <button id="cancelstep" class="btn btn-danger">Cancel Step</button></h4>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
         <div class="card-body">
-          <h2>Status Sampel : <b id="statussampel">Status</b></h2>
+          <h2>Status Sampel : <b id="statussampel" class="text-warning">Status</b></h2>
           <div class="row">
             <div class="col-lg-6">
               <fieldset class="border p-2 pt-0 h-100">

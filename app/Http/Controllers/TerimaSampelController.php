@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ProdukSampel;
 use App\Models\StatusSampel;
 use App\Models\TerimaSampel;
 use App\Models\TrackingSampel;
@@ -43,13 +44,14 @@ class TerimaSampelController extends Controller
     {
         $this->validate($request, [
             'id_pemilik' => 'required',
-            'kode_sampel' => 'required',
+            'kode_sampel_arr.*' => 'required',
             'kemasan_sampel' => 'required',
             'berat_sampel' => 'required',
             'jumlah_sampel' => 'required|numeric',
             'no_urut_penerimaan' => 'required|numeric',
-            'nama_sampel' => 'required',
+            'nama_sampel_arr.*' => 'required',
         ]);
+
 
         $data = new TerimaSampel();
 
@@ -59,11 +61,25 @@ class TerimaSampelController extends Controller
         $data->berat_sampel = $request->berat_sampel;
         $data->jumlah_sampel = $request->jumlah_sampel;
         $data->no_urut_penerimaan = $request->no_urut_penerimaan;
-        $data->nama_sampel = $request->nama_sampel;
         $data->id_kategori = $request->id_kategori;
 
         $data->resi = Str::random(6);
         $data->save();
+
+        $namasampel = '';
+        foreach ($request->nama_sampel_arr as $i => $value) {
+            $detailsampel = new ProdukSampel();
+            $detailsampel->id_permintaan = $data->id_permintaan;
+            $detailsampel->nama_produk = $value;
+            $detailsampel->kode_sampel = $request->kode_sampel_arr[$i];
+            $detailsampel->save();
+            $namasampel .= $value . ',';
+        }
+
+        //nama sampel utk kaji ulang
+        $data->nama_sampel = substr($namasampel, 0, -1);
+        $data->save();
+        
 
         //add data for tracking sampel
         $datatracking = new TrackingSampel();
@@ -116,5 +132,12 @@ class TerimaSampelController extends Controller
         TrackingSampel::where('id_permintaan', $id)->delete();
 
         return response(['status' => 1, 'msg' => 'Hapus data berhasil.']);
+    }
+
+    public function lastnourut($idkategori)
+    {
+        $data = TerimaSampel::where('id_kategori', $idkategori)
+        ->where('no_urut_penerimaan', 'like', '%'.now()->year)->orderByDesc('id_permintaan')->first();
+        return $data;
     }
 }
