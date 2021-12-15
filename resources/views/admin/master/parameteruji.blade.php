@@ -25,6 +25,7 @@
                                         <th class="align-middle">Parameter Uji</th>
                                         <th class="align-middle">Metode</th>
                                         <th class="align-middle">Kode</th>
+                                        <th class="align-middle">Kode</th>
                                         <th class="align-middle">Biaya (Rp)</th>
                                         <th class="align-middle">Actions</th>
                                     </tr>
@@ -64,6 +65,7 @@
                 {data: 'DT_RowIndex'},
                 {data: 'parameter_uji'},
                 {data: 'metodeuji.metode'},
+                {data: 'kode'},
                 {data: 'metodeuji.kode_layanan'},
                 {data: 'metodeuji.biaya', render: $.fn.dataTable.render.number(',', null, null, 'Rp. ')},
                 {data: 'actions', className: 'text-center align-middle'},
@@ -157,6 +159,7 @@
             //fill form
             $('#namaparameter').val(rowData['parameter_uji']).prop('disabled', true);
             $('#metode').val(rowData['id_kode_layanan']).prop('disabled', true).trigger('change');
+            $('#kode').val(rowData['kode']).prop('disabled', true);
             $('.submit').css('display', 'none')
             $('.modal-title').text('Detail data');
             // $('#id').val(id);
@@ -177,6 +180,7 @@
             //fill form editing
             $('#namaparameter').val(rowData['parameter_uji']);
             $('#metode').val(rowData['id_kode_layanan']).trigger('change');
+            $('#kode').val(rowData['kode']);
             $('#id').val(id);
             $('.modal-title').text('Ubah Data');
         });
@@ -241,6 +245,7 @@
 
             $(this).find('form').trigger('reset');
             $(this).find('form input').prop('disabled', false);
+            $(this).find('form select').prop('disabled', false);
             $(this).find('form .select2').prop('disabled', false);
             $(this).find('.select2').val('').trigger('change')
             $('.submit').css('display', 'inline-block')

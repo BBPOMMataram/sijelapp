@@ -23,7 +23,7 @@
                                     <tr>
                                         <th class="align-middle">No</th>
                                         <th class="align-middle">Metode</th>
-                                        <th class="align-middle">Kode</th>
+                                        <th class="align-middle">Kode Layanan</th>
                                         <th class="align-middle">Biaya (Rp)</th>
                                         <th class="align-middle">Actions</th>
                                     </tr>

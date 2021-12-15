@@ -56,7 +56,6 @@ class TerimaSampelController extends Controller
         $data = new TerimaSampel();
 
         $data->id_pemilik = $request->id_pemilik;
-        $data->kode_sampel = $request->kode_sampel;
         $data->kemasan_sampel = $request->kemasan_sampel;
         $data->berat_sampel = $request->berat_sampel;
         $data->jumlah_sampel = $request->jumlah_sampel;
@@ -65,7 +64,7 @@ class TerimaSampelController extends Controller
 
         $data->resi = Str::random(6);
         $data->save();
-
+        
         $namasampel = '';
         foreach ($request->nama_sampel_arr as $i => $value) {
             $detailsampel = new ProdukSampel();
@@ -73,11 +72,12 @@ class TerimaSampelController extends Controller
             $detailsampel->nama_produk = $value;
             $detailsampel->kode_sampel = $request->kode_sampel_arr[$i];
             $detailsampel->save();
-            $namasampel .= $value . ',';
+            $namasampel .= $value . ', ';
         }
-
-        //nama sampel utk kaji ulang
-        $data->nama_sampel = substr($namasampel, 0, -1);
+        
+        //nama & kode sampel utk kaji ulang
+        $data->kode_sampel = $request->kode_sampel.' - '.$detailsampel->kode_sampel;
+        $data->nama_sampel = substr($namasampel, 0, -2);
         $data->save();
         
 

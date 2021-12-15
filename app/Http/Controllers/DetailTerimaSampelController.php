@@ -17,9 +17,9 @@ class DetailTerimaSampelController extends Controller
         return DataTables::of($data)
             ->addIndexColumn()
             ->addColumn('actions', function () {
-                $btn = '<a href="#"><i class="fas fa-eye text-primary show"></i></a>';
-                $btn .= '<a href="#"><i class="fas fa-pen text-info edit mx-1"></i></a>';
-                $btn .= '<a href="#"><i class="fas fa-trash text-danger delete"></i></a>';
+                // $btn = '<a href="#"><i class="fas fa-eye text-primary show"></i></a>';
+                $btn = '<a href="#"><i class="fas fa-pen text-info edit mx-1"></i></a>';
+                // $btn .= '<a href="#"><i class="fas fa-trash text-danger delete"></i></a>';
                 return $btn;
             })
             ->rawColumns(['actions'])

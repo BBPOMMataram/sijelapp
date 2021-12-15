@@ -20,6 +20,13 @@
               <label for="metode">Metode</label>
               <select name="metode" id="metode" class="select2"></select>
             </div>
+            <div class="form-group">
+              <label for="kode">Kode</label>
+              <select name="kode" id="kode" class="form-control w-auto">
+                <option value="K">K</option>
+                <option value="M">M</option>
+              </select>
+            </div>
           </div>
           <!-- /.card-body -->
         </form>

@@ -24,89 +24,44 @@ class ParameterUjiController extends Controller
             ->rawColumns(['actions'])
             ->toJson();
     }
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    
     public function index()
     {
         $title = 'Metode Uji';
         return view('admin.master.parameteruji', compact('title'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $this->validate($request, [
             'namaparameter' => 'required',
             'metode' => 'required',
+            'kode' => 'required',
         ]);
 
         $data = new ParameterUji();
 
         $data->parameter_uji = $request->namaparameter;
         $data->id_kode_layanan = $request->metode;
+        $data->kode = $request->kode;
         $data->save();
 
         return response(['status' => 1, 'msg' => 'Tambah data berhasil.']);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
         $this->validate($request, [
             'namaparameter' => 'required',
             'metode' => 'required',
+            'kode' => 'required',
         ]);
 
         $data = ParameterUji::find($id);
 
         $data->parameter_uji = $request->namaparameter;
         $data->id_kode_layanan = $request->metode;
+        $data->kode = $request->kode;
 
         if (!$data->isDirty()) {
             return response(['status' => 0, 'msg' => 'Tidak ada perubahan data.']);
@@ -115,13 +70,7 @@ class ParameterUjiController extends Controller
 
         return response(['status' => 1, 'msg' => 'Ubah data berhasil.']);
     }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    
     public function destroy($id)
     {
         ParameterUji::destroy($id);

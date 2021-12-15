@@ -41,7 +41,7 @@
                             <div style="width: 100%; height: 215px; border:1px solid #000;">
                                 <div style="font-size: 11px; width: 30%; float: left;">Nama Sampel</div>
                                 <div style="font-size: 11px; float: left;">:</div>
-                                <div style="font-size: 11px; float: left; width: 69%; ">&nbsp;{{ $permintaan->nama_sampel }}</div>
+                                <div style="font-size: 11px; float: left; width: 69%; text-align: justify; ">&nbsp;{{ $permintaan->nama_sampel }}</div>
                                 <br>
                                 <div style="font-size: 11px; width: 30%; float: left;">Nama Pemilik Sampel</div>
                                 <div style="font-size: 11px; float: left;">:</div>
@@ -82,9 +82,30 @@
                                 $totalpersampel = 0;
                                 @endphp
                                 @foreach ($produksampel as $item)
+                                @php
+                                $kode = '';
+                                    foreach ($item->ujiproduk as $value) {
+                                        if ($value->parameter->kode === 'K') {
+                                                $kode .= 'K';
+                                        }
+                                        if ($value->parameter->kode === 'M') {
+                                                $kode .= 'M';
+                                        }
+                                    }
+                                
+                                if(strpos($kode, 'K') !== false){
+                                    if(strpos($kode, 'M') !== false){
+                                        $kode = 'KM';
+                                    }else{
+                                        $kode = 'K';
+                                    }
+                                }elseif(strpos($kode, 'M') !== false){
+                                    $kode = 'M';
+                                }
+                                @endphp
                                     <tr>                
                                         <td style="border: 1px solid #000; width:5%; text-align: center">{{ $loop->iteration }}</td>
-                                        <td style="border: 1px solid #000; width:40%; font-size: 11px;" colspan="4">{{ $item->nama_produk . " (". $item->kode_sampel .")"}}</td>
+                                        <td style="border: 1px solid #000; width:40%; font-size: 11px;" colspan="4">{{ $item->nama_produk . " (". $item->kode_sampel .".". $kode .")"}}</td>
                                     </tr>
                                     @foreach ($item->ujiproduk as $i)
                                     {{-- {{ dd($item->ujiproduk) }} --}}
