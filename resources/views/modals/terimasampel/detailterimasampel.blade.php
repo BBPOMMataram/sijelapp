@@ -51,7 +51,7 @@
               </div>
               <div class="col-1">
                 <br>
-                  <button id='addparameteruji' class="btn btn-info mt-2">+</button>
+                  <button id='addparameteruji' class="btn btn-info mt-2 add">+</button>
               </div>
             </div>
             <div id="listparameteruji" class="mt-2 form-group row">
