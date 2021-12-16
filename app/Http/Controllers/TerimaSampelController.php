@@ -25,8 +25,8 @@ class TerimaSampelController extends Controller
                 return '<a href='. route('detailterimasampel.index', $data->id_permintaan) .'>'.$data->no_urut_penerimaan.'</a>';
             })
             ->addColumn('actions', function ($data) {
-                $btn = '<a href="#"><i class="fas fa-eye text-primary show"></i></a>';
-                $btn .= '<a href="#"><i class="fas fa-pen text-info edit mx-1"></i></a>';
+                // $btn = '<a href="#"><i class="fas fa-eye text-primary show"></i></a>';
+                $btn = '<a href="#"><i class="fas fa-pen text-info edit mr-2"></i></a>';
                 $btn .= '<a href="#"><i class="fas fa-trash text-danger delete"></i></a>';
                 return $btn;
             })
@@ -43,6 +43,7 @@ class TerimaSampelController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
+            'id_kategori' => 'required',
             'id_pemilik' => 'required',
             'kode_sampel_arr.*' => 'required',
             'kemasan_sampel' => 'required',
@@ -100,25 +101,26 @@ class TerimaSampelController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
+            'id_kategori' => 'required',
             'id_pemilik' => 'required',
-            'kode_sampel' => 'required',
+            // 'kode_sampel' => 'required',
             'kemasan_sampel' => 'required',
             'berat_sampel' => 'required',
-            'jumlah_sampel' => 'required|numeric',
+            // 'jumlah_sampel' => 'required|numeric',
             'no_urut_penerimaan' => 'required|numeric',
-            'nama_sampel' => 'required',
+            // 'nama_sampel' => 'required',
         ]);
 
         $data = TerimaSampel::find($id);
 
+        $data->id_kategori = $request->id_kategori;
         $data->id_pemilik = $request->id_pemilik;
-        $data->kode_sampel = $request->kode_sampel;
+        // $data->kode_sampel = $request->kode_sampel;
         $data->kemasan_sampel = $request->kemasan_sampel;
         $data->berat_sampel = $request->berat_sampel;
-        $data->jumlah_sampel = $request->jumlah_sampel;
+        // $data->jumlah_sampel = $request->jumlah_sampel;
         $data->no_urut_penerimaan = $request->no_urut_penerimaan;
-        $data->nama_sampel = $request->nama_sampel;
-        $data->id_kategori = $request->id_kategori;
+        // $data->nama_sampel = $request->nama_sampel;
 
         if(!$data->isDirty()){
             return response(['status' => 0, 'msg' => 'Tidak ada perubahan data.']);

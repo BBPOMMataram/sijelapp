@@ -193,7 +193,7 @@
                  $('select[name='+i+']').val(v).prop('disabled', true).trigger('change');
             });
 
-            $('.submit').css('display', 'none')
+            $('.submit').addClass('d-none')
             $('.modal-title').text('Detail data');
             // $('#id').val(id);
         });
@@ -210,10 +210,19 @@
             $('#modalterimasampel .submit').removeClass('adding');
 
             //fill form editing
-            $.each(rowData, function (i, v) { 
-                 $('input[name='+i+']').val(v);
-                 $('select[name='+i+']').val(v).trigger('change');
+            $.each(rowData, function (i, v) {
+                // if(i === 'kode_sampel'){
+                //     v = v.split('-')[0].trim();
+                // }
+                $('select[name='+i+']').val(v).trigger('change');
+                $('input[name='+i+']').val(v);
             });
+
+            $('#kode_sampel').prop('disabled', true);
+            $('#jumlah_sampel').prop('disabled', true);
+
+            $('#namasampel_cont').closest('fieldset').addClass('d-none');
+
             $('#id').val(id);
             $('.modal-title').text('Ubah Data');
         });
@@ -271,21 +280,18 @@
             });
         });
 
-        //when modal close switch to adding and reset form
-        $('#modalterimasampel').on('hidden.bs.modal', function(e){
+        $('#modalterimasampel').on('hidden.bs.modal', function(e){ //when modal close
             $('#modalterimasampel .submit').addClass('adding');
             $('#modalterimasampel .submit').removeClass('editing');
 
             $(this).find('form').trigger('reset');
             $(this).find('form input').prop('disabled', false);
             $(this).find('form .select2').prop('disabled', false);
-            $('.submit').css('display', 'inline-block')
+            $(this).find('form .select2').val('').trigger('change');
+            $('#namasampel_cont').empty();
+            $('.submit').removeClass('d-none');
             $('.modal-title').text('Form Tambah Data');
-        });
-
-        //when modal open autofocus first field
-        $('#modalterimasampel').on('shown.bs.modal', function(e){
-            $('input:text:visible:first').focus();
+            $('#namasampel_cont').closest('fieldset').removeClass('d-none');
         });
 
         //fill select kategori
@@ -364,24 +370,26 @@
             e.preventDefault();
             let url = "{{ route('lastnourut',"_id") }}"
             url = url.replace("_id", $(this).val());
-            
+            const btnSubmit = $('button.submit'); //for avoid adding 1 when not in submit mode
             $.ajax({
                 type: "GET",
                 url,
                 success: function (response) {
-                    if(response.no_urut_penerimaan){
-                        let nourut = response.no_urut_penerimaan.substring(0,3);
-                        nourut = parseInt(nourut) + 1;
-                        nourut = ''+nourut;
-                        if(nourut.length === 1){
-                            nourut = '00' + nourut;
-                        }else if(nourut.length === 2){
-                            nourut = '0' + nourut;
+                    if(btnSubmit.hasClass('adding') && !btnSubmit.hasClass('d-none')){
+                        if(response.no_urut_penerimaan){
+                            let nourut = response.no_urut_penerimaan.substring(0,3);
+                            nourut = parseInt(nourut) + 1;
+                            nourut = ''+nourut;
+                            if(nourut.length === 1){
+                                nourut = '00' + nourut;
+                            }else if(nourut.length === 2){
+                                nourut = '0' + nourut;
+                            }
+                            nourut = nourut + "{{ now()->month . now()->year }}";
+                            $('#no_urut_penerimaan').val(nourut);
+                        }else{
+                            $('#no_urut_penerimaan').val('001' +"{{ now()->month . now()->year }}");
                         }
-                        nourut = nourut + "{{ now()->month . now()->year }}";
-                        $('#no_urut_penerimaan').val(nourut);
-                    }else{
-                        $('#no_urut_penerimaan').val('001' +"{{ now()->month . now()->year }}");
                     }
                 }
             });
@@ -392,7 +400,7 @@
             const kodesampel = $('#kode_sampel').val();
             const jumlahsampel = $('#jumlah_sampel').val();
             
-            let kode1 = kodesampel.substr(0, kodesampel.lastIndexOf('.') + 1);
+            let kode1 = kodesampel.substr(0, kodesampel.lastIndexOf('.') + 1); // katanya avoid using substr tp use substring
             let kode2 = kodesampel.substr(kodesampel.lastIndexOf('.') + 1);
             let no = 0;
             $('#namasampel_cont').empty();
