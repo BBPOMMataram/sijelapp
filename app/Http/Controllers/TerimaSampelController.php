@@ -66,6 +66,7 @@ class TerimaSampelController extends Controller
         $data->save();
         
         $namasampel = '';
+        $firstkodesampel = '';
         foreach ($request->nama_sampel_arr as $i => $value) {
             $detailsampel = new ProdukSampel();
             $detailsampel->id_permintaan = $data->id_permintaan;
@@ -73,13 +74,16 @@ class TerimaSampelController extends Controller
             $detailsampel->kode_sampel = $request->kode_sampel_arr[$i];
             $detailsampel->save();
             $namasampel .= $value . ', ';
+            if($i === 0){
+                $firstkodesampel = $request->kode_sampel_arr[$i];
+            }
         }
         
         //nama & kode sampel utk kaji ulang
-        if($request->kode_sampel === $detailsampel->kode_sampel){
-            $data->kode_sampel = $request->kode_sampel;
+        if($firstkodesampel === $detailsampel->kode_sampel){
+            $data->kode_sampel = $firstkodesampel;
         }else{
-            $data->kode_sampel = $request->kode_sampel.' - '.$detailsampel->kode_sampel;
+            $data->kode_sampel = $firstkodesampel.' - '.$detailsampel->kode_sampel;
         }
         $data->nama_sampel = substr($namasampel, 0, -2);
         $data->save();
