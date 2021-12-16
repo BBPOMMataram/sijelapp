@@ -398,10 +398,9 @@
             $('#namasampel_cont').empty();
             for (let jml = 0; jml < jumlahsampel; jml++) {
                 no++;
-                kode2 = parseInt(kode2) + 1;
-                kode2 = kode2.toString();
-                kode2 = kode2.padStart(4, "0");
+                kode2 = kode2.toString().padStart(4, "0");
                 let data = '<div class="col-sm-1"><input type="text" readonly class="form-control-plaintext text-center text-light font-weight-bold" value="'+no+'"></div><div class="col-sm-6 mb-1"><input type="text" class="form-control" name="nama_sampel_arr[]" placeholder="Nama Sampel"></div><div class="col-sm-5"><input type="text" class="form-control" name="kode_sampel_arr[]" value="'+ kode1+kode2 +'" readonly></div>';
+                kode2 = parseInt(kode2) + 1;
                 $('#namasampel_cont').append(data);
             }
         });
