@@ -76,7 +76,11 @@ class TerimaSampelController extends Controller
         }
         
         //nama & kode sampel utk kaji ulang
-        $data->kode_sampel = $request->kode_sampel.' - '.$detailsampel->kode_sampel;
+        if($request->kode_sampel === $detailsampel->kode_sampel){
+            $data->kode_sampel = $request->kode_sampel;
+        }else{
+            $data->kode_sampel = $request->kode_sampel.' - '.$detailsampel->kode_sampel;
+        }
         $data->nama_sampel = substr($namasampel, 0, -2);
         $data->save();
         

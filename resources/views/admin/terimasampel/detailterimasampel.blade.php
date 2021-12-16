@@ -10,7 +10,7 @@
                 <div class="card">
                     <div class="card-header">
                         <h3 class="card-title">
-                            <button type="button" class="btn btn-primary" data-toggle="modal"
+                            <button type="button" class="btn btn-outline-primary" data-toggle="modal"
                                 data-target="#modaldetailterimasampel">+</button>
                         </h3>
                         <div class="card-tools">
@@ -60,11 +60,11 @@
 @push('scripts')
 <script>
     var Toast = Swal.mixin({
-                toast: true,
-                position: 'top-end',
-                showConfirmButton: false,
-                timer: 5000
-            });
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 5000
+    });
 
     const dttable = $("#terimasampel").DataTable({
         serverside: true,
@@ -157,10 +157,20 @@
     }
 
     function updateList(p_uji, j_uji, p_uji_text){
-        let data = '<input type="hidden" name="p_uji[]" value="'+p_uji+'" /><div class="col-10 mb-1"><input class="form-control" value="'+p_uji_text+'" readonly/></div><div class="col-2"><input name="j_uji[]" class="form-control" value="'+j_uji+'" readonly/></div>';
+        let data = '<div class="col-12 form-group row">';
+            data += '<input type="hidden" name="p_uji[]" value="'+p_uji+'" />';
+            data += '<div class="col-10">';
+            data += '<input class="form-control" value="'+p_uji_text+'" readonly/>';
+            data += '</div>';
+            data += '<div class="col-1">';
+            data += '<input name="j_uji[]" class="form-control" value="'+j_uji+'" readonly/>';
+            data += '</div>';
+            data += '<div class="col-1">';
+            data += '<button class="btn btn-danger delete"><i class="fa fa-trash"></i></button>';
+            data += '</div>';
+            data += '</div>';
 
         $('#listparameteruji').append(data);
-
     }
 
     function filljenissampel() {
@@ -193,6 +203,12 @@
     $(function () {
         fillparameteruji();
         filljenissampel();
+
+        $('#listparameteruji').on('click', '.delete', function(e){
+            e.preventDefault();
+
+            $(this).closest('.row').remove();
+        })
 
         //when submit adding
         $('#modaldetailterimasampel').on('click', '.submit.adding', function(evt){
@@ -553,6 +569,10 @@
 
     .select2-container .select2-selection--single {
         height: inherit;
+    }
+
+    .select2-container--default .select2-selection--multiple .select2-selection__choice {
+        background-color: #017AFC;
     }
 </style>
 @endpush

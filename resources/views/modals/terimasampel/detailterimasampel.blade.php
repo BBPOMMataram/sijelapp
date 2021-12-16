@@ -1,5 +1,5 @@
 <div class="modal fade" id="modaldetailterimasampel">
-  <div class="modal-dialog modal-lg">
+  <div class="modal-dialog modal-xl">
     <div class="modal-content bg-primary">
       <div class="modal-header">
         <h4 class="modal-title">Form Tambah Data</h4>
@@ -47,16 +47,16 @@
               <div class="col-2">
                   <label for="jumlah_pengujian">Jumlah Uji</label>
                   <input type="number" class="form-control" id="jumlah_pengujian" name="jumlah_pengujian" value="1"
-                    placeholder="Jumlah Uji">
+                    placeholder="Jumlah Uji" min="1">
               </div>
               <div class="col-1">
                 <br>
-                  <button id='addparameteruji' class="btn btn-info mt-2 add">+</button>
+                  <button id='addparameteruji' class="btn btn-outline-light font-weight-bold mt-2 add">+</button>
               </div>
             </div>
-            <div id="listparameteruji" class="mt-2 form-group row">
+            <div id="listparameteruji" class="mt-2 row">
             </div>
-            <div id="listparameterujiedit" class="mt-2 form-group row">
+            <div id="listparameterujiedit" class="mt-2 row">
             </div>
           </div>
           <!-- /.card-body -->
