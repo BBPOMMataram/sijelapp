@@ -33,7 +33,7 @@ class DetailTerimaSampelController extends Controller
         return view('admin.terimasampel.detailterimasampel', compact('title', 'id'));
     }
 
-    public function store(Request $request, $id_permintaan)
+    public function store(Request $request)
     {
         $this->validate($request, [
             'nama_produk' => 'required',
@@ -80,18 +80,31 @@ class DetailTerimaSampelController extends Controller
     {
         $this->validate($request, [
             'nama_produk' => 'required',
-            'kode_sampel' => 'required',
+            // 'kode_sampel' => 'required',
         ]);
 
         $data = ProdukSampel::find($id);
 
         $data->nama_produk = $request->nama_produk;
-        $data->kode_sampel = $request->kode_sampel;
+
+        // $data->kode_sampel = $request->kode_sampel;
 
         // if(!$data->isDirty()){
         //     return response(['status' => 0, 'msg' => 'Tidak ada perubahan data.']);
         // }
         $data->save();
+
+        $kajiulang = TerimaSampel::find($data->id_permintaan);
+        
+        $datasampel = ProdukSampel::where('id_permintaan', $data->id_permintaan)->get();
+
+        $newnamasampel = '';
+        foreach ($datasampel as $value) {
+            $newnamasampel .= $value->nama_produk. ', ';
+        }
+
+        $kajiulang->nama_sampel = substr($newnamasampel, 0, -2);
+        $kajiulang->save();
 
         return response(['status' => 1, 'msg' => 'Ubah data berhasil.']);
     }

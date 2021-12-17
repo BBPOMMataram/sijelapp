@@ -11,7 +11,7 @@
                     <div class="card-header">
                         <h3 class="card-title">
                             <button type="button" class="btn btn-outline-primary" data-toggle="modal"
-                                data-target="#modaldetailterimasampel">+</button>
+                                data-target="#modaldetailterimasampel"><i class="fa fa-plus"></i></button>
                         </h3>
                         <div class="card-tools">
                             <ul class="nav nav-pills ml-auto">
@@ -344,6 +344,7 @@
             $('#modaldetailterimasampel .submit').addClass('editing');
             $('#modaldetailterimasampel .submit').removeClass('adding');
 
+            //switch to editing mode for parameteruji
             $('#addparameteruji').addClass('edit');
             $('#addparameteruji').removeClass('add');
 
@@ -352,7 +353,8 @@
             $('#jenisproduk').addClass('d-none');
 
 
-            const jenisprodukediting = '<div id="jenisprodukediting" class="font-weight-bold">'+ rowData['nama_produk'] +'</div>';
+            // const jenisprodukediting = '<div id="jenisprodukediting" class="font-weight-bold">'+ rowData['nama_produk'] +'</div>';
+            const jenisprodukediting = '<input id="jenisprodukediting" name="nama_produk" class="form-control" value="'+rowData['nama_produk'] +'" />';
             $('#jenisproduk').after(jenisprodukediting);
 
             //fill form editing
@@ -373,7 +375,7 @@
             });
             $('#id').val(id);
             $('.modal-title').text('Ubah Data');
-            $('button.submit').addClass('d-none');
+            // $('button.submit').addClass('d-none');
         });
 
         //when submit editing
@@ -401,7 +403,7 @@
                             icon: 'success',
                             title: '&nbsp;'+response.msg,
                         })
-                        $('#modaldetailterimasampel').modal('hide');
+                        // $('#modaldetailterimasampel').modal('hide');
                         dttable.ajax.reload(null, false);
                     }else{
                         Toast.fire({

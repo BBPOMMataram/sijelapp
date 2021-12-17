@@ -211,14 +211,14 @@
 
             //fill form editing
             $.each(rowData, function (i, v) {
-                // if(i === 'kode_sampel'){
-                //     v = v.split('-')[0].trim();
-                // }
+                if(i === 'kode_sampel'){
+                    v = v.split('-')[0].trim();
+                }
                 $('select[name='+i+']').val(v).trigger('change');
                 $('input[name='+i+']').val(v);
             });
 
-            $('#kode_sampel').prop('disabled', true);
+            $('#kode_sampel').attr('title', 'Isi hanya dengan kode sampel pertama jika ingin merubah kode');
             $('#jumlah_sampel').prop('disabled', true);
 
             $('#namasampel_cont').closest('fieldset').addClass('d-none');
@@ -292,6 +292,7 @@
             $('.submit').removeClass('d-none');
             $('.modal-title').text('Form Tambah Data');
             $('#namasampel_cont').closest('fieldset').removeClass('d-none');
+            $('#kode_sampel').attr('title', '');
         });
 
         //fill select kategori

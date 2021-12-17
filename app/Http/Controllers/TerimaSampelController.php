@@ -110,21 +110,44 @@ class TerimaSampelController extends Controller
             'no_urut_penerimaan' => 'required|numeric',
             // 'nama_sampel' => 'required',
         ]);
-
+        
         $data = TerimaSampel::find($id);
 
         $data->id_kategori = $request->id_kategori;
         $data->id_pemilik = $request->id_pemilik;
-        // $data->kode_sampel = $request->kode_sampel;
         $data->kemasan_sampel = $request->kemasan_sampel;
         $data->berat_sampel = $request->berat_sampel;
-        // $data->jumlah_sampel = $request->jumlah_sampel;
         $data->no_urut_penerimaan = $request->no_urut_penerimaan;
+        // $data->jumlah_sampel = $request->jumlah_sampel;
+        // $data->kode_sampel = $request->kode_sampel;
         // $data->nama_sampel = $request->nama_sampel;
 
-        if(!$data->isDirty()){
-            return response(['status' => 0, 'msg' => 'Tidak ada perubahan data.']);
+        // if(!$data->isDirty()){
+        //     return response(['status' => 0, 'msg' => 'Tidak ada perubahan data.']);
+        // }
+        
+        if(trim(explode("-", $data->kode_sampel)[0]) !== $request->kode_sampel){
+            $dataproduk = ProdukSampel::where('id_permintaan', $id)->get();
+            $namasampel = '';
+            $firstkodesampel = $lastkodesampel = '';
+            foreach ($dataproduk as $key => $value) {
+                $value->kode_sampel = $request->kode_sampel;
+                $namasampel .= $value->nama_produk . ', ';
+                $value->save();
+                if($key === 0){
+                    $firstkodesampel = $request->kode_sampel;
+                }
+                $lastkodesampel = $request->kode_sampel;
+                $request->kode_sampel++;
+            }
+            if($firstkodesampel === $lastkodesampel){
+                $data->kode_sampel = $firstkodesampel;
+            }else{
+                $data->kode_sampel = $firstkodesampel.' - '.$lastkodesampel;
+            }
+            $data->nama_sampel = substr($namasampel, 0, -2);
         }
+
         $data->save();
 
         return response(['status' => 1, 'msg' => 'Ubah data berhasil.']);

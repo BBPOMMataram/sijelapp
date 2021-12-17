@@ -54,7 +54,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('detailterimasampel/{idProdukSampel}', [DetailTerimaSampelController::class, 'index'])->name('detailterimasampel.index');
         Route::match(['put', 'patch'], 'detailterimasampel/{idProdukSampel}', [DetailTerimaSampelController::class, 'update'])->name('detailterimasampel.update');
         Route::delete('detailterimasampel/{idProdukSampel}', [DetailTerimaSampelController::class, 'destroy'])->name('detailterimasampel.destroy');
-        Route::post('detailterimasampel/{idPermintaan}', [DetailTerimaSampelController::class, 'store'])->name('detailterimasampel.store');
+        Route::post('detailterimasampel', [DetailTerimaSampelController::class, 'store'])->name('detailterimasampel.store');
 
         Route::get('lastnourut/{idkategori}', [TerimaSampelController::class, 'lastnourut'])->name('lastnourut');
 
