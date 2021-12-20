@@ -178,7 +178,8 @@
             type: "GET",
             url: "{{ route('dtdetailterimasampel', $id) }}",
             success: function (response) {
-                $("#jenisproduk").append("<option value=''>==Pilih Jenis Produk==</option>"); 
+                // $("#jenisproduk").append("<option value=''>==Pilih Jenis Produk==</option>"); 
+                $("#jenisproduk").empty();
                 var len = 0;
                 if(response['data'] != null){
                     len = response['data'].length;
@@ -192,7 +193,11 @@
                     var namaproduk = response['data'][i].nama_produk;
 
                     var option = "<option value='"+id+"'>"+namaproduk+"</option>";
-                        
+
+                    //when array ujiproduk is empty
+                    if (response['data'][i].ujiproduk && response['data'][i].ujiproduk.length) {
+                        continue;
+                    }
                     $("#jenisproduk").append(option); 
                     }
                 }
@@ -202,7 +207,7 @@
 
     $(function () {
         fillparameteruji();
-        filljenissampel();
+        // filljenissampel();
 
         $('#listparameteruji').on('click', '.delete', function(e){
             e.preventDefault();
@@ -524,6 +529,7 @@
         //when modal open autofocus first field
         $('#modaldetailterimasampel').on('shown.bs.modal', function(e){
             $('input:text:visible:first').focus();
+            filljenissampel();
         });
 
         //fill select kategori
