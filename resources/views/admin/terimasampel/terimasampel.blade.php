@@ -377,8 +377,8 @@
                 url,
                 success: function (response) {
                     if(btnSubmit.hasClass('adding') && !btnSubmit.hasClass('d-none')){
-                        if(response.no_urut_penerimaan){
-                            let nourut = response.no_urut_penerimaan.substring(0,3);
+                        if(response.kajiulang !== null){
+                            let nourut = response.kajiulang.no_urut_penerimaan.substring(0,3);
                             nourut = parseInt(nourut) + 1;
                             nourut = ''+nourut;
                             if(nourut.length === 1){
@@ -388,8 +388,26 @@
                             }
                             nourut = nourut + "{{ now()->month . now()->year }}";
                             $('#no_urut_penerimaan').val(nourut);
+
+                            if (response.sampel !== null) {
+                                let kodesampel = response.sampel.kode_sampel;
+                                const firstkodesampel = kodesampel.substring(0, kodesampel.lastIndexOf('.') + 1);
+                                kodesampel = kodesampel.substring(kodesampel.lastIndexOf('.') + 1);
+                                kodesampel = parseInt(kodesampel) + 1;
+                                kodesampel = ''+kodesampel;
+                                if(kodesampel.length === 1){
+                                    kodesampel = '000' + kodesampel;
+                                }else if(kodesampel.length === 2){
+                                    kodesampel = '00' + kodesampel;
+                                }else if(kodesampel.length === 3){
+                                    kodesampel = '0' + kodesampel;
+                                }
+                                $('#kode_sampel').val(firstkodesampel+kodesampel);
+                            }
                         }else{
                             $('#no_urut_penerimaan').val('001' +"{{ now()->month . now()->year }}");
+                            $('#kode_sampel').val('');
+                            $('#kode_sampel').attr('placeholder', 'Input a new one, please!');
                         }
                     }
                 }

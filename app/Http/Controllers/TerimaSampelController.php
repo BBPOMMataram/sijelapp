@@ -171,6 +171,11 @@ class TerimaSampelController extends Controller
     {
         $data = TerimaSampel::where('id_kategori', $idkategori)
         ->where('no_urut_penerimaan', 'like', '%'.now()->year)->orderByDesc('id_permintaan')->first();
-        return $data;
+        $datadetail = null;
+        if($data){
+            $datadetail = ProdukSampel::where('id_permintaan', $data->id_permintaan)->orderByDesc('id_produk_sampel')->first();
+        }
+
+        return ['kajiulang' => $data, 'sampel' => $datadetail];
     }
 }
