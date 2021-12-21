@@ -87,6 +87,8 @@ Route::middleware(['auth'])->group(function () {
         Route::prefix('setting')->group(function(){
             Route::get('profil', [ProfilController::class, 'index'])->name('setting.profil');
         });
+
+        Route::post('changepwd', [ProfilController::class, 'changepwd'])->name('changepwd');
     });
     Route::get('logout', function () {
         Auth::logout();
