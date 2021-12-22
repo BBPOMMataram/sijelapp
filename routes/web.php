@@ -13,6 +13,7 @@ use App\Http\Controllers\Pengaturan\ProfilController;
 use App\Http\Controllers\StatusUjiController;
 use App\Http\Controllers\TerimaSampelController;
 use App\Http\Controllers\TrackingSampelController;
+use App\Http\Controllers\UserController;
 use Illuminate\Routing\RouteGroup;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
@@ -43,7 +44,9 @@ Route::middleware(['auth'])->group(function () {
                 'parameteruji' => ParameterUjiController::class,
                 'statusuji' => StatusUjiController::class,
                 'biayauji' => BiayaSampelController::class,
+                'usermanagement' => UserController::class,
             ]);
+            Route::put('resetpwd/{id}', [UserController::class, 'resetpwd'])->name('usermanagement.resetpwd');
             Route::get('dtpemiliksampel', [PemilikSampelController::class, 'dtpemiliksampel'])->name('dtpemiliksampel');
             Route::get('dtkategori', [KategoriController::class, 'dtkategori'])->name('dtkategori');
             Route::get('dtmetodeuji', [MetodeUjiController::class, 'dtmetodeuji'])->name('dtmetodeuji');

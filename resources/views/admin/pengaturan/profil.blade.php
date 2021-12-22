@@ -45,7 +45,7 @@
                         </div>
                         <div class="line">
                             <div class="label">Foto Profil</div>
-                            <div class="value"><img src="{{ Storage::url("profiles/".auth()->user()->image) }}" alt="profile photo" width="150px"></div>
+                            <div class="value"><img src="{{ Storage::url(auth()->user()->image) }}" alt="profile photo" width="150px"></div>
                         </div>
                         <div class="line">
                             <button id="changepwd" class="btn btn-danger mt-3" data-toggle="modal" data-target="#modalprofile">Ubah Password</button>

@@ -11,7 +11,7 @@
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-          <img src="{{ Storage::url('profiles/'. auth()->user()->image) }}" class="img-circle elevation-2" alt="User Image">
+          <img src="{{ Storage::url(auth()->user()->image) }}" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
           <a href="#" class="d-block">{{ Auth::user()->name }}</a>
@@ -86,6 +86,12 @@
                 <a href="{{ route('biayauji.index') }}" class="nav-link @if(Request::is('admin/master/biayauji')) active @endif">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Biaya Uji</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('usermanagement.index') }}" class="nav-link @if(Request::is('admin/master/usermanagement')) active @endif">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>User Management</p>
                 </a>
               </li>
             </ul>
