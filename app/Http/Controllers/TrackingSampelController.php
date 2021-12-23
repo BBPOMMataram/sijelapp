@@ -107,8 +107,17 @@ class TrackingSampelController extends Controller
                 return $res;
             })
             ->addColumn('actions', function ($data) {
+                $userlevel = auth()->user()->level;
+                $status = $data->id_status_sampel;
 
-                $btn = '<a href="#"><i class="fas fa-angle-double-right text-danger nextstep"></i></a>';
+                $btn = '';
+                if ($userlevel === 2) {
+                    if (in_array($status, [3, 4, 5])) {
+                        $btn .= '<a href="#"><i class="fas fa-angle-double-right text-danger nextstep"></i></a>';
+                    }
+                } else {
+                    $btn .= '<a href="#"><i class="fas fa-angle-double-right text-danger nextstep"></i></a>';
+                }
                 $btn .= '<a href="#"><i class="fas fa-eye text-primary ml-2 show"></i></a>';
                 $data->status ? $btn : $btn = '-';
                 return $btn;
@@ -233,7 +242,7 @@ class TrackingSampelController extends Controller
     public function dtsampelselesai()
     {
         $data = TrackingSampel::with(['permintaan', 'status', 'permintaan.pemiliksampel'])
-            ->where('id_status_sampel', 8)//id status sampel diambil
+            ->where('id_status_sampel', 8) //id status sampel diambil
             ->orderBy('id_tracking', 'desc');
         return DataTables::of($data)
             ->addIndexColumn()

@@ -41,14 +41,29 @@
                         </div>
                         <div class="line">
                             <div class="label">Level</div>
-                            <div class="value text-primary">@level(auth()->user()->level)</div>
+                            <div class="value text-primary">
+                                @switch(auth()->user()->level)
+                                @case(0)
+                                Super Admin
+                                @break
+                                @case(1)
+                                Petugas MA
+                                @break
+                                @case(2)
+                                Petugas Pengujian
+                                @break
+                                @default
+                                Not defined
+                                @endswitch</div>
                         </div>
                         <div class="line">
                             <div class="label">Foto Profil</div>
-                            <div class="value"><img src="{{ Storage::url(auth()->user()->image) }}" alt="profile photo" width="150px" height="150px"></div>
+                            <div class="value"><img src="{{ Storage::url(auth()->user()->image) }}" alt="profile photo"
+                                    width="150px" height="150px"></div>
                         </div>
                         <div class="line">
-                            <form action="{{ route('usermanagement.changephoto', auth()->user()->id) }}" method="POST" enctype="multipart/form-data">
+                            <form action="{{ route('usermanagement.changephoto', auth()->user()->id) }}" method="POST"
+                                enctype="multipart/form-data">
                                 @csrf
                                 @method('put')
                                 <br>
@@ -68,7 +83,8 @@
                             </form>
                         </div>
                         <div class="line">
-                            <button id="changepwd" class="btn btn-danger mt-3" data-toggle="modal" data-target="#modalprofile">Ubah Password</button>
+                            <button id="changepwd" class="btn btn-danger mt-3" data-toggle="modal"
+                                data-target="#modalprofile">Ubah Password</button>
                         </div>
                     </div><!-- /.card-body -->
                 </div>
@@ -83,35 +99,34 @@
 <!-- /.content -->
 @endsection
 @push('styles')
-    <style>
-        .label {
-            font-weight: bold;
-            display: inline-block;
-            font-size: 20px;
-            width: 120px;
-            line-height: 40px;
-        }
+<style>
+    .label {
+        font-weight: bold;
+        display: inline-block;
+        font-size: 20px;
+        width: 120px;
+        line-height: 40px;
+    }
 
-        .value {
-            display: inline-block;
-            font-size: 20px;
-        }
+    .value {
+        display: inline-block;
+        font-size: 20px;
+    }
 
-        .value img {
-            vertical-align: top;
-            border-radius: 50%;
-        }
+    .value img {
+        vertical-align: top;
+        border-radius: 50%;
+    }
 
-        .value::before {
-            content: ': '
-        }
-        
-    </style>
+    .value::before {
+        content: ': '
+    }
+</style>
 @endpush
 
 @push('scripts')
-    <script>
-        $(function () {
+<script>
+    $(function () {
             $('.modal').on('click', '.submit', function(e){
                 e.preventDefault();
                 let data = new FormData($('form')[0]);
@@ -163,5 +178,5 @@
                 $('form').trigger('reset');
             })
         });//end jq ready
-    </script>
+</script>
 @endpush
