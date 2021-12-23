@@ -39,6 +39,11 @@
     integrity="sha512-zpbTFOStBclqD3+SaV5Uz1WAKh9d2/vOtaFYpSLkosymyJKnO+M4vu2CK2U4ZjkRCJ7+RvLnISpNrCfJki5JXA=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="https://unpkg.com/tippy.js@6/animations/scale.css" />
+  <style>
+    .user-panel img {
+      height: 2.1rem;
+    }
+  </style>
   @stack('styles')
 </head>
 

@@ -45,7 +45,27 @@
                         </div>
                         <div class="line">
                             <div class="label">Foto Profil</div>
-                            <div class="value"><img src="{{ Storage::url(auth()->user()->image) }}" alt="profile photo" width="150px"></div>
+                            <div class="value"><img src="{{ Storage::url(auth()->user()->image) }}" alt="profile photo" width="150px" height="150px"></div>
+                        </div>
+                        <div class="line">
+                            <form action="{{ route('usermanagement.changephoto', auth()->user()->id) }}" method="POST" enctype="multipart/form-data">
+                                @csrf
+                                @method('put')
+                                <br>
+                                <div class="label"></div>
+                                <input type="file" name="profilephoto" id="profilephoto"><br />
+                                <br>
+                                @if (session('status'))
+                                <div class="label"></div>
+                                <span class="text-success">{{ session('status') }}</span><br>
+                                @endif
+                                @error('profilephoto')
+                                <div class="label"></div>
+                                <span class="text-danger">{{ $message }}</span><br>
+                                @enderror
+                                <div class="label"></div>
+                                <input type="submit" value="Ubah gambar" class="btn btn-primary">
+                            </form>
                         </div>
                         <div class="line">
                             <button id="changepwd" class="btn btn-danger mt-3" data-toggle="modal" data-target="#modalprofile">Ubah Password</button>

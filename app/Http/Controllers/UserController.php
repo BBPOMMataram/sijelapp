@@ -110,7 +110,9 @@ class UserController extends Controller
         $data->save();
 
         if ($request->image) {
-            Storage::delete($data->image);
+            if ($data->image !== 'noimage.png') {
+                Storage::delete($data->image);
+            }
             $filename = $data->id . '.' . $request->image->getClientOriginalExtension();
             $path = $request->image->storeAs('profiles', $filename);
             $data->image = $path;
@@ -138,5 +140,23 @@ class UserController extends Controller
         $data->save();
   
         return response(['status' => 1, 'msg' => 'Reset password berhasil.']);
+    }
+
+    public function changephoto(Request $request, $id)
+    {
+        $this->validate($request, [
+            'profilephoto' => 'required|image|mimes:png,jpg,jpeg,gif|max:10000'
+        ]);
+        
+        $data = User::find($id);
+        if ($data->image !== 'noimage.png') {
+            Storage::delete($data->image);
+        }
+        $filename = $data->id . '.' . $request->profilephoto->getClientOriginalExtension();
+        $path = $request->profilephoto->storeAs('profiles', $filename);
+        $data->image = $path;
+        $data->save();
+        
+        return back()->with('status', 'Update success.');
     }
 }

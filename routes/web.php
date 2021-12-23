@@ -46,6 +46,7 @@ Route::middleware(['auth'])->group(function () {
                 'biayauji' => BiayaSampelController::class,
                 'usermanagement' => UserController::class,
             ]);
+            Route::put('changephoto/{id}', [UserController::class, 'changephoto'])->name('usermanagement.changephoto');
             Route::put('resetpwd/{id}', [UserController::class, 'resetpwd'])->name('usermanagement.resetpwd');
             Route::get('dtpemiliksampel', [PemilikSampelController::class, 'dtpemiliksampel'])->name('dtpemiliksampel');
             Route::get('dtkategori', [KategoriController::class, 'dtkategori'])->name('dtkategori');
