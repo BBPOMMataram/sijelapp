@@ -43,6 +43,7 @@
               </p>
             </a>
           </li>
+          @if (auth()->user()->level !== 2)
           <li class="nav-item @if(Request::is('admin/master/*')) menu-open @endif">
             <a href="#" class="nav-link @if(Request::is('admin/master/*')) active @endif">
               <i class="nav-icon fas fa-server"></i>
@@ -88,12 +89,14 @@
                   <p>Biaya Uji</p>
                 </a>
               </li>
+              @if (auth()->user()->level === 0)
               <li class="nav-item">
                 <a href="{{ route('usermanagement.index') }}" class="nav-link @if(Request::is('admin/master/usermanagement')) active @endif">
                   <i class="far fa-circle nav-icon"></i>
                   <p>User Management</p>
                 </a>
               </li>
+              @endif
             </ul>
           </li>
           <li class="nav-item">
@@ -104,6 +107,7 @@
               </p>
             </a>
           </li>
+          @endif
           <li class="nav-item">
             <a href="{{ route('statussampel.index') }}" class="nav-link @if(Request::is('admin/statussampel')) active @endif">
               <i class="nav-icon fas fa-thermometer-half"></i>
@@ -112,6 +116,7 @@
               </p>
             </a>
           </li>
+          @if (auth()->user()->level !== 2)
           <li class="nav-item">
             <a href="{{ route('sampelselesai') }}" class="nav-link @if(Request::is('admin/sampelselesai')) active @endif">
               <i class="nav-icon fas fa-check-double"></i>
@@ -143,6 +148,7 @@
               </li>
             </ul>
           </li>
+          @endif
           <li class="nav-item @if(Request::is('admin/setting/*')) menu-open @endif">
             <a href="#" class="nav-link @if(Request::is('admin/setting/*')) active @endif">
               <i class="nav-icon fas fa-cogs"></i>

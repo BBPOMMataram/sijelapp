@@ -45,4 +45,10 @@ class TerimaSampel extends Model
     {
         return $this->hasOne(TrackingSampel::class, 'id_permintaan', 'id_permintaan');
     }
+
+
+    public function produksampel()
+    {
+        return $this->hasMany(ProdukSampel::class, 'id_permintaan', 'id_permintaan');
+    }
 }

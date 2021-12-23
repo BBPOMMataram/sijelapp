@@ -170,6 +170,14 @@
         $('table').on('click', '.show', function(e){
             e.preventDefault();
             const rowData = dttable.row($(this).parents('tr')).data();
+
+            if ("{{ auth()->user()->level }}" === "2") {
+                if (![4,5,6].includes(rowData['id_status_sampel'])) {
+                    $('#cancelstep').addClass('d-none')
+                }
+            }else {
+                $('#cancelstop').addClass('d-none')
+            }
             
             $('#modalstatussampel').modal('show');
             //fill form
@@ -224,18 +232,43 @@
                     text = 'Apakah kaji ulang sudah selesai & siap lanjut ke pembayaran ?'
                     break;
                 case 2:
-                    text = '<div style="text-align: -webkit-center;"><input type="datetime-local" class="form-control w-50" id="tglestimasi" /></div>'
+                    text = '<div style="text-align: -webkit-center;"><div class="mb-1">Sudah dibayar? input tgl estimasi :</div><input type="datetime-local" class="form-control w-50" id="tglestimasi" /></div>'
                     break;
                 case 3:
-                    text = 'Apakah pengujian sampel sudah selesai ?'
-                    // text += '<br>'
-                    // text += '<label for="hasil_uji">Hasil Uji</label>'
-                    // text += '<select id="hasil_uji" class="form-control">'
-                    // text += '<option>Positif</option>'
-                    // text += '<option>Negatif</option>'
-                    // text += '<option>TMS</option>'
-                    // text += '<option>MS</option>'
-                    // text += '</select>'
+                    const produk = rowData.permintaan.produksampel;
+                    console.log(produk, typeof(produk));
+                    text = '<div>Apakah pengujian sampel sudah selesai, isi hasil uji ?</div><br>'
+
+                    text += '<div class="row">'
+                    text += '<div class="col">'
+                    text += '<label for="namaproduk">Nama Produk</label>'
+                    text += '</div>'
+                    text += '<div class="col">'
+                    text += '<label for="kodeproduk">Kode Produk</label>'
+                    text += '</div>'
+                    text += '<div class="col">'
+                    text += '<label for="hasiluji">Hasil Uji</label><br />'
+                    text += '</div>'
+                    text += '</div>'
+                    for (const key in produk) {
+                        text += '<div class="row mb-1">'
+                        text += '<div class="col">'
+                        text += '<input type="text" name="namaproduk[]" class="form-control" value="'+produk[key].nama_produk+'" readonly />'
+                        text += '</div>'
+                        text += '<div class="col">'
+                        text += '<input type="text" name="kodeproduk[]" class="form-control" value="'+produk[key].kode_sampel+'" readonly />'
+                        text += '</div>'
+                        text += '<div class="col">'
+                        text += '<select id="hasil_uji[]" class="form-control">'
+                        text += '<option>==Pilih Hasil==</option>'
+                        text += '<option value="Positif">Positif</option>'
+                        text += '<option value="Negatif">Negatif</option>'
+                        text += '<option value="TMS">TMS</option>'
+                        text += '<option value="MS">MS</option>'
+                        text += '</select>'
+                        text += '</div>'
+                        text += '</div>'
+                    }
                     break;
                 case 4:
                     text = 'Apakah sudah selesai verifikasi LHU ?'
@@ -340,6 +373,10 @@
                 dttable.column(8).search('').draw();
             }
         });
+
+        $('#modalstatussampel').on('hidden.bs.modal', function(e){
+            $('#cancelstep').removeClass('d-none');
+        })
     }); // end doc ready
 </script>
 @endpush

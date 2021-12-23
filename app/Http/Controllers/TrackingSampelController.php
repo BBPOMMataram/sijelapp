@@ -12,6 +12,7 @@ class TrackingSampelController extends Controller
 {
     public function dtstatussampel()
     {
+        // $data = TrackingSampel::with(['permintaan', 'status', 'permintaan.pemiliksampel', 'permintaan.produksampel'])
         $data = TrackingSampel::with(['permintaan', 'status', 'permintaan.pemiliksampel'])
             ->orderBy('id_tracking', 'desc');
         return DataTables::of($data)
