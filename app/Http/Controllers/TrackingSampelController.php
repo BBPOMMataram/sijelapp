@@ -12,8 +12,8 @@ class TrackingSampelController extends Controller
 {
     public function dtstatussampel()
     {
-        // $data = TrackingSampel::with(['permintaan', 'status', 'permintaan.pemiliksampel', 'permintaan.produksampel'])
-        $data = TrackingSampel::with(['permintaan', 'status', 'permintaan.pemiliksampel'])
+        $data = TrackingSampel::with(['permintaan', 'status', 'permintaan.pemiliksampel', 'permintaan.produksampel'])
+        // $data = TrackingSampel::with(['permintaan', 'status', 'permintaan.pemiliksampel'])
             ->orderBy('id_tracking', 'desc');
         return DataTables::of($data)
             ->addIndexColumn()
@@ -147,6 +147,8 @@ class TrackingSampelController extends Controller
             return response(['status' => 0, 'msg' => 'Sampel sudah diambil.']);
         }
 
+        // dd($request->all());
+
         $data->id_status_sampel += 1;
 
         switch ($data->id_status_sampel) {
@@ -162,9 +164,12 @@ class TrackingSampelController extends Controller
                 break;
             case 4:
                 $data->tanggal_pengujian = now();
-                // $produksampel = ProdukSampel::where('id_permintaan', $data->id_permintaan)->get();
-                // $produksampel->hasil_uji = $request->hasil_uji;
-                // $produksampel->save();
+
+                foreach ($request->idproduk as $key => $value) {
+                    $produksampel = ProdukSampel::find($value);
+                    $produksampel->hasil_uji = $request->hasiluji[$key];
+                    $produksampel->save();
+                }
                 break;
             case 5:
                 $data->tanggal_selesai_uji = now();
@@ -177,9 +182,7 @@ class TrackingSampelController extends Controller
                 break;
             case 8:
                 $data->tanggal_diambil = now();
-                // $produksampel = ProdukSampel::where('id_permintaan', $data->id_permintaan)->get();
-                // $produksampel->tersangka = $request->tersangka;
-                // $produksampel->save();
+                $data->nama_pengambil = $request->pengambil;
                 break;
             default:
                 return response(['status' => 0, 'msg' => 'Gagal update tanggal step.']);

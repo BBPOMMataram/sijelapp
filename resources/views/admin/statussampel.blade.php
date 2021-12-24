@@ -252,6 +252,7 @@
                     text += '</div>'
                     for (const key in produk) {
                         text += '<div class="row mb-1">'
+                        text += '<input type="hidden" name="id_produk_sampel[]" value="'+produk[key].id_produk_sampel+'" />'
                         text += '<div class="col">'
                         text += '<input type="text" name="namaproduk[]" class="form-control" value="'+produk[key].nama_produk+'" readonly />'
                         text += '</div>'
@@ -259,8 +260,8 @@
                         text += '<input type="text" name="kodeproduk[]" class="form-control" value="'+produk[key].kode_sampel+'" readonly />'
                         text += '</div>'
                         text += '<div class="col">'
-                        text += '<select id="hasil_uji[]" class="form-control">'
-                        text += '<option>==Pilih Hasil==</option>'
+                        text += '<select name="hasil_uji[]" class="form-control">'
+                        text += '<option value="">==Pilih Hasil==</option>'
                         text += '<option value="Positif">Positif</option>'
                         text += '<option value="Negatif">Negatif</option>'
                         text += '<option value="TMS">TMS</option>'
@@ -280,9 +281,9 @@
                     text = 'Apakah sampel sudah selesai ?'
                     break;
                 case 7:
-                    text = 'Apakah sampel sudah diambil ?';
-                    // text += '<label>Nama Tersangka';
-                    // text += '<input class="form-control" type="text" id="tersangka" />';
+                    text = 'Apakah sampel sudah diambil ?<br />';
+                    text += '<label>Nama Pengambil</label>';
+                    text += '<input class="form-control" type="text" id="pengambil" required/>';
                     break;
                 case 8:
                     text = 'Maaf sampel sudah diambil & selesai'
@@ -304,11 +305,20 @@
                     data.tanggal_estimasi = $('#tglestimasi').val();
                 }
                 if(statusSampel === 3){
-                    data.hasil_uji = $('#hasil_uji').val();
+                    var idproduk = $('input[name="id_produk_sampel[]"]').map(function(){ 
+                        return this.value; 
+                    }).get();
+
+                    var hasiluji = $('select[name="hasil_uji[]"]').map(function(){ 
+                        return this.value; 
+                    }).get();
+
+                    data.idproduk = idproduk;
+                    data.hasiluji = hasiluji;
                 }
-                // if(statusSampel === 7){
-                //     data.tersangka = $('#tersangka').val();
-                // }
+                if(statusSampel === 7){
+                    data.pengambil = $('#pengambil').val();
+                }
 
                 if(val.isConfirmed){
                     $.ajax({

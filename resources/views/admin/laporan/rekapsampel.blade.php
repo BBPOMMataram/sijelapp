@@ -50,6 +50,7 @@
                                         <th class="align-middle" rowspan="3">Selesai</th>
                                         <th class="align-middle" rowspan="3">Hasil</th>
                                         <th class="align-middle" rowspan="3">Biaya Uji</th>
+                                        <th class="align-middle" rowspan="3">Nama Pengambil</th>
                                         <th class="align-middle" rowspan="3">Tanda Terima</th>
                                     </tr>
                                     <tr>
@@ -134,6 +135,7 @@
                 }
                 return res;
                 }},
+            {data: 'permintaan.tracking.nama_pengambil', render: function($data){ return $data ? $data : '-'}},
             {data: 'tandaterima'},
         ]
     });
