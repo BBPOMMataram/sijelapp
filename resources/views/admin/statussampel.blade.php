@@ -225,16 +225,17 @@
             let icon = 'question';
 
             switch (statusSampel) {
-                case '0':
+                case 0:
+                alert('test')
                     text = 'Apakah berkas sampel sudah diverifikasi & akan dilanjutkan ke kaji ulang?'
                     break;
-                case '1':
+                case 1:
                     text = 'Apakah kaji ulang sudah selesai & siap lanjut ke pembayaran ?'
                     break;
-                case '2':
+                case 2:
                     text = '<div style="text-align: -webkit-center;"><div class="mb-1">Sudah dibayar? input tgl estimasi :</div><input type="datetime-local" class="form-control w-50" id="tglestimasi" /></div>'
                     break;
-                case '3':
+                case 3:
                     const produk = rowData.permintaan.produksampel;
                     console.log(produk, typeof(produk));
                     text = '<div>Apakah pengujian sampel sudah selesai, isi hasil uji ?</div><br>'
@@ -271,21 +272,21 @@
                         text += '</div>'
                     }
                     break;
-                case '4':
+                case 4:
                     text = 'Apakah sudah selesai verifikasi LHU ?'
                     break;
-                case '5':
+                case 5:
                     text = 'Apakah sampel sudah dilegalisir ?'
                     break;
-                case '6':
+                case 6:
                     text = 'Apakah sampel sudah selesai ?'
                     break;
-                case '7':
+                case 7:
                     text = 'Apakah sampel sudah diambil ?<br />';
                     text += '<label>Nama Pengambil</label>';
                     text += '<input class="form-control" type="text" id="pengambil" required/>';
                     break;
-                case '8':
+                case 8:
                     text = 'Maaf sampel sudah diambil & selesai'
                     icon = 'warning';
                     break;
