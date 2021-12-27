@@ -28,27 +28,14 @@ class LaporanController extends Controller
     {
         $data = ProdukSampel::with(
             [
-                'ujiproduk' => function ($q) {
-                    // $q->orderBy('id_uji_produk');
-                },
-                'ujiproduk.parameter' => function ($q) {
-                    // $q->orderBy('id_parameter');
-                },
-                'ujiproduk.parameter.metodeuji' => function ($q) {
-                    // $q->orderBy('id_kode_layanan');
-                },
-                'permintaan.pemiliksampel' => function ($q) {
-                    // $q->orderBy('id_pemilik');
-                },
-                'permintaan.kategori' => function ($q) {
-                    // $q->orderBy('id_kategori');
-                },
-                'permintaan.tracking' => function ($q) {
-                    // $q->orderBy('id_tracking');
-                },
-                'permintaan' => function ($q) {
-                    // $q->latest();
-                },
+                'ujiproduk',
+                'ujiproduk.parameter',
+                'ujiproduk.parameter.metodeuji',
+                'permintaan.pemiliksampel',
+                'permintaan.kategori',
+                'permintaan.tracking',
+                'permintaan',
+                'user',
             ],
         )->orderBy('id_permintaan', 'desc');
 

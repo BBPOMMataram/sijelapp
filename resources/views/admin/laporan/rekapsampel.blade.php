@@ -115,7 +115,7 @@
                 }},
             {data: 'tersangka', render: function(data){ return data ? data : '-' }},
             {data: 'id_pengembalian_bb', render: function(data){ return data ? data : '-' }},
-            {data: 'saksi_ahli', render: function(data){ return data ? data : '-' }},
+            {data: 'user.name', render: function(data){ return data ? data : '-' }},
             {data: 'tanggalterima'},
             {data: 'tanggalestimasi'},
             {data: 'tanggalselesaiuji'},

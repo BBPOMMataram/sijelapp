@@ -6,6 +6,7 @@ use App\Models\ProdukSampel;
 use App\Models\StatusSampel;
 use App\Models\TrackingSampel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Facades\DataTables;
 
 class TrackingSampelController extends Controller
@@ -168,6 +169,7 @@ class TrackingSampelController extends Controller
                 foreach ($request->idproduk as $key => $value) {
                     $produksampel = ProdukSampel::find($value);
                     $produksampel->hasil_uji = $request->hasiluji[$key];
+                    $produksampel->saksi_ahli = auth()->user()->id;
                     $produksampel->save();
                 }
                 break;
@@ -215,6 +217,7 @@ class TrackingSampelController extends Controller
                 break;
             case 3:
                 $data->tanggal_pengujian = null;
+                $produk = ProdukSampel::where('id_permintaan', $data->id_permintaan)->update(['hasil_uji' => null]);
                 break;
             case 4:
                 $data->tanggal_selesai_uji = null;
@@ -227,6 +230,11 @@ class TrackingSampelController extends Controller
                 break;
             case 7:
                 $data->tanggal_diambil = null;
+                $data->nama_pengambil = null;
+                if($data->tanda_terima){
+                    $data->tanda_terima = null;
+                    Storage::delete($data->tanda_terima);
+                }
                 break;
             default:
                 return response(['status' => 0, 'msg' => 'Gagal cancel step.']);

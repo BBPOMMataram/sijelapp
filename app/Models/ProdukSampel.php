@@ -33,4 +33,14 @@ class ProdukSampel extends Model
     {
         return $this->belongsTo(TerimaSampel::class, 'id_permintaan', 'id_permintaan');
     }
+
+    /**
+     * Get the user that owns the ProdukSampel
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'saksi_ahli', 'id');
+    }
 }
