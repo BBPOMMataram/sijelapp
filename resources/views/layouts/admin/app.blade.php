@@ -40,7 +40,8 @@
     crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="https://unpkg.com/tippy.js@6/animations/scale.css" />
   <style>
-    .user-panel img {
+    /* gambar sidebar user */
+    .user-panel img { 
       height: 2.1rem;
     }
   </style>

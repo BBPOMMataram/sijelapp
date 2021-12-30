@@ -16,6 +16,9 @@ class AddFieldsToUsers extends Migration
         Schema::table('users', function (Blueprint $table) {
             $table->string('image', 255)->default('noimage.png');
             $table->string('username', 100);
+            $table->string('fullname')->nullable();
+            $table->string('pangkat')->nullable();
+            $table->string('jabatan')->nullable();
             $table->tinyInteger('level');
         });
     }
@@ -31,6 +34,9 @@ class AddFieldsToUsers extends Migration
             $table->dropColumn('image');
             $table->dropColumn('username');
             $table->dropColumn('level');
+            $table->dropColumn('fullname');
+            $table->dropColumn('pangkat');
+            $table->dropColumn('jabatan');
         });
     }
 }

@@ -10,7 +10,8 @@
                 <div class="card">
                     <div class="card-header">
                         <h3 class="card-title">
-                            <select type="text" id="id_status_sampel" name="id_status_sampel" class="select2"></select>
+                            {{-- <select type="text" id="id_status_sampel" name="id_status_sampel" class="select2"></select> --}}
+                            JUMLAH SAMPEL PIHAK KETIGA
                         </h3>
                     </div>
                     <!-- /.card-header -->

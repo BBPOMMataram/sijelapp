@@ -63,7 +63,7 @@ class TerimaSampelController extends Controller
         $data->no_urut_penerimaan = $request->no_urut_penerimaan;
         $data->id_kategori = $request->id_kategori;
 
-        $data->resi = Str::random(6);
+        $data->resi = Str::of(Str::random(6))->upper();
         $data->save();
         
         $namasampel = '';

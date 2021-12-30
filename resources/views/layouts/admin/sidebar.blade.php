@@ -89,6 +89,18 @@
                   <p>Biaya Uji</p>
                 </a>
               </li>
+              <li class="nav-item">
+                <a href="{{ route('wadah1.index') }}" class="nav-link @if(Request::is('admin/master/wadah1')) active @endif">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Wadah 1</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('wadah2.index') }}" class="nav-link @if(Request::is('admin/master/wadah2')) active @endif">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Wadah 2</p>
+                </a>
+              </li>
               @if (auth()->user()->level === 0)
               <li class="nav-item">
                 <a href="{{ route('usermanagement.index') }}" class="nav-link @if(Request::is('admin/master/usermanagement')) active @endif">
@@ -135,7 +147,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="{{ route('laporan.jumlahsampel') }}" class="nav-link @if(Request::is('admin/laporan/jumlahsampel')) active @endif">
+                <a onclick="return alert('belum jadii!!!')"href="#" class="nav-link @if(Request::is('admin/laporan/jumlahsampel')) active @endif">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Jumlah Sampel</p>
                 </a>

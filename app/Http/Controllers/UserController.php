@@ -70,6 +70,9 @@ class UserController extends Controller
         $data->username = $request->username;
         $data->email = $request->email;
         $data->level = $request->level;
+        $data->fullname = $request->fullname;
+        $data->pangkat = $request->pangkat;
+        $data->jabatan = $request->jabatan;
         $data->password = Hash::make('password');
         $data->save();
 
@@ -96,6 +99,9 @@ class UserController extends Controller
         $data->name = $request->name;
         $data->username = $request->username;
         $data->email = $request->email;
+        $data->fullname = $request->fullname;
+        $data->pangkat = $request->pangkat;
+        $data->jabatan = $request->jabatan;
         
         if ($data->level === 0 && $request->level != 0) {
             return response(['status' => 0, 'msg' => 'Tidak boleh merubah level superuser !!']);

@@ -15,6 +15,9 @@
                         </h3>
                         <div class="card-tools">
                             <ul class="nav nav-pills ml-auto">
+                                    {{-- <li class="nav-item mr-1">
+                                    <a target="_blank" href="{{ route('print.basegel', $id) }}" class="btn btn-light"><i class="fas fa-print mr-1"></i>BA Segel</a>
+                                    </li> --}}
                                 <li class="nav-item mr-1">
                                   <a target="_blank" href="{{ route('print.kajiulang', $id) }}" class="btn btn-light"><i class="fas fa-print mr-1"></i>Kaji Ulang</a>
                                 </li>
@@ -67,6 +70,19 @@
     });
 
     const dttable = $("#terimasampel").DataTable({
+        "drawCallback": function(settings){
+            tippy('.basegel', {
+                content: 'BA Pembukaan Segel',
+                trigger: 'mouseenter',
+                animation: 'scale',
+            });
+
+            tippy('.bapenimbangan', {
+                content: 'BA Penimbangan',
+                trigger: 'mouseenter',
+                animation: 'scale',
+            })
+        },
         serverside: true,
         select: true,
         ajax: {
@@ -105,10 +121,10 @@
                 return res;
                 }},
             {data: 'nomor_surat', render: function(data, type, row){ return data ? data : '-'; }},
-            {data: 'tanggal_surat', render: function(data, type, row){ return data ? data : '-'; }},
+            {data: 'tanggal_surat'},
             {data: 'tersangka', render: function(data, type, row){ return data ? data : '-'; }},
             {data: 'hasil_uji', render: function(data, type, row){ return data ? data : '-'; }},
-            {data: 'saksi_ahli', render: function(data, type, row){ return data ? data : '-'; }},
+            {data: 'user.name', render: function(data, type, row){ return data ? data : '-'; }},
             {data: 'actions', className: 'text-center align-middle'},
         ]
     });
@@ -378,6 +394,9 @@
                     $('#listparameterujiedit').append('<ol>'+ list +'</ol>');
                 }
             });
+
+            $('#tanggal_surat').val(rowData['tanggal_surat']);
+            
             $('#id').val(id);
             $('.modal-title').text('Ubah Data');
             // $('button.submit').addClass('d-none');

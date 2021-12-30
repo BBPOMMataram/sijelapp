@@ -54,6 +54,14 @@
               </div>
             </div>
             @enderror
+            @error('email')
+            <div class="col-12">
+              <div class="text-danger">
+                  <strong>{{ $message }}</strong>
+                </span>
+              </div>
+            </div>
+            @enderror
             <!-- /.col -->
             <div class="col-4">
               <button type="submit" class="btn btn-primary btn-block">Sign In</button>

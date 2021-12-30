@@ -14,6 +14,8 @@ class ProdukSampel extends Model
 
     public $timestamps = false;
 
+    protected $dates = ['tanggal_surat'];
+
     /**
      * Get all of the ujiproduk for the ProdukSampel
      *

@@ -40,6 +40,14 @@
                             <div class="value">{{ auth()->user()->email }}</div>
                         </div>
                         <div class="line">
+                            <div class="label">Pangkat</div>
+                            <div class="value">{{ auth()->user()->pangkat }}</div>
+                        </div>
+                        <div class="line">
+                            <div class="label">Jabatan</div>
+                            <div class="value">{{ auth()->user()->jabatan }}</div>
+                        </div>
+                        <div class="line">
                             <div class="label">Level</div>
                             <div class="value text-primary">
                                 @switch(auth()->user()->level)

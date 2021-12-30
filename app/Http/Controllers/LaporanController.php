@@ -12,7 +12,7 @@ class LaporanController extends Controller
 {
     public function jumlahsampel()
     {
-        $title = 'JUMLAH SAMPEL PIHAK KETIGA';
+        $title = 'LAPORAN';
         return view('admin.laporan.jumlahsampel', compact('title'));
     }
 
@@ -99,7 +99,7 @@ class LaporanController extends Controller
 
     public function rekapsampel()
     {
-        $title = 'REKAP LAPORAN PENGUJIAN PIHAK KETIGA';
+        $title = 'LAPORAN';
         return view('admin.laporan.rekapsampel', compact('title'));
     }
 }

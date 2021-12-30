@@ -25,6 +25,9 @@
                                         <th class="align-middle">Nama Instansi</th>
                                         <th class="align-middle">Nama Petugas</th>
                                         <th class="align-middle">Telepon Petugas</th>
+                                        <th class="align-middle">Email Petugas</th>
+                                        <th class="align-middle">Pangkat Petugas</th>
+                                        <th class="align-middle">Jabatan Petugas</th>
                                         <th class="align-middle">Alamat Instansi</th>
                                         <th class="align-middle">Actions</th>
                                     </tr>
@@ -64,6 +67,9 @@
                 {data: 'nama_pemilik'},
                 {data: 'nama_petugas'},
                 {data: 'telepon_petugas'},
+                {data: 'email_petugas'},
+                {data: 'pangkat_petugas'},
+                {data: 'jabatan_petugas'},
                 {data: 'alamat_pemilik'},
                 {data: 'actions', className: 'text-center align-middle'},
             ]
@@ -176,6 +182,9 @@
             $('#instansi').val(rowData['nama_pemilik']);
             $('#namapetugas').val(rowData['nama_petugas']);
             $('#teleponpetugas').val(rowData['telepon_petugas']);
+            $('#emailpetugas').val(rowData['email_petugas']);
+            $('#pangkatpetugas').val(rowData['pangkat_petugas']);
+            $('#jabatanpetugas').val(rowData['jabatan_petugas']);
             $('#alamatinstansi').val(rowData['alamat_pemilik']);
             $('#id').val(id);
             $('.modal-title').text('Ubah Data');

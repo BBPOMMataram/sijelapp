@@ -25,6 +25,9 @@
                                         <th class="align-middle">Name</th>
                                         <th class="align-middle">Username</th>
                                         <th class="align-middle">Email</th>
+                                        <th class="align-middle">Nama Lengkap</th>
+                                        <th class="align-middle">Pangkat</th>
+                                        <th class="align-middle">Jabatan</th>
                                         <th class="align-middle">Image</th>
                                         <th class="align-middle">Level</th>
                                         <th class="align-middle">Actions</th>
@@ -72,6 +75,9 @@
             {data: 'name'},
             {data: 'username'},
             {data: 'email'},
+            {data: 'fullname'},
+            {data: 'pangkat'},
+            {data: 'jabatan'},
             {data: 'image', className: 'text-center'},
             {data: 'level_string'},
             {data: 'actions', className: 'text-center align-middle'},

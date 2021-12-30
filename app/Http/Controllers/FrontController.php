@@ -22,7 +22,7 @@ class FrontController extends Controller
         //     'g-recaptcha-response' => 'required|captcha',
         // ]);
 
-        $permintaan = TerimaSampel::where('resi', $id)->first();
+        $permintaan = TerimaSampel::where('resi', $id)->latest()->first();
         if (!$permintaan) {
             return response(['status' => 0, 'msg' => 'Data Sampel tidak ditemukan.']);
         }

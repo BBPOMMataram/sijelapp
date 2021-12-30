@@ -14,7 +14,8 @@ use App\Http\Controllers\StatusUjiController;
 use App\Http\Controllers\TerimaSampelController;
 use App\Http\Controllers\TrackingSampelController;
 use App\Http\Controllers\UserController;
-use Illuminate\Routing\RouteGroup;
+use App\Http\Controllers\Wadah1Controller;
+use App\Http\Controllers\Wadah2Controller;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -45,6 +46,8 @@ Route::middleware(['auth'])->group(function () {
                 'statusuji' => StatusUjiController::class,
                 'biayauji' => BiayaSampelController::class,
                 'usermanagement' => UserController::class,
+                'wadah1' => Wadah1Controller::class,
+                'wadah2' => Wadah2Controller::class,
             ]);
             Route::put('changephoto/{id}', [UserController::class, 'changephoto'])->name('usermanagement.changephoto');
             Route::put('resetpwd/{id}', [UserController::class, 'resetpwd'])->name('usermanagement.resetpwd');
@@ -78,8 +81,10 @@ Route::middleware(['auth'])->group(function () {
         Route::get('dtstatusuji', [StatusUjiController::class, 'dtstatusuji'])->name('dtstatusuji');
 
         // print
-        Route::get('printkajiulang/{idProdukSampel}', [DetailTerimaSampelController::class, 'printkajiulang'])->name('print.kajiulang');
-        Route::get('printfplp/{idProdukSampel}', [DetailTerimaSampelController::class, 'printfplp'])->name('print.fplp');
+        Route::get('printkajiulang/{idpermintaan}', [DetailTerimaSampelController::class, 'printkajiulang'])->name('print.kajiulang');
+        Route::get('printfplp/{idpermintaan}', [DetailTerimaSampelController::class, 'printfplp'])->name('print.fplp');
+        Route::get('printbasegel/{idproduksampel}', [DetailTerimaSampelController::class, 'printbasegel'])->name('print.basegel');
+        Route::get('printbapenimbangan/{idproduksampel}', [DetailTerimaSampelController::class, 'printbapenimbangan'])->name('print.bapenimbangan');
 
         // report
         Route::prefix('laporan')->group(function () {

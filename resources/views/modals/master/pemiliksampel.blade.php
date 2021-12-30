@@ -26,6 +26,21 @@
                 placeholder="Telepon Petugas">
             </div>
             <div class="form-group">
+              <label for="emailpetugas">Email Petugas</label>
+              <input type="email" class="form-control" id="emailpetugas" name="emailpetugas"
+                placeholder="Email Petugas">
+            </div>
+            <div class="form-group">
+              <label for="pangkatpetugas">Pangkat Petugas</label>
+              <input type="text" class="form-control" id="pangkatpetugas" name="pangkatpetugas"
+                placeholder="Pangkat Petugas">
+            </div>
+            <div class="form-group">
+              <label for="jabatanpetugas">Jabatan Petugas</label>
+              <input type="text" class="form-control" id="jabatanpetugas" name="jabatanpetugas"
+                placeholder="Jabatan Petugas">
+            </div>
+            <div class="form-group">
               <label for="alamatinstansi">Alamat Instansi</label>
               <textarea class="form-control" rows="2" id="alamatinstansi" name="alamatinstansi"
                 placeholder="Alamat Instansi"></textarea>

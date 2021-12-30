@@ -226,7 +226,6 @@
 
             switch (statusSampel) {
                 case 0:
-                alert('test')
                     text = 'Apakah berkas sampel sudah diverifikasi & akan dilanjutkan ke kaji ulang?'
                     break;
                 case 1:
@@ -237,7 +236,7 @@
                     break;
                 case 3:
                     const produk = rowData.permintaan.produksampel;
-                    console.log(produk, typeof(produk));
+                    
                     text = '<div>Apakah pengujian sampel sudah selesai, isi hasil uji ?</div><br>'
 
                     text += '<div class="row">'

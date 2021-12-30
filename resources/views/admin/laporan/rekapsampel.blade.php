@@ -11,8 +11,8 @@
                 <div class="card">
                     <div class="card-header">
                         <h3 class="card-title">
-                            <button type="button" class="btn btn-primary" data-toggle="modal"
-                                data-target="#modaldetailterimasampel">+</button>
+                            {{-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modaldetailterimasampel">+</button> --}}
+                            REKAP LAPORAN PENGUJIAN PIHAK KETIGA
                         </h3>
                         <div class="card-tools">
                             <ul class="nav nav-pills ml-auto">
@@ -74,7 +74,7 @@
     </div><!-- /.container-fluid -->
 </section>
 <!-- /.content -->
-@include('modals.terimasampel.detailterimasampel')
+{{-- @include('modals.terimasampel.detailterimasampel') --}}
 @endsection
 @push('scripts')
 <script>
@@ -140,52 +140,6 @@
         ]
     });
 
-    //delete parameter in list modal
-    function deleteparameteruji(val, id_produk_sampel){
-        let url = "{{ route('deleteparameteruji', "_id") }}";
-        url = url.replace('_id', val);
-
-        $.ajax({
-            type: "DELETE",
-            url: url,
-            data: {
-            _token: "{{ csrf_token() }}"
-            },
-            success: function (response) {
-                Toast.fire({
-                    icon: 'success',
-                    title: '&nbsp;' + response.msg,
-                })
-                dttable.ajax.reload(null, false);
-                updateList(id_produk_sampel);
-            }
-        });
-    }
-
-    function updateList(idProdukSampel){
-        let urlParameterUji = "{{ route('datadetailparameteruji', "_idProd") }}"
-        urlParameterUji = urlParameterUji.replace('_idProd', idProdukSampel);
-        $.ajax({
-            type: "GET",
-            url: urlParameterUji,
-            success: function (res) {
-                $('#listparameteruji').empty();
-                let list = '';
-                for (const key in res) {
-                    if(res[key].parameter){
-                        list += '<li>'+res[key].parameter.parameter_uji+'('+res[key].parameter.metodeuji.metode+')'+'('+res[key].jumlah_pengujian+') <i onclick="deleteparameteruji('+ res[key].id_uji_produk +','+ idProdukSampel +')" class="fas fa-trash text-danger" style="cursor:pointer;"></i></li>';
-                    }else{
-                        list += '<li>Not found('+res[key].jumlah_pengujian+') <i onclick="deleteparameteruji('+ res[key].id_uji_produk +','+ id_produk_sampel +')" class="fas fa-trash text-danger" style="cursor:pointer;"></i></li>';
-                    }
-                }
-                $('#listparameteruji').append('<ol>'+ list +'</ol>');
-            }
-        });
-    }
-
-    $(function () {
-        
-    }); // end doc ready
 </script>
 @endpush
 @push('styles')

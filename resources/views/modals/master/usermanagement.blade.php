@@ -26,6 +26,18 @@
               <input type="email" class="form-control" id="email" name="email" placeholder="Email">
             </div>
             <div class="form-group">
+              <label for="fullname">Nama Lengkap</label>
+              <input type="text" class="form-control" id="fullname" name="fullname" placeholder="Nama Lengkap">
+            </div>
+            <div class="form-group">
+              <label for="pangkat">Pangkat</label>
+              <input type="text" class="form-control" id="pangkat" name="pangkat" placeholder="Pangkat">
+            </div>
+            <div class="form-group">
+              <label for="jabatan">Jabatan</label>
+              <input type="text" class="form-control" id="jabatan" name="jabatan" placeholder="Jabatan">
+            </div>
+            <div class="form-group">
               <label for="level">Level</label>
               <select name="level" id="level" class="form-control">
                 <option value="1">Petugas MA</option>
