@@ -48,9 +48,10 @@ class LaporanController extends Controller
         //     ],
         // )
         // ->orderBy('id_permintaan', 'desc');
+
             $data = TerimaSampel::with('kategori', 'pemiliksampel', 'tracking', 'produksampel.ujiproduk.parameter.metodeuji', 'produksampel.user')
-            // ->where('id_kategori', 1)
             ->latest();
+            
         return DataTables::of($data)
             ->addIndexColumn()
             ->addColumn('tanggalterima', function ($data) {
@@ -105,17 +106,14 @@ class LaporanController extends Controller
 
                 return $tt;
             })
-            // ->addColumn('tanggal_surat', function($data){
-            //     return $data->produksampel->tanggal_surat ? $data->produksampel->tanggal_surat->isoFormat('D MMMM Y') : '-';
-            // })
             ->rawColumns(['tandaterima'])
             ->toJson();
     }
 
     public function rekapsampel()
     {
-        $title = 'LAPORAN';
-        $bidang = Kategori::all();
+        $title = 'REKAP LAPORAN PENGUJIAN PIHAK KETIGA';
+        $bidang = Kategori::where('status', 1)->get();
         return view('admin.laporan.rekapsampel', compact('title', 'bidang'));
     }
 }

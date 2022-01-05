@@ -10,10 +10,14 @@
 
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">
-                            {{-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modaldetailterimasampel">+</button> --}}
-                            REKAP LAPORAN PENGUJIAN PIHAK KETIGA
-                        </h3>
+                        <div class="form-group">
+                            <select name="bidang" id="bidang" class="form-control w-auto">
+                                <option value="">==Pilih Komoditi==</option>
+                                @foreach ($bidang as $item)
+                                    <option value="{{ $item->id_kategori }}">{{ $item->nama_kategori }}</option>
+                                @endforeach
+                            </select>
+                        </div>
                         <div class="card-tools">
                             <ul class="nav nav-pills ml-auto">
                                 {{-- <li class="nav-item mr-1">
@@ -111,7 +115,7 @@
         },
         // order: [[12, 'desc']],
         columns: [
-            {data: 'DT_RowIndex'},
+            {data: 'DT_RowIndex', ordering: false},
             {data: 'no_urut_penerimaan', render: function(data){ return data ? data : '-' }},
             {data: 'kategori.nama_kategori', render: function(data){ return data ? data : '-' }},
             {data: 'pemiliksampel.nama_pemilik', render: function(data){ return data ? data : '-' }},
@@ -175,7 +179,7 @@
                     }
                 }
                 return res;
-            }},
+                }},
             {data: 'produksampel', render: function(data, type, row){
                 let res = '';
                 for (const key in data) {
@@ -253,8 +257,25 @@
                 }
                 return res;
                 }},
+            {data: 'kategori.id_kategori', visible: false},
         ]
     });
+
+    $('#bidang').on('change', function () {
+        const idBidang = $(this).val();
+            if(idBidang){
+                dttable.column(21).search("^"+idBidang+"$", true).draw();
+            }else{
+                dttable.column(21).search('').draw();
+            }
+    });
+
+    dttable.on( 'order.dt search.dt', function () {
+        dttable.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
+            cell.innerHTML = i+1;
+            dttable.cell(cell).invalidate('dom'); 
+        } );
+    } ).draw();
 
 </script>
 @endpush
