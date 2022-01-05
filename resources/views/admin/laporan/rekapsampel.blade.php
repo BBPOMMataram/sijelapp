@@ -29,6 +29,12 @@
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
+                        {{-- <select name="bidang" id="bidang">
+                            <option value="">==Pilih Komoditi==</option>
+                            @foreach ($bidang as $item)
+                                <option value="{{ $item->id }}">{{ $item->nama_kategori }}</option>
+                            @endforeach
+                        </select> --}}
                         <div class="table-responsive">
                             <table id="rekapsampel" class="table table-bordered table-striped w-100">
                                 <thead>
@@ -88,55 +94,165 @@
     const dttable = $("#rekapsampel").DataTable({
         serverside: true,
         select: true,
-        ordering: false,
+        // ordering: false,
+        buttons: [
+            {
+                extend: 'print',
+                autoPrint: false,
+                title: "LAPORAN IMPLEMENTASI SIJELAPP",
+                customize: function ( doc ) {
+                    $(doc.document.body).find('table').css('font-size', '5pt');
+                }
+            }
+        ],
+        dom: 'Bftipr',
         ajax: {
             url: "{{ route('dtrekapsampel') }}"
         },
         // order: [[12, 'desc']],
         columns: [
             {data: 'DT_RowIndex'},
-            {data: 'permintaan.no_urut_penerimaan', render: function(data){ return data ? data : '-' }},
-            {data: 'permintaan.kategori.nama_kategori', render: function(data){ return data ? data : '-' }},
-            {data: 'permintaan.pemiliksampel.nama_pemilik', render: function(data){ return data ? data : '-' }},
-            {data: 'kode_sampel', render: function(data){ return data ? data : '-' }},
-            {data: 'nomor_surat', render: function(data){ return data ? data : '-' }},
-            {data: 'tanggal_surat', render: function(data){ return data ? data : '-' }},
-            {data: 'nama_produk', render: function(data){ return data ? data : '-' }},
-            {data: 'ujiproduk', render: function(data, type, row){
+            {data: 'no_urut_penerimaan', render: function(data){ return data ? data : '-' }},
+            {data: 'kategori.nama_kategori', render: function(data){ return data ? data : '-' }},
+            {data: 'pemiliksampel.nama_pemilik', render: function(data){ return data ? data : '-' }},
+            {data: 'produksampel', render: function(data, type, row){
                 let res = '';
                 for (const key in data) {
-                    if(data[key].parameter){
-                        res += data[key].parameter.parameter_uji+'<br />';
+                    if(data[key].kode_sampel){
+                        res += '- '+data[key].kode_sampel+'<br />';
                     }else{
-                        res += 'not found <br />';
+                        res += '- not found <br />';
                     }
                 }
                 return res;
                 }},
-            {data: 'tersangka', render: function(data){ return data ? data : '-' }},
-            {data: 'id_pengembalian_bb', render: function(data){ return data ? data : '-' }},
-            {data: 'user.name', render: function(data){ return data ? data : '-' }},
+            {data: 'produksampel', render: function(data, type, row){
+                let res = '';
+                for (const key in data) {
+                    if(data[key].nomor_surat){
+                        res += '- '+data[key].nomor_surat+'<br />';
+                    }else{
+                        res += '- not found <br />';
+                    }
+                }
+                return res;
+                }},
+            {data: 'produksampel', render: function(data, type, row){
+                let res = '';
+                var options = {year: 'numeric', month: 'long', day: 'numeric'};
+                for (const key in data) {
+                    if(data[key].tanggal_surat){
+                        const date = new Date(data[key].tanggal_surat);
+                        res += '- '+ date.toLocaleDateString("id-ID", options) +'<br />';
+                    }else{
+                        res += '- not found <br />';
+                    }
+                }
+                return res;
+                }},
+            {data: 'produksampel', render: function(data, type, row){
+                let res = '';
+                for (const key in data) {
+                    if(data[key].nama_produk){
+                        res += '- '+data[key].nama_produk+'<br />';
+                    }else{
+                        res += '- not found <br />';
+                    }
+                }
+                return res;
+                }},
+            {data: 'produksampel', render: function(data, type, row){
+                let res = '';
+                let n = 0;
+                for (const key in data) {
+                    res += ++n + '. ';
+                    for (const k in data[key].ujiproduk) {
+                        if(data[key].ujiproduk[k].parameter){
+                            res += '* '+data[key].ujiproduk[k].parameter.parameter_uji+'<br />';
+                        }else{
+                            res += '* not found <br />';
+                        }
+                    }
+                }
+                return res;
+            }},
+            {data: 'produksampel', render: function(data, type, row){
+                let res = '';
+                for (const key in data) {
+                    if(data[key].tersangka){
+                        res += '- '+data[key].tersangka+'<br />';
+                    }else{
+                        res += '- not found <br />';
+                    }
+                }
+                return res;
+                }},
+            {data: 'produksampel', render: function(data, type, row){
+                let res = '';
+                for (const key in data) {
+                    if(data[key].id_pengembalian_bb){
+                        res += '- '+data[key].id_pengembalian_bb+'<br />';
+                    }else{
+                        res += '-<br />';
+                    }
+                }
+                return res;
+                }},
+            {data: 'produksampel', render: function(data, type, row){
+                let res = '';
+                for (const key in data) {
+                    if(data[key].user){
+                        res += '- '+data[key].user.name+'<br />';
+                    }else{
+                        res += '- not found <br />';
+                    }
+                }
+                return res;
+                }},
             {data: 'tanggalterima'},
             {data: 'tanggalestimasi'},
             {data: 'tanggalselesaiuji'},
             {data: 'tanggallegalisir'},
-
-
             {data: 'selesaidalamhari'},
-            {data: 'hasil_uji', render: function(data, type, row){ return data ? data : '-'; }},
-            {data: 'ujiproduk', render: function(data, type, row){
+            {data: 'produksampel', render: function(data, type, row){
                 let res = '';
                 for (const key in data) {
-                    if(data[key].parameter){
-                        res += '<tr>'+data[key].parameter.metodeuji.biaya * data[key].jumlah_pengujian+'</tr><br />';
+                    if(data[key].hasil_uji){
+                        res += '- '+data[key].hasil_uji+'<br />';
                     }else{
-                        res += 'not found <br />';
+                        res += '- not found <br />';
                     }
                 }
                 return res;
                 }},
-            {data: 'permintaan.tracking.nama_pengambil', render: function($data){ return $data ? $data : '-'}},
-            {data: 'tandaterima'},
+            {data: 'produksampel', render: function(data, type, row){
+                let res = '';
+                let n = 0;
+                for (const key in data) {
+                    res += ++n + '. ';
+                    for (const k in data[key].ujiproduk) {
+                        if(data[key].ujiproduk[k].parameter){
+                            res += '* '+data[key].ujiproduk[k].parameter.metodeuji.biaya * data[key].ujiproduk[k].jumlah_pengujian+'<br />';
+                        }else{
+                            res += '* not found <br />';
+                        }
+                    }
+                    
+                }
+                return res;
+                }},
+            {data: 'tracking.nama_pengambil', render: function($data){ return $data ? $data : '-'}},
+            {data: 'produksampel', render: function(data, type, row){
+                let res = '';
+                for (const key in data) {
+                    if(data[key].tandaterima){
+                        res += '- '+data[key].tandaterima+'<br />';
+                    }else{
+                        res += '- not found <br />';
+                    }
+                }
+                return res;
+                }},
         ]
     });
 
@@ -151,6 +267,9 @@
 
     .select2-container .select2-selection--single {
         height: inherit;
+    }
+    @page {
+        size: auto;
     }
 </style>
 @endpush

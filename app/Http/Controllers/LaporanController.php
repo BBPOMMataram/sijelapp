@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Kategori;
 use App\Models\ProdukSampel;
 use App\Models\TerimaSampel;
 use Illuminate\Http\Request;
@@ -26,59 +27,70 @@ class LaporanController extends Controller
 
     public function dtrekapsampel()
     {
-        $data = ProdukSampel::with(
-            [
-                'ujiproduk',
-                'ujiproduk.parameter',
-                'ujiproduk.parameter.metodeuji',
-                'permintaan.pemiliksampel',
-                'permintaan.kategori',
-                'permintaan.tracking',
-                'permintaan',
-                'user',
-            ],
-        )->orderBy('id_permintaan', 'desc');
-
+        // $data = ProdukSampel::with(
+        //     [
+        //         'ujiproduk',
+        //         'ujiproduk.parameter',
+        //         'ujiproduk.parameter.metodeuji',
+        //         'permintaan.pemiliksampel' => function($query){
+        //             // $query->where('permintaan.id_kategori', 1);
+        //         },
+        //         'permintaan.tracking' => function($query){
+        //             // $query->where('permintaan.id_kategori', 1);
+        //         },
+        //         'permintaan.kategori' => function($query){
+        //             $query->where('kategori.id_kategori', 1);
+        //         },
+        //         'permintaan' => function($query){
+        //             $query->where('permintaan.id_kategori', 1);
+        //         },
+        //         'user',
+        //     ],
+        // )
+        // ->orderBy('id_permintaan', 'desc');
+            $data = TerimaSampel::with('kategori', 'pemiliksampel', 'tracking', 'produksampel.ujiproduk.parameter.metodeuji', 'produksampel.user')
+            // ->where('id_kategori', 1)
+            ->latest();
         return DataTables::of($data)
             ->addIndexColumn()
             ->addColumn('tanggalterima', function ($data) {
-                if (isset($data->permintaan->created_at)) {
-                    return $data->permintaan->created_at->isoFormat('D MMM Y (H:mm:ss)');
-                } elseif (isset($data->permintaan->tanggal_terima)) {
-                    return $data->permintaan->tanggal_terima->isoFormat('D MMM Y (H:mm:ss)');
+                if (isset($data->created_at)) {
+                    return $data->created_at->isoFormat('D MMM Y (H:mm:ss)');
+                } elseif (isset($data->tanggal_terima)) {
+                    return $data->tanggal_terima->isoFormat('D MMM Y (H:mm:ss)');
                 } else {
                     return '-';
                 }
             })
             ->addColumn('tanggalestimasi', function ($data) {
-                if (isset($data->permintaan->tracking->tanggal_estimasi)) {
-                    return $data->permintaan->tracking->tanggal_estimasi->isoFormat('D MMM Y');
+                if (isset($data->tracking->tanggal_estimasi)) {
+                    return $data->tracking->tanggal_estimasi->isoFormat('D MMM Y');
                 } else {
                     return '-';
                 }
             })
             ->addColumn('tanggalselesaiuji', function ($data) {
-                if (isset($data->permintaan->tracking->tanggal_selesai_uji)) {
-                    return $data->permintaan->tracking->tanggal_selesai_uji->isoFormat('D MMM Y');
+                if (isset($data->tracking->tanggal_selesai_uji)) {
+                    return $data->tracking->tanggal_selesai_uji->isoFormat('D MMM Y (H:mm:ss)');
                 } else {
                     return '-';
                 }
             })
             ->addColumn('tanggallegalisir', function ($data) {
-                if (isset($data->permintaan->tracking->tanggal_legalisir)) {
-                    return $data->permintaan->tracking->tanggal_legalisir->isoFormat('D MMM Y (H:mm:ss)');
+                if (isset($data->tracking->tanggal_legalisir)) {
+                    return $data->tracking->tanggal_legalisir->isoFormat('D MMM Y (H:mm:ss)');
                 } else {
                     return '-';
                 }
             })
             ->addColumn('selesaidalamhari', function ($data) {
-                if (isset($data->permintaan->tracking->tanggal_legalisir)) {
-                    $tgl_legalisir = $data->permintaan->tracking->tanggal_legalisir;
-                    if (isset($data->permintaan->created_at)) {
-                        $count = $tgl_legalisir->diffForHumans($data->permintaan->created_at);
+                if (isset($data->tracking->tanggal_legalisir)) {
+                    $tgl_legalisir = $data->tracking->tanggal_legalisir;
+                    if (isset($data->created_at)) {
+                        $count = $tgl_legalisir->diffForHumans($data->created_at);
                         return $count;
-                    } elseif (isset($data->permintaan->tanggal_terima)) {
-                        $count = $tgl_legalisir->diffForHumans($data->permintaan->tanggal_terima);
+                    } elseif (isset($data->tanggal_terima)) {
+                        $count = $tgl_legalisir->diffForHumans($data->tanggal_terima);
                         return $count;
                     }
                 } else {
@@ -87,12 +99,15 @@ class LaporanController extends Controller
             })
             ->addColumn('tandaterima', function ($data) {
                 $tt = '-';
-                if (isset($data->permintaan->tracking->tanda_terima)) {
-                    $tt = '<img src="'.Storage::url($data->permintaan->tracking->tanda_terima).'" width="60px">';
+                if (isset($data->tracking->tanda_terima)) {
+                    $tt = '<img src="'.Storage::url($data->tracking->tanda_terima).'" width="60px">';
                 }
 
                 return $tt;
             })
+            // ->addColumn('tanggal_surat', function($data){
+            //     return $data->produksampel->tanggal_surat ? $data->produksampel->tanggal_surat->isoFormat('D MMMM Y') : '-';
+            // })
             ->rawColumns(['tandaterima'])
             ->toJson();
     }
@@ -100,6 +115,7 @@ class LaporanController extends Controller
     public function rekapsampel()
     {
         $title = 'LAPORAN';
-        return view('admin.laporan.rekapsampel', compact('title'));
+        $bidang = Kategori::all();
+        return view('admin.laporan.rekapsampel', compact('title', 'bidang'));
     }
 }
