@@ -97,7 +97,7 @@
                                         "
                                     >
                                     <div class="inner-wrapper">
-                                        <div style="width:125px; display: inline-block;">--------- 1. Nama </div>: <span id="saksi1selected" style="text-transform: uppercase;"></span>
+                                        <div style="width:125px; display: inline-block;">--------- 1. Nama </div>: <span id="saksi1selected" ></span>
                                         {{ '------------------------------------------------------------------------------------------------'.
                                         '------------------------------------------------------------------------------------------------'}}
                                     </div>
@@ -143,7 +143,7 @@
                                         "
                                     >
                                     <div class="inner-wrapper">
-                                        <div style="width:125px; display: inline-block;">--------- 2. Nama </div>: <span id="saksi2selected" style="text-transform: uppercase;">{{ $produksampel->permintaan->pemiliksampel->nama_petugas }}</span>
+                                        <div style="width:125px; display: inline-block;">--------- 2. Nama </div>: <span id="saksi2selected" >{{ $produksampel->permintaan->pemiliksampel->nama_petugas }}</span>
                                         {{ '------------------------------------------------------------------------------------------------'.
                                         '------------------------------------------------------------------------------------------------'}}
                                     </div>
@@ -158,7 +158,7 @@
                                         "
                                     >
                                     <div class="inner-wrapper">
-                                        <div style="width:125px; display: inline-block;">--------- Pangkat </div>: <span id="saksi2pangkatselected" style="text-transform: uppercase;">{{ $produksampel->permintaan->pemiliksampel->pangkat_petugas }}</span>
+                                        <div style="width:125px; display: inline-block;">--------- Pangkat </div>: <span id="saksi2pangkatselected" >{{ $produksampel->permintaan->pemiliksampel->pangkat_petugas }}</span>
                                         {{ '------------------------------------------------------------------------------------------------'.
                                         '------------------------------------------------------------------------------------------------'}}
                                     </div>
@@ -229,8 +229,8 @@
                                     </div>
                                     <div style="position: absolute; top:150px;">
                                         <div>Saksi-saksi :</div>
-                                        <div style="margin-top: 15px; text-transform: uppercase;">1. <span id="saksi1selected1"></span></div>
-                                        <div style="margin-top: 15px; text-transform: uppercase;">2. {{ $produksampel->permintaan->pemiliksampel->nama_petugas }}</div>
+                                        <div style="margin-top: 15px; ">1. <span id="saksi1selected1"></span></div>
+                                        <div style="margin-top: 15px; ">2. {{ $produksampel->permintaan->pemiliksampel->nama_petugas }}</div>
                                     </div>
                                 </div>
 
