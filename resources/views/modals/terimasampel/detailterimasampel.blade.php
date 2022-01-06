@@ -41,7 +41,13 @@
               <div class="col-12">
                 <div class="form-group">
                   <label for="perihal">Perihal Surat</label>
-                  <input type="text" class="form-control" id="perihal" name="perihal" placeholder="Perihal Surat">
+                  {{-- <input type="text" class="form-control" id="perihal" name="perihal" placeholder="Perihal Surat"> --}}
+                  <select name="perihal" id="perihal" class="form-control">
+                    <option value="">==Pilih perihal==</option>
+                    @foreach ($perihal as $item)
+                      <option value="{{ $item->name }}">{{ $item->name }}</option>
+                    @endforeach
+                  </select>
                 </div>
               </div>
               <div class="col-12">

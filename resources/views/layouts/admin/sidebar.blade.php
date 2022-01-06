@@ -101,6 +101,12 @@
                   <p>Wadah 2</p>
                 </a>
               </li>
+              <li class="nav-item">
+                <a href="{{ route('perihalsurat.index') }}" class="nav-link @if(Request::is('admin/master/perihalsurat')) active @endif">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Perihal Surat</p>
+                </a>
+              </li>
               @if (auth()->user()->level === 0)
               <li class="nav-item">
                 <a href="{{ route('usermanagement.index') }}" class="nav-link @if(Request::is('admin/master/usermanagement')) active @endif">

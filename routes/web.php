@@ -10,6 +10,7 @@ use App\Http\Controllers\MetodeUjiController;
 use App\Http\Controllers\ParameterUjiController;
 use App\Http\Controllers\PemilikSampelController;
 use App\Http\Controllers\Pengaturan\ProfilController;
+use App\Http\Controllers\PerihalSuratController;
 use App\Http\Controllers\StatusUjiController;
 use App\Http\Controllers\TerimaSampelController;
 use App\Http\Controllers\TrackingSampelController;
@@ -48,6 +49,7 @@ Route::middleware(['auth'])->group(function () {
                 'usermanagement' => UserController::class,
                 'wadah1' => Wadah1Controller::class,
                 'wadah2' => Wadah2Controller::class,
+                'perihalsurat' => PerihalSuratController::class,
             ]);
             Route::put('changephoto/{id}', [UserController::class, 'changephoto'])->name('usermanagement.changephoto');
             Route::put('resetpwd/{id}', [UserController::class, 'resetpwd'])->name('usermanagement.resetpwd');

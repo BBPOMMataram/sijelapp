@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\PerihalSurat;
 use App\Models\ProdukSampel;
 use App\Models\TerimaSampel;
 use App\Models\UjiProduk;
@@ -40,8 +41,9 @@ class DetailTerimaSampelController extends Controller
 
         $wadah1 = Wadah1::all();
         $wadah2 = Wadah2::all();
+        $perihal = PerihalSurat::all();
 
-        return view('admin.terimasampel.detailterimasampel', compact('title', 'id', 'wadah1', 'wadah2'));
+        return view('admin.terimasampel.detailterimasampel', compact('title', 'id', 'wadah1', 'wadah2', 'perihal'));
     }
 
     public function store(Request $request)
