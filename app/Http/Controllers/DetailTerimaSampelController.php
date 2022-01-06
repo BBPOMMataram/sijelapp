@@ -110,7 +110,8 @@ class DetailTerimaSampelController extends Controller
         $data->tanggal_surat = $request->tanggal_surat;
         $data->perihal = $request->perihal;
         $data->tersangka = $request->tersangka;
-        $data->wadah = $request->wadah;
+        $data->wadah1 = $request->wadah1;
+        $data->wadah2 = $request->wadah2;
 
         // $data->kode_sampel = $request->kode_sampel;
 
