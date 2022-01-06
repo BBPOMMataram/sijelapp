@@ -10,6 +10,7 @@ use App\Models\User;
 use App\Models\Wadah1;
 use App\Models\Wadah2;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Facades\DataTables;
 
 class DetailTerimaSampelController extends Controller
@@ -28,6 +29,10 @@ class DetailTerimaSampelController extends Controller
                 $btn = '<a href="#"><i class="fas fa-pen text-info edit"></i></a>';
                 $btn .= '<a href="'.route('print.basegel', $data->id_produk_sampel).'" target="_blank"><i class="fas fa-print text-primary mx-2"></i></a>';
                 $btn .= '<a href="'.route('print.bapenimbangan', $data->id_produk_sampel).'" target="_blank"><i class="fas fa-print text-danger"></i></a>';
+
+                if ($data->lhu) {
+                    $btn .= '<a href="'. route('download.lhu', $data->lhu) .'"><i class="fas fa-download text-success ml-2"></i></a>';
+                }
                 return $btn;
             })
             ->rawColumns(['actions'])

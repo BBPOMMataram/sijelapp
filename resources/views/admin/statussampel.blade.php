@@ -223,6 +223,8 @@
             const statusSampel = rowData['id_status_sampel'];
             let text = '';
             let icon = 'question';
+            let processData = true;
+            let contentType = 'application/x-www-form-urlencoded; charset=UTF-8';
 
             switch (statusSampel) {
                 case 0:
@@ -260,13 +262,14 @@
                         text += '<input type="text" name="kodeproduk[]" class="form-control" value="'+produk[key].kode_sampel+'" readonly />'
                         text += '</div>'
                         text += '<div class="col">'
-                        text += '<select name="hasil_uji[]" class="form-control">'
-                        text += '<option value="">==Pilih Hasil==</option>'
-                        text += '<option value="Positif">Positif</option>'
-                        text += '<option value="Negatif">Negatif</option>'
-                        text += '<option value="TMS">TMS</option>'
-                        text += '<option value="MS">MS</option>'
-                        text += '</select>'
+                        // text += '<select name="hasil_uji[]" class="form-control">'
+                        // text += '<option value="">==Pilih Hasil==</option>'
+                        // text += '<option value="Positif">Positif</option>'
+                        // text += '<option value="Negatif">Negatif</option>'
+                        // text += '<option value="TMS">TMS</option>'
+                        // text += '<option value="MS">MS</option>'
+                        // text += '</select>'
+                        text += '<input type="text" name="hasil_uji[]" class="form-control" />'
                         text += '</div>'
                         text += '</div>'
                     }
@@ -278,7 +281,37 @@
                     text = 'Apakah sampel sudah dilegalisir ?'
                     break;
                 case 6:
-                    text = 'Apakah sampel sudah selesai ?'
+                    const sampel = rowData.permintaan.produksampel;
+                    text += '<input class="form-control" type="file" id="lhu" name="lhu" />'
+
+                    text = '<div>Apakah sampel sudah selesai ?</div><br>'
+
+                    text += '<div class="row">'
+                    text += '<div class="col">'
+                    text += '<label for="namaproduk">Nama Produk</label>'
+                    text += '</div>'
+                    text += '<div class="col">'
+                    text += '<label for="kodeproduk">Kode Produk</label>'
+                    text += '</div>'
+                    text += '<div class="col">'
+                    text += '<label for="hasiluji">Hasil Uji</label><br />'
+                    text += '</div>'
+                    text += '</div>'
+                    for (const key in sampel) {
+                        text += '<div class="row mb-1">'
+                        text += '<input type="hidden" name="id_produk_sampel[]" value="'+sampel[key].id_produk_sampel+'" />'
+                        text += '<div class="col">'
+                        text += '<input type="text" name="namaproduk[]" class="form-control" value="'+sampel[key].nama_produk+'" readonly />'
+                        text += '</div>'
+                        text += '<div class="col">'
+                        text += '<input type="text" name="kodeproduk[]" class="form-control" value="'+sampel[key].kode_sampel+'" readonly />'
+                        text += '</div>'
+                        text += '<div class="col">'
+                        // text += '<input type="text" name="hasil_uji[]" class="form-control" />'
+                        text += '<input class="form-control" type="file" id="lhu" name="lhu[]" />'
+                        text += '</div>'
+                        text += '</div>'
+                    }
                     break;
                 case 7:
                     text = 'Apakah sampel sudah diambil ?<br />';
@@ -309,13 +342,41 @@
                         return this.value; 
                     }).get();
 
-                    var hasiluji = $('select[name="hasil_uji[]"]').map(function(){ 
+                    var hasiluji = $('input[name="hasil_uji[]"]').map(function(){ 
                         return this.value; 
                     }).get();
 
                     data.idproduk = idproduk;
                     data.hasiluji = hasiluji;
                 }
+
+                if(statusSampel === 6){
+                    data = new FormData();
+                    processData = contentType = false;
+                    
+                    // var idproduk = $('input[name="id_produk_sampel[]"]').map(function(){ 
+                    //     return this.value; 
+                    // }).get();
+
+                    const lhuInput = $('input[name="lhu[]"]');
+                    const idproduk = $('input[name="id_produk_sampel[]"]');
+                    
+                    for (const key in lhuInput) {
+                        if (Object.hasOwnProperty.call(lhuInput, key)) {
+                            if(key === 'length' || key === 'prevObject' || !lhuInput[key].files[0]){
+                                continue;
+                            }
+                            // !lhuInput[key].files[0] di kondisi diatas utk skip id produk yg tidak ada file lhu yg dipilih
+                            data.append('lhu[]', lhuInput[key].files[0]);
+                            data.append('idproduk[]', idproduk[key].value);
+                        }
+                    }
+                    
+                    data.append('_token', "{{ csrf_token() }}")
+                    // data.idproduk = idproduk;
+                    // data.hasiluji = hasiluji;
+                }
+                
                 if(statusSampel === 7){
                     data.pengambil = $('#pengambil').val();
                 }
@@ -325,6 +386,8 @@
                         type: "POST",
                         url,
                         data,
+                        processData,
+                        contentType,
                         success: function (response) {
                             if(response.status){
                                 Toast.fire({

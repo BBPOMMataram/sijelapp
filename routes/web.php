@@ -20,6 +20,7 @@ use App\Http\Controllers\Wadah2Controller;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Storage;
 
 /*
 |--------------------------------------------------------------------------
@@ -64,6 +65,11 @@ Route::middleware(['auth'])->group(function () {
         Route::match(['put', 'patch'], 'detailterimasampel/{idProdukSampel}', [DetailTerimaSampelController::class, 'update'])->name('detailterimasampel.update');
         Route::delete('detailterimasampel/{idProdukSampel}', [DetailTerimaSampelController::class, 'destroy'])->name('detailterimasampel.destroy');
         Route::post('detailterimasampel', [DetailTerimaSampelController::class, 'store'])->name('detailterimasampel.store');
+
+        Route::get('downloadlhu/{lhu}', function($lhu){
+            return Storage::download($lhu);
+        })->where('lhu', '.*')
+        ->name('download.lhu');
 
         Route::get('lastnourut/{idkategori}', [TerimaSampelController::class, 'lastnourut'])->name('lastnourut');
 

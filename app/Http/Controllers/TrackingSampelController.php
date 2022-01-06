@@ -180,7 +180,18 @@ class TrackingSampelController extends Controller
                 $data->tanggal_legalisir = now();
                 break;
             case 7:
+                // dd($request->all());
                 $data->tanggal_selesai = now();
+
+                if ($request->lhu) {
+                    foreach ($request->idproduk as $key => $value) {
+                        $produksampel = ProdukSampel::find($value);
+                        $filename = $value . '.' . $request->lhu[$key]->getClientOriginalExtension();
+                        $path = $request->lhu[$key]->storeAs('lhu', $filename);
+                        $produksampel->lhu = $path;
+                        $produksampel->save();
+                    }
+                }
                 break;
             case 8:
                 $data->tanggal_diambil = now();
@@ -217,7 +228,7 @@ class TrackingSampelController extends Controller
                 break;
             case 3:
                 $data->tanggal_pengujian = null;
-                $produk = ProdukSampel::where('id_permintaan', $data->id_permintaan)->update(['hasil_uji' => null]);
+                ProdukSampel::where('id_permintaan', $data->id_permintaan)->update(['hasil_uji' => null]);
                 break;
             case 4:
                 $data->tanggal_selesai_uji = null;
@@ -227,6 +238,15 @@ class TrackingSampelController extends Controller
                 break;
             case 6:
                 $data->tanggal_selesai = null;
+
+                $produk = ProdukSampel::where('id_permintaan', $data->id_permintaan);
+                foreach ($produk->get() as $key => $value) {
+                    if($value->lhu){
+                        Storage::delete($value->lhu);
+                    }
+                }
+                $produk->update(['lhu' => null]);
+                
                 break;
             case 7:
                 $data->tanggal_diambil = null;
