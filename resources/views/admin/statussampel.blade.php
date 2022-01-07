@@ -278,13 +278,9 @@
                     text = 'Apakah sudah selesai verifikasi LHU ?'
                     break;
                 case 5:
-                    text = 'Apakah sampel sudah dilegalisir ?'
-                    break;
-                case 6:
                     const sampel = rowData.permintaan.produksampel;
-                    text += '<input class="form-control" type="file" id="lhu" name="lhu" />'
-
-                    text = '<div>Apakah sampel sudah selesai ?</div><br>'
+                    
+                    text = '<div>Apakah sampel sudah dilegalisir ?</div><br>'
 
                     text += '<div class="row">'
                     text += '<div class="col">'
@@ -294,7 +290,7 @@
                     text += '<label for="kodeproduk">Kode Produk</label>'
                     text += '</div>'
                     text += '<div class="col">'
-                    text += '<label for="hasiluji">Hasil Uji</label><br />'
+                    text += '<label for="lhu">Upload LHU</label><br />'
                     text += '</div>'
                     text += '</div>'
                     for (const key in sampel) {
@@ -312,6 +308,9 @@
                         text += '</div>'
                         text += '</div>'
                     }
+                    break;
+                case 6:
+                    text = 'Apakah sampel sudah selesai ?'
                     break;
                 case 7:
                     text = 'Apakah sampel sudah diambil ?<br />';
@@ -350,13 +349,9 @@
                     data.hasiluji = hasiluji;
                 }
 
-                if(statusSampel === 6){
+                if(statusSampel === 5){
                     data = new FormData();
                     processData = contentType = false;
-                    
-                    // var idproduk = $('input[name="id_produk_sampel[]"]').map(function(){ 
-                    //     return this.value; 
-                    // }).get();
 
                     const lhuInput = $('input[name="lhu[]"]');
                     const idproduk = $('input[name="id_produk_sampel[]"]');
@@ -462,6 +457,9 @@
 
     .select2-container .select2-selection--single {
         height: inherit;
+    }
+    .swal2-popup{
+        width:850px !important;
     }
 </style>
 @endpush
