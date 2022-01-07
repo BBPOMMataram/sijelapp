@@ -76,6 +76,7 @@
                     }},
                 {data: 'tersangka', render: function(data, type, row){ return data ? data : '-'; }},
                 {data: 'user.name', render: function(data, type, row){ return data ? data : '-'; }},
+                {data: 'download'},
             ]
         });
     }
@@ -112,6 +113,8 @@
         $('#waktudiambil').text(rowData.tanggal_diambil);
         $('#waktuestimasi').text(rowData.tanggal_estimasi);
 
+        // tgl selesai untuk memastikan btn tampil saat sudah selesai 
+        // dan tgl diambil untuk menyembunyikan btn ambil sampel setelah sampel sudah diambil
         if (rowData.tanggal_selesai !== '-' && rowData.tanggal_diambil === '-') {
             const btnAmbil = '<button class="btn btn-sm btn-info rounded" id="ambilsampel">AMBIL SAMPEL</button>';
             $('.btnContainer').empty();

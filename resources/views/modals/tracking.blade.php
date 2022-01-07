@@ -125,6 +125,7 @@
                       <th class="align-middle">Biaya</th>
                       <th class="align-middle">Tersangka</th>
                       <th class="align-middle">Saksi Ahli</th>
+                      <th class="align-middle">Download</th>
                     </tr>
                   </thead>
                 </table>

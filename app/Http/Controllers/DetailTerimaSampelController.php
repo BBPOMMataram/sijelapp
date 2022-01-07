@@ -35,7 +35,15 @@ class DetailTerimaSampelController extends Controller
                 }
                 return $btn;
             })
-            ->rawColumns(['actions'])
+            ->addColumn('download', function ($data) {
+                $btn = '-';
+
+                if ($data->lhu) {
+                    $btn = '<a href="'. route('download.lhu', $data->lhu) .'"><i class="fas fa-download text-success ml-2"></i></a>';
+                }
+                return $btn;
+            })
+            ->rawColumns(['actions', 'download'])
             ->toJson();
     }
 

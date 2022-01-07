@@ -35,6 +35,10 @@ use Illuminate\Support\Facades\Storage;
 
 Route::get('/', [FrontController::class, 'trackingsampel'])->name('home');
 Route::get('/tarif', [FrontController::class, 'tarifpengujian'])->name('tarifpengujian');
+Route::get('downloadlhu/{lhu}', function($lhu){
+    return Storage::download($lhu);
+})->where('lhu', '.*')
+->name('download.lhu');
 
 Route::middleware(['auth'])->group(function () {
     Route::prefix('admin')->group(function () {
@@ -65,11 +69,6 @@ Route::middleware(['auth'])->group(function () {
         Route::match(['put', 'patch'], 'detailterimasampel/{idProdukSampel}', [DetailTerimaSampelController::class, 'update'])->name('detailterimasampel.update');
         Route::delete('detailterimasampel/{idProdukSampel}', [DetailTerimaSampelController::class, 'destroy'])->name('detailterimasampel.destroy');
         Route::post('detailterimasampel', [DetailTerimaSampelController::class, 'store'])->name('detailterimasampel.store');
-
-        Route::get('downloadlhu/{lhu}', function($lhu){
-            return Storage::download($lhu);
-        })->where('lhu', '.*')
-        ->name('download.lhu');
 
         Route::get('lastnourut/{idkategori}', [TerimaSampelController::class, 'lastnourut'])->name('lastnourut');
 
