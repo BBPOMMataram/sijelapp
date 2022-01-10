@@ -55,13 +55,19 @@ class LaporanController extends Controller
         return DataTables::of($data)
             ->addIndexColumn()
             ->addColumn('tanggalterima', function ($data) {
-                if (isset($data->created_at)) {
-                    return $data->created_at->isoFormat('D MMM Y (H:mm:ss)');
-                } elseif (isset($data->tanggal_terima)) {
-                    return $data->tanggal_terima->isoFormat('D MMM Y (H:mm:ss)');
-                } else {
-                    return '-';
+                // if (isset($data->created_at)) {
+                //     return $data->created_at->isoFormat('D MMM Y (H:mm:ss)');
+                // } elseif (isset($data->tanggal_terima)) {
+                //     return $data->tanggal_terima->isoFormat('D MMM Y (H:mm:ss)');
+                // } else {
+                //     return '-';
+                // }
+                $tglterima = '-';
+                if(isset($data->tracking->tanggal_pembayaran)){
+                    $tglterima = $data->tracking->tanggal_pembayaran->isoFormat('D MMM Y (H:mm:ss)');
                 }
+
+                return $tglterima;
             })
             ->addColumn('tanggalestimasi', function ($data) {
                 if (isset($data->tracking->tanggal_estimasi)) {
@@ -87,8 +93,8 @@ class LaporanController extends Controller
             ->addColumn('selesaidalamhari', function ($data) {
                 if (isset($data->tracking->tanggal_selesai)) {
                     $tgl_selesai = $data->tracking->tanggal_selesai;
-                    if (isset($data->tracking->tanggal_legalisir)) {
-                        $count = $tgl_selesai->diffForHumans($data->tracking->tanggal_legalisir);
+                    if (isset($data->tracking->tanggal_pembayaran)) {
+                        $count = $tgl_selesai->diffForHumans($data->tracking->tanggal_pembayaran);
                         return $count;
                     } 
                     // elseif (isset($data->tanggal_terima)) {
