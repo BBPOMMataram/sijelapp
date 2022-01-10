@@ -35,10 +35,11 @@
         url = url.replace('_id', idpermintaan);
 
         $("#detailterimasampel").DataTable().destroy();
-        $("#detailterimasampel").DataTable({
+        let dttable = $("#detailterimasampel").DataTable({
             searching: false,
             serverside: true,
             select: true,
+            scrollX: true,
             ajax: {
                 url
             },
@@ -49,13 +50,13 @@
                     let res = '';
                     for (const key in data) {
                         if(data[key].parameter){
-                            res += data[key].parameter.parameter_uji+'<br />';
+                            res += '- ' + data[key].parameter.parameter_uji+'<br />';
                         }else{
                             res += 'not found <br />';
                         }
                     }
                     return res;
-                    }, className: 'text-nowrap'},
+                    }},
                 {data: 'ujiproduk', render: function(data, type, row){
                     let res = '';
                     for (const key in data) {
@@ -244,7 +245,11 @@
         
         $('#modaltracking').on('hidden.bs.modal', function(){
             location.reload();
-        })
+        });
+
+        $('#modaltracking').on('shown.bs.modal', function(){
+            dttable.columns.adjust();
+        });
     });
     
 </script>
@@ -255,5 +260,11 @@
     .modal {
         overflow-y: auto;
     }
+
+    .dataTables_scrollHeadInner {
+        width: 100%!important;
+    }
+
+    thead th { white-space: nowrap; }
 </style>
 @endpush

@@ -115,17 +115,17 @@
               </fieldset>
               <fieldset class="border p-2 pt-0">
                 <legend class="w-auto px-1 my-0">Detail Sampel</legend>
-                <table id="detailterimasampel" class="table w-100 text-dark bg-transparent">
-                  <thead>
-                    <tr>
-                      <th class="align-middle">No</th>
-                      <th class="align-middle">Jenis Produk</th>
-                      <th class="align-middle">Parameter Uji</th>
-                      <th class="align-middle">Jumlah Pengujian</th>
-                      <th class="align-middle">Biaya</th>
-                      <th class="align-middle">Tersangka</th>
-                      <th class="align-middle">Saksi Ahli</th>
-                      <th class="align-middle">Download</th>
+                  <table id="detailterimasampel" class="table text-dark bg-transparent w-100">
+                    <thead>
+                      <tr>
+                        <th class="align-middle">No</th>
+                        <th class="align-middle">Jenis Produk</th>
+                        <th class="align-middle">Parameter Uji</th>
+                        <th class="align-middle">Jumlah Pengujian</th>
+                        <th class="align-middle">Biaya</th>
+                        <th class="align-middle">Tersangka</th>
+                        <th class="align-middle">Saksi Ahli</th>
+                        <th class="align-middle">Download</th>
                     </tr>
                   </thead>
                 </table>
