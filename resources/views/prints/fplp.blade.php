@@ -59,7 +59,7 @@
                                 <div style="width: 75%; float: left;">{{ $permintaan->pemiliksampel->telepon_petugas }}</div>
                                 <div style="width: 20%; float: left;">Email</div>
                                 <div style="width: 5%; float: left;">:</div>
-                                <div style="width: 75%; float: left;"></div>
+                                <div style="width: 75%; float: left;">{{ $permintaan->pemiliksampel->email_petugas }}</div>
                             </div>
                         </div>
                         <div style="clear: both;"></div>

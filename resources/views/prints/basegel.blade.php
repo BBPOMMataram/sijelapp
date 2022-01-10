@@ -192,7 +192,7 @@
                                         <p id="isisurat">
                                             Berdasarkan surat dari Kepala {{ $produksampel->permintaan->pemiliksampel->nama_pemilik }} nomor: {{ $produksampel->nomor_surat ?? '==nosurat tidak ditemukan==' }}
                                             tanggal {{ $produksampel->tanggal_surat ? $produksampel->tanggal_surat->isoFormat('D MMMM    Y') : '==tglsurat tidak ditemukan==' }} perihal <i>{{ $produksampel->perihal ?? '==perihal tidak ditemukan==' }}</i>,
-                                            beserta lampiran-lampirannya yang menyatakan tentang peredaran Narkotika a.n tersangka {{ $produksampel->tersangka ?? '==namatersangka tidak ditemukan==' }},
+                                            beserta lampiran-lampirannya yang menyatakan tentang peredaran Narkotika a.n tersangka <b>{{ $produksampel->tersangka ?? '==namatersangka tidak ditemukan==' }}</b>,
                                             telah melakukan pembukaan segel barang bukti berupa:
                                             {{ $produksampel->wadah1 ?? '==wadah1 tidak ditemukan==' }}. Setelah dibuka di dalamnya terdapat {{ $produksampel->wadah2 ?? '==wadah2 tidak ditemukan==' }}.
                                             Amplop dibuka dengan cara digunting dan plastik klip transparan berisi Barang Bukti
