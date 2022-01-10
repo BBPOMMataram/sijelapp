@@ -70,9 +70,9 @@ class LaporanController extends Controller
                     return '-';
                 }
             })
-            ->addColumn('tanggalselesaiuji', function ($data) {
-                if (isset($data->tracking->tanggal_selesai_uji)) {
-                    return $data->tracking->tanggal_selesai_uji->isoFormat('D MMM Y (H:mm:ss)');
+            ->addColumn('tanggalselesai', function ($data) {
+                if (isset($data->tracking->tanggal_selesai)) {
+                    return $data->tracking->tanggal_selesai->isoFormat('D MMM Y (H:mm:ss)');
                 } else {
                     return '-';
                 }
@@ -85,15 +85,16 @@ class LaporanController extends Controller
                 }
             })
             ->addColumn('selesaidalamhari', function ($data) {
-                if (isset($data->tracking->tanggal_legalisir)) {
-                    $tgl_legalisir = $data->tracking->tanggal_legalisir;
-                    if (isset($data->created_at)) {
-                        $count = $tgl_legalisir->diffForHumans($data->created_at);
+                if (isset($data->tracking->tanggal_selesai)) {
+                    $tgl_selesai = $data->tracking->tanggal_selesai;
+                    if (isset($data->tracking->tanggal_legalisir)) {
+                        $count = $tgl_selesai->diffForHumans($data->tracking->tanggal_legalisir);
                         return $count;
-                    } elseif (isset($data->tanggal_terima)) {
-                        $count = $tgl_legalisir->diffForHumans($data->tanggal_terima);
-                        return $count;
-                    }
+                    } 
+                    // elseif (isset($data->tanggal_terima)) {
+                    //     $count = $tgl_legalisir->diffForHumans($data->tanggal_terima);
+                    //     return $count;
+                    // }
                 } else {
                     return '-';
                 }

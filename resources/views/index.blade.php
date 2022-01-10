@@ -35,7 +35,7 @@
         url = url.replace('_id', idpermintaan);
 
         $("#detailterimasampel").DataTable().destroy();
-        let dttable = $("#detailterimasampel").DataTable({
+        $("#detailterimasampel").DataTable({
             searching: false,
             serverside: true,
             select: true,
@@ -247,9 +247,6 @@
             location.reload();
         });
 
-        $('#modaltracking').on('shown.bs.modal', function(){
-            dttable.columns.adjust();
-        });
     });
     
 </script>
@@ -265,6 +262,6 @@
         width: 100%!important;
     }
 
-    thead th { white-space: nowrap; }
+    thead th { white-space: nowrap; text-align: left;}
 </style>
 @endpush

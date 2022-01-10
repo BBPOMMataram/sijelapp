@@ -215,8 +215,8 @@
                 }},
             {data: 'tanggalterima'},
             {data: 'tanggalestimasi'},
-            {data: 'tanggalselesaiuji'},
             {data: 'tanggallegalisir'},
+            {data: 'tanggalselesai'},
             {data: 'selesaidalamhari'},
             {data: 'produksampel', render: function(data, type, row){
                 let res = '';
@@ -246,17 +246,7 @@
                 return res;
                 }},
             {data: 'tracking.nama_pengambil', render: function($data){ return $data ? $data : '-'}},
-            {data: 'produksampel', render: function(data, type, row){
-                let res = '';
-                for (const key in data) {
-                    if(data[key].tandaterima){
-                        res += '- '+data[key].tandaterima+'<br />';
-                    }else{
-                        res += '- not found <br />';
-                    }
-                }
-                return res;
-                }},
+            {data: 'tandaterima'},
             {data: 'kategori.id_kategori', visible: false},
         ]
     });
