@@ -10,7 +10,7 @@ class KategoriController extends Controller
 {
     public function dtkategori()
     {
-        $data = Kategori::where('status', 1)->orderBy('nama_kategori');
+        $data = Kategori::orderBy('nama_kategori');
         return DataTables::of($data)
             ->addIndexColumn()
             ->addColumn('actions', function ($data) {

@@ -153,7 +153,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a onclick="return alert('belum jadii!!!')"href="#" class="nav-link @if(Request::is('admin/laporan/jumlahsampel')) active @endif">
+                <a href="{{ route('laporan.jumlahsampel') }}" class="nav-link @if(Request::is('admin/laporan/jumlahsampel')) active @endif">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Jumlah Sampel</p>
                 </a>

@@ -6,6 +6,7 @@ use App\Models\Kategori;
 use App\Models\ProdukSampel;
 use App\Models\TerimaSampel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -13,16 +14,246 @@ class LaporanController extends Controller
 {
     public function jumlahsampel()
     {
-        $title = 'LAPORAN';
+        $title = 'LAPORAN JUMLAH PENGUJIAN PIHAK KETIGA';
         return view('admin.laporan.jumlahsampel', compact('title'));
     }
 
-    public function dtjumlahsampel()
+    public function dtjumlahsampel($tahun)
     {
-        $data = TerimaSampel::with(['kategori']);
+        $data = TerimaSampel::with(['kategori'])
+            // ->whereYear('created_at', $tahun)
+            ->groupBy('id_kategori');
         return DataTables::of($data)
             ->addIndexColumn()
+            ->addColumn('januarimasuk', function ($d) use ($tahun) {
+                $res = $d->where('id_kategori', $d->id_kategori)
+                    ->whereMonth('created_at', '1')
+                    ->whereYear('created_at', $tahun)
+                    ->sum('jumlah_sampel');
+                return $res;
+            })
+            ->addColumn('januarikeluar', function ($d) use ($tahun) {
+                $res = $d
+                    ->whereHas('tracking', function ($q) {
+                        $q->whereMonth('tanggal_selesai', '1');
+                    })
+                    ->where('id_kategori', $d->id_kategori)
+                    ->whereYear('created_at', $tahun)
+                    ->sum('jumlah_sampel');
+                return $res;
+            })
+            ->addColumn('februarimasuk', function ($d) use ($tahun) {
+                $res = $d->where('id_kategori', $d->id_kategori)
+                    ->whereMonth('created_at', '2')
+                    ->whereYear('created_at', $tahun)
+                    ->sum('jumlah_sampel');
+                return $res;
+            })
+            ->addColumn('februarikeluar', function ($d) use ($tahun) {
+                $res = $d
+                    ->whereHas('tracking', function ($q) {
+                        $q->whereMonth('tanggal_selesai', '2');
+                    })
+                    ->where('id_kategori', $d->id_kategori)
+                    ->whereYear('created_at', $tahun)
+                    ->sum('jumlah_sampel');
+                return $res;
+            })
+            ->addColumn('maretmasuk', function ($d) use ($tahun) {
+                $res = $d->where('id_kategori', $d->id_kategori)
+                    ->whereMonth('created_at', '3')
+                    ->whereYear('created_at', $tahun)
+                    ->sum('jumlah_sampel');
+                return $res;
+            })
+            ->addColumn('maretkeluar', function ($d) use ($tahun) {
+                $res = $d
+                    ->whereHas('tracking', function ($q) {
+                        $q->whereMonth('tanggal_selesai', '3');
+                    })
+                    ->where('id_kategori', $d->id_kategori)
+                    ->whereYear('created_at', $tahun)
+                    ->sum('jumlah_sampel');
+                return $res;
+            })
+            ->addColumn('aprilmasuk', function ($d) use ($tahun) {
+                $res = $d->where('id_kategori', $d->id_kategori)
+                    ->whereMonth('created_at', '4')
+                    ->whereYear('created_at', $tahun)
+                    ->sum('jumlah_sampel');
+                return $res;
+            })
+            ->addColumn('aprilkeluar', function ($d) use ($tahun) {
+                $res = $d
+                    ->whereHas('tracking', function ($q) {
+                        $q->whereMonth('tanggal_selesai', '4');
+                    })
+                    ->where('id_kategori', $d->id_kategori)
+                    ->whereYear('created_at', $tahun)
+                    ->sum('jumlah_sampel');
+                return $res;
+            })
+            ->addColumn('meimasuk', function ($d) use ($tahun) {
+                $res = $d->where('id_kategori', $d->id_kategori)
+                    ->whereMonth('created_at', '5')
+                    ->whereYear('created_at', $tahun)
+                    ->sum('jumlah_sampel');
+                return $res;
+            })
+            ->addColumn('meikeluar', function ($d) use ($tahun) {
+                $res = $d
+                    ->whereHas('tracking', function ($q) {
+                        $q->whereMonth('tanggal_selesai', '5');
+                    })
+                    ->where('id_kategori', $d->id_kategori)
+                    ->whereYear('created_at', $tahun)
+                    ->sum('jumlah_sampel');
+                return $res;
+            })
+            ->addColumn('junimasuk', function ($d) use ($tahun) {
+                $res = $d->where('id_kategori', $d->id_kategori)
+                    ->whereMonth('created_at', '6')
+                    ->whereYear('created_at', $tahun)
+                    ->sum('jumlah_sampel');
+                return $res;
+            })
+            ->addColumn('junikeluar', function ($d) use ($tahun) {
+                $res = $d
+                    ->whereHas('tracking', function ($q) {
+                        $q->whereMonth('tanggal_selesai', '6');
+                    })
+                    ->where('id_kategori', $d->id_kategori)
+                    ->whereYear('created_at', $tahun)
+                    ->sum('jumlah_sampel');
+                return $res;
+            })
+            ->addColumn('julimasuk', function ($d) use ($tahun) {
+                $res = $d->where('id_kategori', $d->id_kategori)
+                    ->whereMonth('created_at', '7')
+                    ->whereYear('created_at', $tahun)
+                    ->sum('jumlah_sampel');
+                return $res;
+            })
+            ->addColumn('julikeluar', function ($d) use ($tahun) {
+                $res = $d
+                    ->whereHas('tracking', function ($q) {
+                        $q->whereMonth('tanggal_selesai', '7');
+                    })
+                    ->where('id_kategori', $d->id_kategori)
+                    ->whereYear('created_at', $tahun)
+                    ->sum('jumlah_sampel');
+                return $res;
+            })
+            ->addColumn('agustusmasuk', function ($d) use ($tahun) {
+                $res = $d->where('id_kategori', $d->id_kategori)
+                    ->whereMonth('created_at', '8')
+                    ->whereYear('created_at', $tahun)
+                    ->sum('jumlah_sampel');
+                return $res;
+            })
+            ->addColumn('agustuskeluar', function ($d) use ($tahun) {
+                $res = $d
+                    ->whereHas('tracking', function ($q) {
+                        $q->whereMonth('tanggal_selesai', '8');
+                    })
+                    ->where('id_kategori', $d->id_kategori)
+                    ->whereYear('created_at', $tahun)
+                    ->sum('jumlah_sampel');
+                return $res;
+            })
+            ->addColumn('septembermasuk', function ($d) use ($tahun) {
+                $res = $d->where('id_kategori', $d->id_kategori)
+                    ->whereMonth('created_at', '9')
+                    ->whereYear('created_at', $tahun)
+                    ->sum('jumlah_sampel');
+                return $res;
+            })
+            ->addColumn('septemberkeluar', function ($d) use ($tahun) {
+                $res = $d
+                    ->whereHas('tracking', function ($q) {
+                        $q->whereMonth('tanggal_selesai', '9');
+                    })
+                    ->where('id_kategori', $d->id_kategori)
+                    ->whereYear('created_at', $tahun)
+                    ->sum('jumlah_sampel');
+                return $res;
+            })
+            ->addColumn('oktobermasuk', function ($d) use ($tahun) {
+                $res = $d->where('id_kategori', $d->id_kategori)
+                    ->whereMonth('created_at', '10')
+                    ->whereYear('created_at', $tahun)
+                    ->sum('jumlah_sampel');
+                return $res;
+            })
+            ->addColumn('oktoberkeluar', function ($d) use ($tahun) {
+                $res = $d
+                    ->whereHas('tracking', function ($q) {
+                        $q->whereMonth('tanggal_selesai', '10');
+                    })
+                    ->where('id_kategori', $d->id_kategori)
+                    ->whereYear('created_at', $tahun)
+                    ->sum('jumlah_sampel');
+                return $res;
+            })
+            ->addColumn('novembermasuk', function ($d) use ($tahun) {
+                $res = $d->where('id_kategori', $d->id_kategori)
+                    ->whereMonth('created_at', '11')
+                    ->whereYear('created_at', $tahun)
+                    ->sum('jumlah_sampel');
+                return $res;
+            })
+            ->addColumn('novemberkeluar', function ($d) use ($tahun) {
+                $res = $d
+                    ->whereHas('tracking', function ($q) {
+                        $q->whereMonth('tanggal_selesai', '11');
+                    })
+                    ->where('id_kategori', $d->id_kategori)
+                    ->whereYear('created_at', $tahun)
+                    ->sum('jumlah_sampel');
+                return $res;
+            })
+            ->addColumn('desembermasuk', function ($d) use ($tahun) {
+                $res = $d->where('id_kategori', $d->id_kategori)
+                    ->whereMonth('created_at', '12')
+                    ->whereYear('created_at', $tahun)
+                    ->sum('jumlah_sampel');
+                return $res;
+            })
+            ->addColumn('desemberkeluar', function ($d) use ($tahun) {
+                $res = $d
+                    ->whereHas('tracking', function ($q) {
+                        $q->whereMonth('tanggal_selesai', '12');
+                    })
+                    ->where('id_kategori', $d->id_kategori)
+                    ->whereYear('created_at', $tahun)
+                    ->sum('jumlah_sampel');
+                return $res;
+            })
+            ->addColumn('totalmasuk', function ($d) use ($tahun) {
+                $res = $d->where('id_kategori', $d->id_kategori)
+                    ->where(DB::RAW('month(created_at)'), ['1','2','3','4','5','6','7','8','9','10','11','12'])
+                    ->whereYear('created_at', $tahun)
+                    ->sum('jumlah_sampel');
+                return $res;
+            })
+            ->addColumn('totalkeluar', function ($d) use ($tahun) {
+                $res = $d
+                    ->whereHas('tracking', function ($q) {
+                        $q->where(DB::RAW('month(tanggal_selesai)'), ['1','2','3','4','5','6','7','8','9','10','11','12']);
+                    })
+                    ->where('id_kategori', $d->id_kategori)
+                    ->whereYear('created_at', $tahun)
+                    ->sum('jumlah_sampel');
+                return $res;
+            })
             ->toJson();
+    }
+
+    public function rekapsampel()
+    {
+        $title = 'REKAP LAPORAN PENGUJIAN PIHAK KETIGA';
+        $bidang = Kategori::where('status', 1)->get();
+        return view('admin.laporan.rekapsampel', compact('title', 'bidang'));
     }
 
     public function dtrekapsampel()
@@ -49,9 +280,9 @@ class LaporanController extends Controller
         // )
         // ->orderBy('id_permintaan', 'desc');
 
-            $data = TerimaSampel::with('kategori', 'pemiliksampel', 'tracking', 'produksampel.ujiproduk.parameter.metodeuji', 'produksampel.user')
+        $data = TerimaSampel::with('kategori', 'pemiliksampel', 'tracking', 'produksampel.ujiproduk.parameter.metodeuji', 'produksampel.user')
             ->latest();
-            
+
         return DataTables::of($data)
             ->addIndexColumn()
             ->addColumn('tanggalterima', function ($data) {
@@ -63,7 +294,7 @@ class LaporanController extends Controller
                 //     return '-';
                 // }
                 $tglterima = '-';
-                if(isset($data->tracking->tanggal_pembayaran)){
+                if (isset($data->tracking->tanggal_pembayaran)) {
                     $tglterima = $data->tracking->tanggal_pembayaran->isoFormat('D MMM Y (H:mm:ss)');
                 }
 
@@ -96,7 +327,7 @@ class LaporanController extends Controller
                     if (isset($data->tracking->tanggal_pembayaran)) {
                         $count = $tgl_selesai->diffForHumans($data->tracking->tanggal_pembayaran);
                         return $count;
-                    } 
+                    }
                     // elseif (isset($data->tanggal_terima)) {
                     //     $count = $tgl_legalisir->diffForHumans($data->tanggal_terima);
                     //     return $count;
@@ -108,19 +339,12 @@ class LaporanController extends Controller
             ->addColumn('tandaterima', function ($data) {
                 $tt = '-';
                 if (isset($data->tracking->tanda_terima)) {
-                    $tt = '<img src="'.Storage::url($data->tracking->tanda_terima).'" width="60px">';
+                    $tt = '<img src="' . Storage::url($data->tracking->tanda_terima) . '" width="60px">';
                 }
 
                 return $tt;
             })
             ->rawColumns(['tandaterima'])
             ->toJson();
-    }
-
-    public function rekapsampel()
-    {
-        $title = 'REKAP LAPORAN PENGUJIAN PIHAK KETIGA';
-        $bidang = Kategori::where('status', 1)->get();
-        return view('admin.laporan.rekapsampel', compact('title', 'bidang'));
     }
 }

@@ -15,7 +15,8 @@ class TerimaSampelController extends Controller
     public function dtterimasampel()
     {
         $data = TerimaSampel::with('pemiliksampel', 'kategori')
-            ->where('status', 1)->orderBy('created_at', 'desc');
+            // ->where('status', 1)
+            ->orderBy('created_at', 'desc');
         return DataTables::of($data)
             ->addIndexColumn()
             ->addColumn('created_at', function($data){

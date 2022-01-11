@@ -9,24 +9,61 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">
-                            {{-- <select type="text" id="id_status_sampel" name="id_status_sampel" class="select2"></select> --}}
-                            JUMLAH SAMPEL PIHAK KETIGA
-                        </h3>
+                        <select name="tahun" id="tahun" class="form-control w-auto">
+                            @for ($i = 2022; $i < 2025; $i++)
+                                <option value="{{ $i }}">{{ $i }}</option>
+                            @endfor
+                        </select>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table id="tblstatussampel" class="table table-bordered table-striped w-100">
+                            <table class="table table-bordered table-striped w-100" style="font-size: 12px;">
                                 <thead>
                                     <tr>
-                                        <th class="align-middle">No Urut Penerimaan</th>
-                                        <th class="align-middle">Kode Sampel</th>
-                                        <th class="align-middle">Instansi</th>
-                                        <th class="align-middle">Nama Petugas</th>
-                                        <th class="align-middle">Telepon Petugas</th>
-                                        <th class="align-middle">Status Sampel</th>
-                                        <th class="align-middle">Actions</th>
+                                        <th rowspan="2">No</th>
+                                        <th rowspan="2">Jenis Sampel</th>
+                                        <th colspan="2">Januari</th>
+                                        <th colspan="2">Februari</th>
+                                        <th colspan="2">Maret</th>
+                                        <th colspan="2">April</th>
+                                        <th colspan="2">Mei</th>
+                                        <th colspan="2">Juni</th>
+                                        <th colspan="2">Juli</th>
+                                        <th colspan="2">Agustus</th>
+                                        <th colspan="2">September</th>
+                                        <th colspan="2">Oktober</th>
+                                        <th colspan="2">November</th>
+                                        <th colspan="2">Desember</th>
+                                        <th colspan="2">Total</th>
+                                    </tr>
+                                    <tr>
+                                        <th>masuk</th>
+                                        <th>keluar</th>
+                                        <th>masuk</th>
+                                        <th>keluar</th>
+                                        <th>masuk</th>
+                                        <th>keluar</th>
+                                        <th>masuk</th>
+                                        <th>keluar</th>
+                                        <th>masuk</th>
+                                        <th>keluar</th>
+                                        <th>masuk</th>
+                                        <th>keluar</th>
+                                        <th>masuk</th>
+                                        <th>keluar</th>
+                                        <th>masuk</th>
+                                        <th>keluar</th>
+                                        <th>masuk</th>
+                                        <th>keluar</th>
+                                        <th>masuk</th>
+                                        <th>keluar</th>
+                                        <th>masuk</th>
+                                        <th>keluar</th>
+                                        <th>masuk</th>
+                                        <th>keluar</th>
+                                        <th>masuk</th>
+                                        <th>keluar</th>
                                     </tr>
                                 </thead>
                             </table>
@@ -44,185 +81,67 @@
 @endsection
 @push('scripts')
 <script>
-    var Toast = Swal.mixin({
-        toast: true,
-        position: 'top-end',
-        showConfirmButton: false,
-        timer: 2000
-    });
+    function refill(tahun){
+        let url = "{{ route('dtjumlahsampel',"_tahun") }}"
+        url = url.replace('_tahun', tahun);
 
-    const dttable = $("#tblstatussampel").DataTable({
-        ordering: false,
-        serverside: true,
-        select: true,
-        ajax: {
-            url: "{{ route('dtjumlahsampel') }}"
-        },
-        columns: [
-            {data: 'permintaan.no_urut_penerimaan'},
-            {data: 'permintaan.kode_sampel'},
-            {data: 'permintaan.pemiliksampel.nama_pemilik'},
-            {data: 'permintaan.pemiliksampel.nama_petugas'},
-            {data: 'permintaan.pemiliksampel.telepon_petugas'},
-            {data: 'status.label'},
-            {data: 'actions', className: 'text-center align-middle'},
-            {data: 'id_status_sampel', visible: false},
-        ],
-    });
-
-    //fill select kategori
-    function fillstatussampel() {
-        $.ajax({
-            type: "GET",
-            url: "{{ route('liststatussampel') }}",
-            success: function (response) {
-                $("#id_status_sampel").append("<option value=''>==Pilih Status==</option>"); 
-                var len = 0;
-                if(response != null){
-                    len = response.length;
-                }
-
-                if(len > 0){
-                    // Read data and create <option >
-                    for(var i=0; i<len; i++){
-
-                    var id = response[i].id;
-                    var label = response[i].label;
-
-                    var option = "<option value='"+id+"'>"+label+"</option>";
-                        
-                    $("#id_status_sampel").append(option); 
-                    }
-                }
-            }
-        });
-    }
-
-    function dtdetailterimasampel(idpermintaan){
-        let url = "{{ route('dtdetailterimasampel', "_id") }}";
-        url = url.replace('_id', idpermintaan);
-
-        $("#detailterimasampel").DataTable().destroy();
-        $("#detailterimasampel").DataTable({
+        $(".table").DataTable().destroy();
+        $(".table").DataTable({
+            ordering: false,
             serverside: true,
             select: true,
+            pageLength: 25,
+            buttons: [
+                {
+                    extend: 'excel',
+                    autoPrint: false,
+                    title: "LAPORAN JUMLAH PENGUJIAN PIHAK KETIGA",
+                }
+            ],
+            dom: 'Bft',
             ajax: {
                 url
             },
             columns: [
                 {data: 'DT_RowIndex'},
-                {data: 'nama_produk', render: function(data, type, row){ return row.kode_sampel ? data + ' (' + row.kode_sampel + ')' : data}},
-                {data: 'ujiproduk', render: function(data, type, row){
-                    let res = '';
-                    for (const key in data) {
-                        if(data[key].parameter){
-                            res += data[key].parameter.parameter_uji+'<br />';
-                        }else{
-                            res += 'not found <br />';
-                        }
-                    }
-                    return res;
-                    }, className: 'text-nowrap'},
-                {data: 'ujiproduk', render: function(data, type, row){
-                    let res = '';
-                    for (const key in data) {
-                        res += data[key].jumlah_pengujian+'<br />';
-                    }
-                    return res;
-                    }},
-                {data: 'ujiproduk', render: function(data, type, row){
-                    let res = '';
-                    for (const key in data) {
-                        if(data[key].parameter){
-                            res += data[key].parameter.metodeuji.biaya * data[key].jumlah_pengujian+'<br />';
-                        }else{
-                            res += 'not found <br />';
-                        }
-                    }
-                    return res;
-                    }},
-            ]
+                {data: 'kategori.nama_kategori'},
+                {data: 'januarimasuk'},
+                {data: 'januarikeluar'},
+                {data: 'februarimasuk'},
+                {data: 'februarikeluar'},
+                {data: 'maretmasuk'},
+                {data: 'maretkeluar'},
+                {data: 'aprilmasuk'},
+                {data: 'aprilkeluar'},
+                {data: 'meimasuk'},
+                {data: 'meikeluar'},
+                {data: 'junimasuk'},
+                {data: 'junikeluar'},
+                {data: 'julimasuk'},
+                {data: 'julikeluar'},
+                {data: 'agustusmasuk'},
+                {data: 'agustuskeluar'},
+                {data: 'septembermasuk'},
+                {data: 'septemberkeluar'},
+                {data: 'oktobermasuk'},
+                {data: 'oktoberkeluar'},
+                {data: 'novembermasuk'},
+                {data: 'novemberkeluar'},
+                {data: 'desembermasuk'},
+                {data: 'desemberkeluar'},
+                {data: 'totalmasuk'},
+                {data: 'totalkeluar'},
+            ],
+            orderCellsTop: false,
         });
     }
 
     $(function () {
-        fillstatussampel();
-        $('.select2').select2();
+        refill($('#tahun').val());
 
-        //show modal for show data
-        $('table').on('click', '.show', function(e){
+        $('#tahun').change(function (e) { 
             e.preventDefault();
-            const rowData = dttable.row($(this).parents('tr')).data();
-            
-            $('#modalstatussampel').modal('show');
-            //fill form
-            //detail sampel
-            dtdetailterimasampel(rowData['id_permintaan']);
-            // data status
-            $('#statussampel').text(rowData.status.label)
-            //data sampel
-            $('#no_urut_penerimaan').text(rowData.permintaan.no_urut_penerimaan)
-            $('#kodesampel').text(rowData.permintaan.kode_sampel)
-            $('#namasampel').text(rowData.permintaan.nama_sampel)
-            $('#kemasansampel').text(rowData.permintaan.kemasan_sampel)
-            $('#beratsampel').text(rowData.permintaan.berat_sampel)
-            $('#jumlahsampel').text(rowData.permintaan.jumlah_sampel)
-            // data pemilik
-            $('#namapemilik').text(rowData.permintaan.pemiliksampel.nama_pemilik)
-            $('#alamatpemilik').text(rowData.permintaan.pemiliksampel.alamat_pemilik)
-            $('#namapetugas').text(rowData.permintaan.pemiliksampel.nama_petugas)
-            $('#teleponpetugas').text(rowData.permintaan.pemiliksampel.telepon_petugas)
-            // data tracking
-            $('#waktuterima').text(rowData.permintaan.created_at);
-            $('#waktuverifikasi').text(rowData.tanggal_verifikasi);
-            $('#waktukajiulang').text(rowData.tanggal_kaji_ulang);
-            $('#waktupembayaran').text(rowData.tanggal_pembayaran);
-            $('#waktupengujian').text(rowData.tanggal_pengujian);
-            $('#waktuselesaiuji').text(rowData.tanggal_selesai_uji);
-            $('#waktulegalisir').text(rowData.tanggal_legalisir);
-            $('#waktuselesai').text(rowData.tanggal_selesai);
-            $('#waktudiambil').text(rowData.tanggal_diambil);
-            $('#waktuestimasi').text(rowData.tanggal_estimasi);
-        });
-
-        $('table').on('click', '.nextstep', function (e) { 
-            e.preventDefault();
-
-            const rowData = dttable.row($(this).parents('tr')).data();
-            const id = rowData['id_tracking'];
-            let url = "{{ route('statussampel.nextstep', "_id") }}"
-            url = url.replace('_id', id);
-            data = {_token: "{{ csrf_token() }}"}
-
-            $.ajax({
-                type: "POST",
-                url,
-                data,
-                success: function (response) {
-                    if(response.status){
-                        Toast.fire({
-                            icon: 'success',
-                            title: '&nbsp;'+response.msg,
-                        })
-                    }else{
-                        Toast.fire({
-                            icon: 'warning',
-                            title: '&nbsp;'+response.msg,
-                        })
-                    }
-                    dttable.ajax.reload(null, false);
-                }
-            });
-        });
-
-        $('#id_status_sampel').change(function (e) { 
-            e.preventDefault();
-            const idStatus = $(this).val();
-            if(idStatus){
-                dttable.column(7).search("^"+idStatus+"$", true).draw();
-            }else{
-                dttable.column(7).search('').draw();
-            }
+            refill($(this).val());
         });
     }); // end doc ready
 </script>
@@ -236,6 +155,10 @@
 
     .select2-container .select2-selection--single {
         height: inherit;
+    }
+
+    @page {
+        size: auto;
     }
 </style>
 @endpush

@@ -82,6 +82,18 @@
                 trigger: 'mouseenter',
                 animation: 'scale',
             })
+
+            tippy('.downloadlhu', {
+                content: 'Download LHU',
+                trigger: 'mouseenter',
+                animation: 'scale',
+            })
+
+            tippy('.edit', {
+                content: 'Edit',
+                trigger: 'mouseenter',
+                animation: 'scale',
+            })
         },
         serverside: true,
         select: true,

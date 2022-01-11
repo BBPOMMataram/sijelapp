@@ -27,11 +27,11 @@ class DetailTerimaSampelController extends Controller
             })
             ->addColumn('actions', function ($data) {
                 $btn = '<a href="#"><i class="fas fa-pen text-info edit"></i></a>';
-                $btn .= '<a href="'.route('print.basegel', $data->id_produk_sampel).'" target="_blank"><i class="fas fa-print text-primary mx-2"></i></a>';
-                $btn .= '<a href="'.route('print.bapenimbangan', $data->id_produk_sampel).'" target="_blank"><i class="fas fa-print text-danger"></i></a>';
+                $btn .= '<a href="'.route('print.basegel', $data->id_produk_sampel).'" target="_blank"><i class="fas fa-print text-primary mx-2 basegel"></i></a>';
+                $btn .= '<a href="'.route('print.bapenimbangan', $data->id_produk_sampel).'" target="_blank"><i class="fas fa-print text-danger bapenimbangan"></i></a>';
 
                 if ($data->lhu) {
-                    $btn .= '<a href="'. route('download.lhu', $data->lhu) .'"><i class="fas fa-download text-success ml-2"></i></a>';
+                    $btn .= '<a href="'. route('download.lhu', $data->lhu) .'"><i class="fas fa-download text-success ml-2 downloadlhu"></i></a>';
                 }
                 return $btn;
             })

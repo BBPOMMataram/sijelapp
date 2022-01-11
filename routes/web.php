@@ -96,8 +96,9 @@ Route::middleware(['auth'])->group(function () {
         // report
         Route::prefix('laporan')->group(function () {
             Route::get('jumlahsampel', [LaporanController::class, 'jumlahsampel'])->name('laporan.jumlahsampel');
+            Route::get('dtjumlahsampel/{tahun}', [LaporanController::class, 'dtjumlahsampel'])->name('dtjumlahsampel');
             Route::get('rekapsampel', [LaporanController::class, 'rekapsampel'])->name('laporan.rekapsampel');
-            Route::get('dtrepaksampel', [LaporanController::class, 'dtrekapsampel'])->name('dtrekapsampel');
+            Route::get('dtrekapsampel', [LaporanController::class, 'dtrekapsampel'])->name('dtrekapsampel');
         });
 
         Route::prefix('setting')->group(function(){

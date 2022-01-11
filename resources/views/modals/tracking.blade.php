@@ -118,14 +118,14 @@
                   <table id="detailterimasampel" class="table text-dark bg-transparent w-100">
                     <thead>
                       <tr>
-                        <th class="align-middle">No</th>
-                        <th class="align-middle">Jenis Produk</th>
-                        <th class="align-middle">Parameter Uji</th>
-                        <th class="align-middle">Jumlah Pengujian</th>
-                        <th class="align-middle">Biaya</th>
-                        <th class="align-middle">Tersangka</th>
-                        <th class="align-middle">Saksi Ahli</th>
-                        <th class="align-middle">Download</th>
+                        <th>No</th>
+                        <th>Jenis Produk</th>
+                        <th>Parameter Uji</th>
+                        <th>Jumlah Pengujian</th>
+                        <th>Biaya</th>
+                        <th>Tersangka</th>
+                        <th>Saksi Ahli</th>
+                        <th>Download</th>
                     </tr>
                   </thead>
                 </table>
