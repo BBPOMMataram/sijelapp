@@ -256,32 +256,18 @@ class LaporanController extends Controller
         return view('admin.laporan.rekapsampel', compact('title', 'bidang'));
     }
 
-    public function dtrekapsampel()
+    public function dtrekapsampel($tahun = null, $bulan = null)
     {
-        // $data = ProdukSampel::with(
-        //     [
-        //         'ujiproduk',
-        //         'ujiproduk.parameter',
-        //         'ujiproduk.parameter.metodeuji',
-        //         'permintaan.pemiliksampel' => function($query){
-        //             // $query->where('permintaan.id_kategori', 1);
-        //         },
-        //         'permintaan.tracking' => function($query){
-        //             // $query->where('permintaan.id_kategori', 1);
-        //         },
-        //         'permintaan.kategori' => function($query){
-        //             $query->where('kategori.id_kategori', 1);
-        //         },
-        //         'permintaan' => function($query){
-        //             $query->where('permintaan.id_kategori', 1);
-        //         },
-        //         'user',
-        //     ],
-        // )
-        // ->orderBy('id_permintaan', 'desc');
-
         $data = TerimaSampel::with('kategori', 'pemiliksampel', 'tracking', 'produksampel.ujiproduk.parameter.metodeuji', 'produksampel.user')
             ->latest();
+
+            if(isset($tahun)){
+                $data = $data->whereYear('created_at', $tahun);
+            }
+
+            if(isset($bulan)){
+                $data = $data->whereMonth('created_at', $bulan);
+            }
 
         return DataTables::of($data)
             ->addIndexColumn()

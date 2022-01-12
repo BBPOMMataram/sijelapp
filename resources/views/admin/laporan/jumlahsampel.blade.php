@@ -132,7 +132,7 @@
                 {data: 'totalmasuk'},
                 {data: 'totalkeluar'},
             ],
-            orderCellsTop: false,
+            orderCellsTop: true,
         });
     }
 
