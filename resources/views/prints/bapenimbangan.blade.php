@@ -14,9 +14,9 @@
                         </h3> --}}
                         <div class="row">
                             <div class="col">
-                                <label for="pembukasegel">Pembuka Segel</label>
+                                <label for="pembukasegel">Penimbang</label>
                                 <select name="pembukasegel" id="pembukasegel" class="form-control select2">
-                                    <option value="">==Pilih pembuka segel==</option>
+                                    <option value="">==Pilih penimbang==</option>
                                     @foreach ($users as $item)
                                         <option value="{{ $item->fullname }}">{{ $item->fullname }}</option>
                                     @endforeach
@@ -36,7 +36,7 @@
                     <!-- /.card-header -->
                     <div class="card-body align-self-center">
                         {{-- we set width for set height of isisuratcontainer --}}
-                        <textarea id="basegel" name="basegel" style="height: 160vh; width: 717px;">
+                        <textarea id="bapenimbangan" name="bapenimbangan" style="height: 160vh; width: 717px;">
                             <div style="font-weight: bold; text-decoration: underline; margin-top:100px;">Pro Justitia</div>
                             <h3 style="text-align: center; text-decoration: underline;">BERITA ACARA PENIMBANGAN BARANG BUKTI</h3>
                             <div id="isi" style="text-align: justify;">
@@ -69,7 +69,7 @@
                                         '------------------------------------'.
                                         '<span style="font-weight: bold; text-decoration: underline;" id="pembukasegelselected"></span>'.
                                         '---------------------------------------------------------------------------------------------------'.
-                                        '------------------------------------'
+                                        '------------------------------------------------------'
                                     }}</div>
                                 </div>
 
@@ -83,7 +83,7 @@
                                 >
                                     <div class="inner-wrapper">{{ 
                                     'Penerima Sampel Pihak Ketiga pada Balai Besar POM di Mataram dengan disaksikan oleh : '.
-                                        '------------------------------------'
+                                        '------------------------------------------------------------------------'
                                     }}</div>
                                 </div>
 
@@ -193,6 +193,7 @@
                                             Berdasarkan surat dari Kepala {{ $produksampel->permintaan->pemiliksampel->nama_pemilik }} nomor: {{ $produksampel->nomor_surat ?? '==nosurat tidak ditemukan==' }}
                                             tanggal {{ $produksampel->tanggal_surat ? $produksampel->tanggal_surat->isoFormat('D MMMM    Y') : '==tglsurat tidak ditemukan==' }} perihal <i>{{ $produksampel->perihal ?? '==perihal tidak ditemukan==' }}</i>,
                                             beserta lampiran-lampirannya yang menyatakan tentang peredaran Narkotika a.n tersangka <b>{{ $produksampel->tersangka ?? '==namatersangka tidak ditemukan==' }}</b>,
+                                            {{ $produksampel->berat }}. <span id="titikisisurat"></span>
                                             {{-- telah melakukan penimbangan terhadap barang bukti berupa:
                                             {{ $produksampel->wadah1 ?? '==wadah1 tidak ditemukan==' }}. Setelah dibuka di dalamnya terdapat {{ $produksampel->wadah2 ?? '==wadah2 tidak ditemukan==' }}.
                                             Amplop dibuka dengan cara digunting dan plastik klip transparan berisi Barang Bukti
@@ -215,7 +216,7 @@
                                             {{ '--------- Demikian Berita Acara Penimbangan Barang Bukti ini dibuat dengan sebenarnya
                                             atas kekuatan sumpah jabatan guna melengkapi Berita Acara Pembukaan Segel Barang Bukti dari yang bersangkutan
                                             dan ditandatangani di Mataram pada hari '. $tglterbilang . '.'.
-                                            '--------------------------------------------------------------------------------------------'
+                                            '------------------------------------------------------------------------------------------------------'
                                             }}
                                          </div>
                                     </div>
@@ -255,26 +256,27 @@
 </script>
 <script>
     tinymce.init({
-        selector: '#basegel',
+        selector: '#bapenimbangan',
         plugins: 'print',
-        menubar: false,
-        toolbar: "print",
+        // menubar: false,
+        toolbar: 'print | undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | outdent indent',
         branding: false,
         setup: function(editor){
             editor.on('init', function(e){
-                // const hisisurat = tinymce.activeEditor.dom.getSize('isisurat').h + 19;
-                // tinymce.activeEditor.dom.setStyle(tinymce.activeEditor.dom.select('#isisuratcontainer'), 'height', hisisurat+'px');
-                // tinymce.get('basegel').dom.setHTML("titikisisurat", '----------------------------------------------------------------------------------------------------------------------------------------------------------');
+                const hisisurat = tinymce.activeEditor.dom.getSize('isisurat').h + 19;
+                tinymce.activeEditor.dom.setStyle(tinymce.activeEditor.dom.select('#isisuratcontainer'), 'height', hisisurat+'px');
+                tinymce.get('bapenimbangan').dom.setHTML("titikisisurat", '--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------');
             })
-        }
+        },
+        // content_style: "body {font-size: 10pt;}",
     });
 
     $(function () {
         $('body').on('change', '#pembukasegel', function(e){
             const pembukasegel = $(this).val();
             // if(pembukasegel){
-            tinymce.get('basegel').dom.setHTML("pembukasegelselected", pembukasegel);
-            tinymce.get('basegel').dom.setHTML("pembukasegelselected1", pembukasegel);
+            tinymce.get('bapenimbangan').dom.setHTML("pembukasegelselected", pembukasegel);
+            tinymce.get('bapenimbangan').dom.setHTML("pembukasegelselected1", pembukasegel);
             // }
         })
 
@@ -282,10 +284,10 @@
             const saksi1 = $(this).val();
             const pangkat = $(this).find(':selected').data('pangkat');
             const jabatan = $(this).find(':selected').data('jabatan')
-            tinymce.get('basegel').dom.setHTML("saksi1pangkatselected", pangkat);
-            tinymce.get('basegel').dom.setHTML("saksi1selected", saksi1);
-            tinymce.get('basegel').dom.setHTML("saksi1jabatanselected", jabatan);
-            tinymce.get('basegel').dom.setHTML("saksi1selected1", saksi1);
+            tinymce.get('bapenimbangan').dom.setHTML("saksi1pangkatselected", pangkat);
+            tinymce.get('bapenimbangan').dom.setHTML("saksi1selected", saksi1);
+            tinymce.get('bapenimbangan').dom.setHTML("saksi1jabatanselected", jabatan);
+            tinymce.get('bapenimbangan').dom.setHTML("saksi1selected1", saksi1);
 
             })
         

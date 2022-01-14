@@ -72,6 +72,12 @@
                   </select>
                 </div>
               </div>
+              <div class="col-12">
+                <div class="form-group">
+                  <label for="berat">Berat Terbilan</label>
+                  <textarea name="berat" id="berat" rows="3" class="form-control"></textarea>
+                </div>
+              </div>
             </div>
             <div class="row">
               <div class="col-9">

@@ -77,6 +77,7 @@ class DetailTerimaSampelController extends Controller
                 'tersangka' => $request->tersangka,
                 'wadah1' => $request->wadah1,
                 'wadah2' => $request->wadah2,
+                'berat' => $request->berat,
         ]);
 
             foreach ($request->p_uji as $i => $v) {
@@ -127,6 +128,7 @@ class DetailTerimaSampelController extends Controller
         $data->tersangka = $request->tersangka;
         $data->wadah1 = $request->wadah1;
         $data->wadah2 = $request->wadah2;
+        $data->berat = $request->berat;
 
         // $data->kode_sampel = $request->kode_sampel;
 

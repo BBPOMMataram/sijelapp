@@ -408,6 +408,7 @@
             });
 
             $('#tanggal_surat').val(rowData['tanggal_surat']);
+            $('#berat').val(rowData['berat']);
             
             $('#id').val(id);
             $('.modal-title').text('Ubah Data');
