@@ -42,7 +42,7 @@
                 <div class="form-group">
                   <label for="perihal">Perihal Surat</label>
                   {{-- <input type="text" class="form-control" id="perihal" name="perihal" placeholder="Perihal Surat"> --}}
-                  <select name="perihal" id="perihal" class="form-control">
+                  <select name="perihal" id="perihal" class="form-control select2">
                     <option value="">==Pilih perihal==</option>
                     @foreach ($perihal as $item)
                       <option value="{{ $item->name }}">{{ $item->name }}</option>
@@ -53,7 +53,7 @@
               <div class="col-12">
                 <div class="form-group">
                   <label for="wadah">Wadah 1</label>
-                  <select name="wadah1" id="wadah1" class="form-control">
+                  <select name="wadah1" id="wadah1" class="form-control select2">
                     <option value="">==Pilih wadah1==</option>
                     @foreach ($wadah1 as $item)
                       <option value="{{ $item->name }}">{{ $item->name }}</option>
@@ -64,7 +64,7 @@
               <div class="col-12">
                 <div class="form-group">
                   <label for="wadah">Wadah 2</label>
-                  <select name="wadah2" id="wadah2" class="form-control">
+                  <select name="wadah2" id="wadah2" class="form-control select2">
                     <option value="">==Pilih wadah2==</option>
                     @foreach ($wadah2 as $item)
                       <option value="{{ $item->name }}">{{ $item->name }}</option>

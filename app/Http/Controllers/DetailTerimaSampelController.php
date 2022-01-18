@@ -22,8 +22,8 @@ class DetailTerimaSampelController extends Controller
         return DataTables::of($data)
             ->addIndexColumn()
             ->addColumn('tanggal_surat', function($data){
-                // return $data->tanggal_surat ? $data->tanggal_surat->isoFormat('D MMM Y') : '-';
-                return $data->tanggal_surat ? $data->tanggal_surat->isoFormat('Y-M-D') : '-';
+                return $data->tanggal_surat ? $data->tanggal_surat->toDateString() : '-'; //format match with input type date
+                // return $data->tanggal_surat ? $data->tanggal_surat->isoFormat('Y-M-D') : '-';
             })
             ->addColumn('actions', function ($data) {
                 $btn = '<a href="#"><i class="fas fa-pen text-info edit"></i></a>';
