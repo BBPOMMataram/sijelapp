@@ -206,7 +206,7 @@
                                 <div 
                                     style="
                                         overflow: hidden;
-                                        height: 3.6em;
+                                        height: 4.8em;
                                         line-height: 1.2em;
                                         margin-top: 10px;
                                         "
