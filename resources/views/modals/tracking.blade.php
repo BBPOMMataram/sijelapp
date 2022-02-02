@@ -123,6 +123,7 @@
                         <th>Parameter Uji</th>
                         <th>Jumlah Pengujian</th>
                         <th>Biaya</th>
+                        <th>Hasil Uji</th>
                         <th>Tersangka</th>
                         <th>Saksi Ahli</th>
                         <th>Download</th>

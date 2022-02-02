@@ -156,6 +156,7 @@
                     }
                     return res;
                     }},
+                {data: 'hasil_uji', render: function(data, type, row){ return data ? data : '-'; }},
                 {data: 'tersangka', render: function(data, type, row){ return data ? data : '-'; }},
                 {data: 'user.name', render: function(data, type, row){ return data ? data : '-'; }},
             ]
