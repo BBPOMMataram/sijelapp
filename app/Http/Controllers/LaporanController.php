@@ -231,7 +231,7 @@ class LaporanController extends Controller
             })
             ->addColumn('totalmasuk', function ($d) use ($tahun) {
                 $res = $d->where('id_kategori', $d->id_kategori)
-                    ->where(DB::RAW('month(created_at)'), ['1','2','3','4','5','6','7','8','9','10','11','12'])
+                    // ->where(DB::RAW('month(created_at)'), ['1','2','3','4','5','6','7','8','9','10','11','12'])
                     ->whereYear('created_at', $tahun)
                     ->sum('jumlah_sampel');
                 return $res;
@@ -239,7 +239,7 @@ class LaporanController extends Controller
             ->addColumn('totalkeluar', function ($d) use ($tahun) {
                 $res = $d
                     ->whereHas('tracking', function ($q) {
-                        $q->where(DB::RAW('month(tanggal_selesai)'), ['1','2','3','4','5','6','7','8','9','10','11','12']);
+                        $q->whereIn(DB::RAW('month(tanggal_selesai)'), [1,2,3,4,5,6,7,8,9,10,11,12]);
                     })
                     ->where('id_kategori', $d->id_kategori)
                     ->whereYear('created_at', $tahun)
