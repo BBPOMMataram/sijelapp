@@ -225,7 +225,7 @@
                                 {{--  --}}
                                 <div style="position: relative;">
                                     <div style="width:50%; position: absolute; right:0; top:20px;">
-                                        <div style="text-align: center; margin-bottom:60px; font-weight:bold;">Yang Membuka Segel,</div>
+                                        <div style="text-align: center; margin-bottom:60px; font-weight:bold;">Yang Melakukan Penimbangan,</div>
                                         <div style="text-align: center; font-weight: bold;" id="pembukasegelselected1"></div>
                                     </div>
                                     <div style="position: absolute; top:150px;">
