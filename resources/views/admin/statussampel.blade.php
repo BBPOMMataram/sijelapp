@@ -26,6 +26,7 @@
                                         <th class="align-middle">Telepon Petugas</th>
                                         <th class="align-middle">Resi</th>
                                         <th class="align-middle">Status Sampel</th>
+                                        <th class="align-middle">LHU</th>
                                         <th class="align-middle">Actions</th>
                                     </tr>
                                 </thead>
@@ -80,6 +81,7 @@
             {data: 'permintaan.pemiliksampel.telepon_petugas'},
             {data: 'permintaan.resi', render: function(data){ return data ? data : '-'; }},
             {data: 'status.label'},
+            {data: 'lhu', className: 'text-center align-middle'},
             {data: 'actions', className: 'text-center align-middle'},
             {data: 'id_status_sampel', visible: false},
         ],
