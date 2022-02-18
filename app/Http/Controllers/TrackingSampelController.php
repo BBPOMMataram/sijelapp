@@ -14,7 +14,7 @@ class TrackingSampelController extends Controller
     public function dtstatussampel()
     {
         $data = TrackingSampel::with(['permintaan', 'status', 'permintaan.pemiliksampel', 'permintaan.produksampel'])
-        // $data = TrackingSampel::with(['permintaan', 'status', 'permintaan.pemiliksampel'])
+            // $data = TrackingSampel::with(['permintaan', 'status', 'permintaan.pemiliksampel'])
             ->orderBy('id_tracking', 'desc');
         return DataTables::of($data)
             ->addIndexColumn()
@@ -121,10 +121,29 @@ class TrackingSampelController extends Controller
                     $btn .= '<a href="#"><i class="fas fa-angle-double-right text-danger nextstep"></i></a>';
                 }
                 $btn .= '<a href="#"><i class="fas fa-eye text-primary ml-2 show"></i></a>';
+
+                // foreach ($data->permintaan->produksampel as $key => $value) {
+                //     if ($value->lhu) {
+                //         $btn .= '<a href="' . route('download.lhu', $value->lhu) . '"><i class="fas fa-download text-success ml-2 downloadlhu"></i></a>';
+                //         break;
+                //     }
+                // }
                 $data->status ? $btn : $btn = '-';
                 return $btn;
             })
-            ->rawColumns(['actions'])
+            ->addColumn('lhu', function ($data) {
+                $btn = '-';
+                if (isset($data->permintaan->produksampel)) {
+                    foreach ($data->permintaan->produksampel as $key => $value) {
+                        if ($value->lhu) {
+                            return $btn = '<a href="' . route('download.lhu', $value->lhu) . '"><i class="fas fa-download text-success ml-2 downloadlhu"></i></a>';
+                            // return $btn = '<i class="fas fa-check text-success"></i>';
+                        }
+                    }
+                }
+                return $btn;
+            })
+            ->rawColumns(['actions', 'lhu'])
             ->toJson();
     }
 
@@ -235,7 +254,7 @@ class TrackingSampelController extends Controller
                 $data->tanggal_legalisir = null;
                 $produk = ProdukSampel::where('id_permintaan', $data->id_permintaan);
                 foreach ($produk->get() as $key => $value) {
-                    if($value->lhu){
+                    if ($value->lhu) {
                         Storage::delete($value->lhu);
                     }
                 }
@@ -247,7 +266,7 @@ class TrackingSampelController extends Controller
             case 7:
                 $data->tanggal_diambil = null;
                 $data->nama_pengambil = null;
-                if($data->tanda_terima){
+                if ($data->tanda_terima) {
                     $data->tanda_terima = null;
                     Storage::delete($data->tanda_terima);
                 }

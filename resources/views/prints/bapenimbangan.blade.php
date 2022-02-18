@@ -122,7 +122,7 @@
                                 <div 
                                     style="
                                         overflow: hidden;
-                                        height: 1.2em;
+                                        height: 2.4em;
                                         line-height: 1.2em;
                                         "
                                     >
@@ -257,6 +257,7 @@
 <script>
     tinymce.init({
         selector: '#bapenimbangan',
+        content_css: "/vendor/admin/dist/css/bapenimbangan.css",
         plugins: 'print',
         // menubar: false,
         toolbar: 'print | undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | outdent indent',
