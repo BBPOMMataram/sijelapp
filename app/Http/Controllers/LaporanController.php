@@ -20,14 +20,16 @@ class LaporanController extends Controller
 
     public function dtjumlahsampel($tahun)
     {
-        $data = TerimaSampel::with(['kategori'])
+        $data = TerimaSampel::with(['kategori', 'tracking'])
             // ->whereYear('created_at', $tahun)
             ->groupBy('id_kategori');
         return DataTables::of($data)
             ->addIndexColumn()
             ->addColumn('januarimasuk', function ($d) use ($tahun) {
-                $res = $d->where('id_kategori', $d->id_kategori)
-                    ->whereMonth('created_at', '1')
+                $res = $d->whereHas('tracking', function($q){
+                    $q->whereMonth('tanggal_pembayaran', '1');
+                })->where('id_kategori', $d->id_kategori)
+                    // ->whereMonth('created_at', '1')
                     ->whereYear('created_at', $tahun)
                     ->sum('jumlah_sampel');
                 return $res;
@@ -43,8 +45,10 @@ class LaporanController extends Controller
                 return $res;
             })
             ->addColumn('februarimasuk', function ($d) use ($tahun) {
-                $res = $d->where('id_kategori', $d->id_kategori)
-                    ->whereMonth('created_at', '2')
+                $res = $d->whereHas('tracking', function($q){
+                    $q->whereMonth('tanggal_pembayaran', '2');
+                })->where('id_kategori', $d->id_kategori)
+                    // ->whereMonth('created_at', '2')
                     ->whereYear('created_at', $tahun)
                     ->sum('jumlah_sampel');
                 return $res;
@@ -60,8 +64,10 @@ class LaporanController extends Controller
                 return $res;
             })
             ->addColumn('maretmasuk', function ($d) use ($tahun) {
-                $res = $d->where('id_kategori', $d->id_kategori)
-                    ->whereMonth('created_at', '3')
+                $res = $d->whereHas('tracking', function($q){
+                    $q->whereMonth('tanggal_pembayaran', '3');
+                })->where('id_kategori', $d->id_kategori)
+                    // ->whereMonth('created_at', '3')
                     ->whereYear('created_at', $tahun)
                     ->sum('jumlah_sampel');
                 return $res;
@@ -77,8 +83,10 @@ class LaporanController extends Controller
                 return $res;
             })
             ->addColumn('aprilmasuk', function ($d) use ($tahun) {
-                $res = $d->where('id_kategori', $d->id_kategori)
-                    ->whereMonth('created_at', '4')
+                $res = $d->whereHas('tracking', function($q){
+                    $q->whereMonth('tanggal_pembayaran', '4');
+                })->where('id_kategori', $d->id_kategori)
+                    // ->whereMonth('created_at', '4')
                     ->whereYear('created_at', $tahun)
                     ->sum('jumlah_sampel');
                 return $res;
@@ -94,8 +102,10 @@ class LaporanController extends Controller
                 return $res;
             })
             ->addColumn('meimasuk', function ($d) use ($tahun) {
-                $res = $d->where('id_kategori', $d->id_kategori)
-                    ->whereMonth('created_at', '5')
+                $res = $d->whereHas('tracking', function($q){
+                    $q->whereMonth('tanggal_pembayaran', '5');
+                })->where('id_kategori', $d->id_kategori)
+                    // ->whereMonth('created_at', '5')
                     ->whereYear('created_at', $tahun)
                     ->sum('jumlah_sampel');
                 return $res;
@@ -111,8 +121,10 @@ class LaporanController extends Controller
                 return $res;
             })
             ->addColumn('junimasuk', function ($d) use ($tahun) {
-                $res = $d->where('id_kategori', $d->id_kategori)
-                    ->whereMonth('created_at', '6')
+                $res = $d->whereHas('tracking', function($q){
+                    $q->whereMonth('tanggal_pembayaran', '6');
+                })->where('id_kategori', $d->id_kategori)
+                    // ->whereMonth('created_at', '6')
                     ->whereYear('created_at', $tahun)
                     ->sum('jumlah_sampel');
                 return $res;
@@ -128,8 +140,10 @@ class LaporanController extends Controller
                 return $res;
             })
             ->addColumn('julimasuk', function ($d) use ($tahun) {
-                $res = $d->where('id_kategori', $d->id_kategori)
-                    ->whereMonth('created_at', '7')
+                $res = $d->whereHas('tracking', function($q){
+                    $q->whereMonth('tanggal_pembayaran', '7');
+                })->where('id_kategori', $d->id_kategori)
+                    // ->whereMonth('created_at', '7')
                     ->whereYear('created_at', $tahun)
                     ->sum('jumlah_sampel');
                 return $res;
@@ -145,8 +159,10 @@ class LaporanController extends Controller
                 return $res;
             })
             ->addColumn('agustusmasuk', function ($d) use ($tahun) {
-                $res = $d->where('id_kategori', $d->id_kategori)
-                    ->whereMonth('created_at', '8')
+                $res = $d->whereHas('tracking', function($q){
+                    $q->whereMonth('tanggal_pembayaran', '8');
+                })->where('id_kategori', $d->id_kategori)
+                    // ->whereMonth('created_at', '8')
                     ->whereYear('created_at', $tahun)
                     ->sum('jumlah_sampel');
                 return $res;
@@ -162,8 +178,10 @@ class LaporanController extends Controller
                 return $res;
             })
             ->addColumn('septembermasuk', function ($d) use ($tahun) {
-                $res = $d->where('id_kategori', $d->id_kategori)
-                    ->whereMonth('created_at', '9')
+                $res = $d->whereHas('tracking', function($q){
+                    $q->whereMonth('tanggal_pembayaran', '9');
+                })->where('id_kategori', $d->id_kategori)
+                    // ->whereMonth('created_at', '9')
                     ->whereYear('created_at', $tahun)
                     ->sum('jumlah_sampel');
                 return $res;
@@ -179,8 +197,10 @@ class LaporanController extends Controller
                 return $res;
             })
             ->addColumn('oktobermasuk', function ($d) use ($tahun) {
-                $res = $d->where('id_kategori', $d->id_kategori)
-                    ->whereMonth('created_at', '10')
+                $res = $d->whereHas('tracking', function($q){
+                    $q->whereMonth('tanggal_pembayaran', '10');
+                })->where('id_kategori', $d->id_kategori)
+                    // ->whereMonth('created_at', '10')
                     ->whereYear('created_at', $tahun)
                     ->sum('jumlah_sampel');
                 return $res;
@@ -196,8 +216,10 @@ class LaporanController extends Controller
                 return $res;
             })
             ->addColumn('novembermasuk', function ($d) use ($tahun) {
-                $res = $d->where('id_kategori', $d->id_kategori)
-                    ->whereMonth('created_at', '11')
+                $res = $d->whereHas('tracking', function($q){
+                    $q->whereMonth('tanggal_pembayaran', '11');
+                })->where('id_kategori', $d->id_kategori)
+                    // ->whereMonth('created_at', '11')
                     ->whereYear('created_at', $tahun)
                     ->sum('jumlah_sampel');
                 return $res;
@@ -213,8 +235,10 @@ class LaporanController extends Controller
                 return $res;
             })
             ->addColumn('desembermasuk', function ($d) use ($tahun) {
-                $res = $d->where('id_kategori', $d->id_kategori)
-                    ->whereMonth('created_at', '12')
+                $res = $d->whereHas('tracking', function($q){
+                    $q->whereMonth('tanggal_pembayaran', '12');
+                })->where('id_kategori', $d->id_kategori)
+                    // ->whereMonth('created_at', '12')
                     ->whereYear('created_at', $tahun)
                     ->sum('jumlah_sampel');
                 return $res;
