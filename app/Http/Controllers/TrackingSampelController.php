@@ -111,6 +111,15 @@ class TrackingSampelController extends Controller
             ->addColumn('actions', function ($data) {
                 $userlevel = auth()->user()->level;
                 $status = $data->id_status_sampel;
+                $telp_petugas = '-';
+                $resi = '-';
+                if (isset($data->permintaan->pemiliksampel)) {
+                    $telp_petugas = substr_replace($data->permintaan->pemiliksampel->telepon_petugas,'62',0,1);
+                }
+                if (isset($data->permintaan->resi)) {
+                    $resi = $data->permintaan->resi;
+                }
+                $wa_link = "https://web.whatsapp.com/send?phone=".$telp_petugas."&text=Hii%20Kami%20dari%20BBPOM%20di%20Mataram,%20berikut%20no%20resi%20Anda%20".$resi;
 
                 $btn = '';
                 if ($userlevel === 2) {
@@ -118,6 +127,7 @@ class TrackingSampelController extends Controller
                         $btn .= '<a href="#"><i class="fas fa-angle-double-right text-danger nextstep"></i></a>';
                     }
                 } else {
+                    $btn .= '<a href="'.$wa_link.'" target="_blank"><i class="fab fa-whatsapp text-success mr-2"></i></a>';
                     $btn .= '<a href="#"><i class="fas fa-angle-double-right text-danger nextstep"></i></a>';
                 }
                 $btn .= '<a href="#"><i class="fas fa-eye text-primary ml-2 show"></i></a>';
