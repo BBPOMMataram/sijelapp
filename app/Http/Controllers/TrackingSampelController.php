@@ -113,13 +113,14 @@ class TrackingSampelController extends Controller
                 $status = $data->id_status_sampel;
                 $telp_petugas = '-';
                 $resi = '-';
+                $text = "berikut%20link%20untuk%20mentracking%20sampel%20skaligus%20untuk%20mendownload%20hasil%20uji%20sijelapp.bbpommataram.id%20dengan%20no%20resi%20";
                 if (isset($data->permintaan->pemiliksampel)) {
                     $telp_petugas = substr_replace($data->permintaan->pemiliksampel->telepon_petugas,'62',0,1);
                 }
                 if (isset($data->permintaan->resi)) {
                     $resi = $data->permintaan->resi;
                 }
-                $wa_link = "https://web.whatsapp.com/send?phone=".$telp_petugas."&text=Hii%20Kami%20dari%20BBPOM%20di%20Mataram,%20berikut%20no%20resi%20Anda%20".$resi;
+                $wa_link = "https://web.whatsapp.com/send?phone=".$telp_petugas."&text=". $text .$resi;
 
                 $btn = '';
                 if ($userlevel === 2) {
