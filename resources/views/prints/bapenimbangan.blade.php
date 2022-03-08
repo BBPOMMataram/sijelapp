@@ -268,7 +268,7 @@
                 tinymce.get('bapenimbangan').dom.setHTML("titikisisurat", '--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------');
             })
         },
-        // content_style: "body {font-size: 10pt;}",
+        content_style: "body {font-size: 11pt; font-family: Arial}",
     });
 
     $(function () {

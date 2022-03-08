@@ -264,7 +264,8 @@
                 tinymce.activeEditor.dom.setStyle(tinymce.activeEditor.dom.select('#isisuratcontainer'), 'height', hisisurat+'px');
                 tinymce.get('basegel').dom.setHTML("titikisisurat", '----------------------------------------------------------------------------------------------------------------------------------------------------------');
             })
-        }
+        },
+        content_style: "body {font-size: 11pt; font-family: Arial}",
     });
 
     $(function () {
