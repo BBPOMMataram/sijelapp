@@ -142,7 +142,7 @@
             //     ],
                 // stateSave: true,
             columns: [
-                {data: 'DT_RowIndex'},
+                {data: 'DT_RowIndex', searchable: false, orderable: false},
                 {data: 'no_urut_penerimaan', render: function(data){ return data ? data : '-' }},
                 {data: 'kategori.nama_kategori', render: function(data){ return data ? data : '-' }},
                 {data: 'pemiliksampel.nama_pemilik', render: function(data){ return data ? data : '-' }},
