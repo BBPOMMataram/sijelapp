@@ -56,7 +56,7 @@
 
     const dttable = $("#biayauji").DataTable({
         select: true,
-        serverside: true,
+        serverSide: true,
         select: true,
         ajax: {
             url: "{{ route('dtbiayauji') }}"

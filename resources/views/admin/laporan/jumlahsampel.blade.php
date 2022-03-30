@@ -88,7 +88,7 @@
         $(".table").DataTable().destroy();
         $(".table").DataTable({
             ordering: false,
-            serverside: true,
+            serverSide: true,
             select: true,
             pageLength: 25,
             buttons: [

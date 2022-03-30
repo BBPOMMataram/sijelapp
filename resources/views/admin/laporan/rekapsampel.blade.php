@@ -119,7 +119,7 @@
         
             $(".table").DataTable().destroy();
         let dttable = $(".table").DataTable({
-            serverside: true,
+            serverSide: true,
             select: true,
             // ordering: false,
             buttons: [

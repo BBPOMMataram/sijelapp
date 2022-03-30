@@ -61,7 +61,7 @@
 
         const dttable = $("#terimasampel").DataTable({
             // responsive: true,
-            serverside: true,
+            serverSide: true,
             select: true,
             ordering: false,
             ajax: {

@@ -37,7 +37,7 @@
         $("#detailterimasampel").DataTable().destroy();
         $("#detailterimasampel").DataTable({
             searching: false,
-            serverside: true,
+            serverSide: true,
             select: true,
             scrollX: true,
             ajax: {

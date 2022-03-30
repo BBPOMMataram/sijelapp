@@ -95,7 +95,7 @@
                 animation: 'scale',
             })
         },
-        serverside: true,
+        serverSide: true,
         select: true,
         ajax: {
             url: "{{ route('dtdetailterimasampel', $id) }}"

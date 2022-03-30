@@ -52,7 +52,7 @@
 
         const dttable = $("#kategori").DataTable({
             select: true,
-            serverside: true,
+            serverSide: true,
             ajax: {
                 url: "{{ route('dtkategori') }}"
             },

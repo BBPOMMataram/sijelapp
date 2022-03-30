@@ -55,7 +55,7 @@
             })
         },
         ordering: false,
-        serverside: true,
+        serverSide: true,
         select: true,
         ajax: {
             url: "{{ route('dtsampelselesai') }}"
@@ -78,7 +78,7 @@
 
         $("#detailterimasampel").DataTable().destroy();
         $("#detailterimasampel").DataTable({
-            serverside: true,
+            serverSide: true,
             select: true,
             ajax: {
                 url

@@ -58,7 +58,7 @@
 
         const dttable = $("#pemiliksampel").DataTable({
             select: true,
-            serverside: true,
+            serverSide: true,
             ajax: {
                 url: "{{ route('dtpemiliksampel') }}"
             },
