@@ -36,7 +36,7 @@ class ParameterUjiController extends Controller
         $this->validate($request, [
             'namaparameter' => 'required',
             'metode' => 'required',
-            'kode' => 'required',
+            // 'kode' => 'required',
         ]);
 
         $data = new ParameterUji();
@@ -54,7 +54,7 @@ class ParameterUjiController extends Controller
         $this->validate($request, [
             'namaparameter' => 'required',
             'metode' => 'required',
-            'kode' => 'required',
+            // 'kode' => 'required',
         ]);
 
         $data = ParameterUji::find($id);

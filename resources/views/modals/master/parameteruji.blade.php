@@ -25,6 +25,7 @@
               <select name="kode" id="kode" class="form-control w-auto">
                 <option value="K">K</option>
                 <option value="M">M</option>
+                <option value="">None</option>
               </select>
             </div>
           </div>
