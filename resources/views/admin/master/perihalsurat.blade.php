@@ -64,7 +64,7 @@
             url: "{{ route('perihalsurat.index') }}"
         },
         columns: [
-            {data: 'DT_RowIndex'},
+            {data: 'DT_RowIndex', searchable: false, orderable: false},
             {data: 'name'},
             {data: 'actions', className: 'text-center align-middle'},
         ]

@@ -57,7 +57,7 @@
                 url: "{{ route('dtkategori') }}"
             },
             columns: [
-                {data: 'DT_RowIndex'},
+                {data: 'DT_RowIndex', searchable: false, orderable: false},
                 {data: 'nama_kategori'},
                 {data: 'actions', className: 'text-center align-middle'},
             ]

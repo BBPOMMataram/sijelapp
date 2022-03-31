@@ -101,7 +101,7 @@
             url: "{{ route('dtdetailterimasampel', $id) }}"
         },
         columns: [
-            {data: 'DT_RowIndex'},
+            {data: 'DT_RowIndex', searchable: false, orderable: false},
             {data: 'nama_produk', render: function(data, type, row){ return row.kode_sampel ? data + ' (' + row.kode_sampel + ')' : data}},
             {data: 'ujiproduk', render: function(data, type, row){
                 let res = '';

@@ -60,7 +60,7 @@
                 url: "{{ route('dtmetodeuji') }}"
             },
             columns: [
-                {data: 'DT_RowIndex'},
+                {data: 'DT_RowIndex', searchable: false, orderable: false},
                 {data: 'metode'},
                 {data: 'kode_layanan'},
                 {data: 'biaya', render: $.fn.dataTable.render.number(',', null, null, 'Rp. ')},

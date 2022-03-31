@@ -63,7 +63,7 @@
                 url: "{{ route('dtpemiliksampel') }}"
             },
             columns: [
-                {data: 'DT_RowIndex'},
+                {data: 'DT_RowIndex', searchable: false, orderable: false},
                 {data: 'nama_pemilik'},
                 {data: 'nama_petugas'},
                 {data: 'telepon_petugas'},

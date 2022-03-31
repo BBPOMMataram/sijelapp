@@ -51,7 +51,7 @@
                 url: "{{ route('dtstatusuji') }}"
             },
             columns: [
-                {data: 'DT_RowIndex'},
+                {data: 'DT_RowIndex', searchable: false, orderable: false},
                 {data: 'label'},
                 {data: 'actions', className: 'text-center align-middle'},
             ]

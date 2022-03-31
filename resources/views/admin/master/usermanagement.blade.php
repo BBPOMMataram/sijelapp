@@ -71,7 +71,7 @@
             url: "{{ route('usermanagement.index') }}"
         },
         columns: [
-            {data: 'DT_RowIndex'},
+            {data: 'DT_RowIndex', searchable: false, orderable: false},
             {data: 'name'},
             {data: 'username'},
             {data: 'email'},
