@@ -14,7 +14,7 @@
                             <select name="bidang" id="bidang" class="form-control w-auto">
                                 <option value="">==Pilih Komoditi==</option>
                                 @foreach ($bidang as $item)
-                                    <option value="{{ $item->nama_kategori }}">{{ $item->nama_kategori }}</option>
+                                <option value="{{ $item->id_kategori }}">{{ $item->nama_kategori }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -22,6 +22,8 @@
                             <ul class="nav nav-pills ml-auto">
                                 <select name="tahun" id="tahun" class="form-control w-auto">
                                     <option value="">==Tahun==</option>
+                                    {{-- <option value="2021">2021</option> --}} {{-- karena ga ada timestamps di data
+                                    lama --}}
                                     <option value="2022">2022</option>
                                     <option value="2023">2023</option>
                                     <option value="2024">2024</option>
@@ -50,7 +52,7 @@
                         {{-- <select name="bidang" id="bidang">
                             <option value="">==Pilih Komoditi==</option>
                             @foreach ($bidang as $item)
-                                <option value="{{ $item->id }}">{{ $item->nama_kategori }}</option>
+                            <option value="{{ $item->id }}">{{ $item->nama_kategori }}</option>
                             @endforeach
                         </select> --}}
                         <div class="table-responsive">
@@ -102,26 +104,28 @@
 @endsection
 @push('scripts')
 <script>
-    function refill(tahun, bulan){
-        let url = "{{ route('dtrekapsampel') }}";
+    function refill(kategori, tahun, bulan){
+        let url = "{{ route('dtrekapsampel', "_kategori") }}";
+        url = url.replace('_kategori', kategori);
 
         if (tahun) {
-            url = "{{ route('dtrekapsampel', "_tahun") }}";
+            url = "{{ route('dtrekapsampel', ["_kategori", "_tahun"]) }}";
 
             if(bulan){
-                url = "{{ route('dtrekapsampel', ["_tahun","_bulan"]) }}";
+                url = "{{ route('dtrekapsampel', ["_kategori", "_tahun","_bulan"]) }}";
+                url = url.replace('_kategori', kategori);
                 url = url.replace('_tahun', tahun);
                 url = url.replace('_bulan', bulan);
             }else{
+                url = url.replace('_kategori', kategori);
                 url = url.replace('_tahun', tahun);
             }
         }
         
-            $(".table").DataTable().destroy();
+        $(".table").DataTable().destroy();
         let dttable = $(".table").DataTable({
             serverSide: true,
             select: true,
-            // ordering: false,
             buttons: [
                 {
                     extend: 'print',
@@ -274,7 +278,6 @@
                     }},
                 {data: 'tracking.nama_pengambil', render: function($data){ return $data ? $data : '-'}},
                 {data: 'tandaterima'},
-                // {data: 'kategori.id_kategori'},
             ]
         });
 
@@ -288,34 +291,67 @@
     }
 
     $(function () {
-        refill();
+        $.fn.dataTable.ext.errMode = 'throw';
+        const idBidang = $('#bidang').val();
+        
+        refill(idBidang);
         
         $('#bidang').on('change', function (e) {
-            const idBidang = $(this).val();
-                if(idBidang){
-                    $('.table').DataTable().column(2).search("^"+idBidang+"$", true).draw();
-                }else{
-                    $('.table').DataTable().column(2).search('').draw();
+            const kategori = $(this).val();
+            const tahun = $('#tahun').val();
+            const bulan = $('#bulan').val();
+            
+            if(!kategori){
+                kategori = null;
+            }
+            
+            if(tahun){
+                refill(kategori, tahun);
+                if(bulan){
+                    refill(kategori, tahun, bulan);
                 }
+            }else{
+                refill(kategori)
+            }
         });
 
         $('#tahun').change(function (e) { 
             e.preventDefault();
-            const tahun = $('#tahun').val();
-            refill(tahun);
+            const tahun = $(this).val();
+            const bulan = $('#bulan').val();
+            let kategori = $('#bidang').val();
+
+            if(!kategori){
+                kategori = null;
+            }
+
+            if(!bulan){
+                refill(kategori, tahun);
+            }else{
+                refill(kategori, tahun, bulan);
+
+                if(!tahun){
+                    $('#bulan').val('');
+                }
+            }
+
         });
 
         $('#bulan').change(function (e) { 
             e.preventDefault();
             const tahun = $('#tahun').val();
-            const bulan = $('#bulan').val();
+            const bulan = $(this).val();
+            let kategori = $('#bidang').val();
 
             if(!tahun){
-                alert('Pilih tahun dulu!');
+                alert('Silahkan pilih tahun terlebih dahulu ya..');
                 return 0;
             }
-
-            refill(tahun, bulan);
+            
+            if(!kategori){
+                kategori = null;
+            }
+            refill(kategori, tahun, bulan);
         });
 
 
@@ -332,6 +368,7 @@
     .select2-container .select2-selection--single {
         height: inherit;
     }
+
     @page {
         size: auto;
     }

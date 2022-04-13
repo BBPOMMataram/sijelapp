@@ -280,10 +280,14 @@ class LaporanController extends Controller
         return view('admin.laporan.rekapsampel', compact('title', 'bidang'));
     }
 
-    public function dtrekapsampel($tahun = null, $bulan = null)
+    public function dtrekapsampel($kategori = null, $tahun = null, $bulan = null)
     {
         $data = TerimaSampel::with('kategori', 'pemiliksampel', 'tracking', 'produksampel.ujiproduk.parameter.metodeuji', 'produksampel.user')
             ->latest();
+            
+            if(isset($kategori) && $kategori !== 'null'){
+                $data = $data->where('id_kategori', $kategori);
+            }
 
             if(isset($tahun)){
                 $data = $data->whereYear('created_at', $tahun);
