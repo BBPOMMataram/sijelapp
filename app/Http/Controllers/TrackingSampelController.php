@@ -33,6 +33,9 @@ class TrackingSampelController extends Controller
             ->addColumn('permintaan.pemiliksampel.telepon_petugas', function ($data) {
                 return $data->permintaan ? $data->permintaan->pemiliksampel->telepon_petugas : '-';
             })
+            ->addColumn('permintaan.pemiliksampel.email_petugas', function ($data) {
+                return $data->permintaan ? $data->permintaan->pemiliksampel->email_petugas : '-';
+            })
             ->addColumn('status.label', function ($data) {
                 return $data->status ? $data->status->label : '-';
             })
