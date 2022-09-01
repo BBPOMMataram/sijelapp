@@ -2,3 +2,7 @@
     padding-left: 100px;
     color: red;
 }
+
+body {
+    -webkit-print-color-adjust: exact;
+}
