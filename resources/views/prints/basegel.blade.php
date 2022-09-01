@@ -254,8 +254,9 @@
 <script>
     tinymce.init({
         selector: '#basegel',
+        content_css: "/vendor/admin/dist/css/basegel.css",
         plugins: 'print',
-        menubar: false,
+        //menubar: false,
         toolbar: "print",
         branding: false,
         setup: function(editor){
