@@ -12,14 +12,8 @@
     <!-- https://getbootstrap.com/ -->
     <link href="{{ asset('vendor/front/fontawesome/css/all.min.css') }}" rel="stylesheet" />
     <!-- https://fontawesome.com/ -->
-    <link href="{{ asset('vendor/front/css/templatemo-diagoona.css') }}" rel="stylesheet" />
-    <!--
+    <link href="{{ asset('vendor/front/css/style.css') }}" rel="stylesheet" />
 
-TemplateMo 550 Diagoona
-
-https://templatemo.com/tm-550-diagoona
-
--->
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tippy.js/6.3.3/themes/light.min.css"
         integrity="sha512-zpbTFOStBclqD3+SaV5Uz1WAKh9d2/vOtaFYpSLkosymyJKnO+M4vu2CK2U4ZjkRCJ7+RvLnISpNrCfJki5JXA=="
@@ -38,7 +32,7 @@ https://templatemo.com/tm-550-diagoona
                 <div class="tm-col-left">
                     <div class="tm-site-header media">
                         <i class="mt-1 tm-logo">
-                            <img src="{{ asset('vendor/front/img/logobpom.png') }}" alt="logo bpom" width="80px">
+                            <img src="{{ Storage::url('logo.png') }}" alt="logo bpom" width="80px">
                         </i>
                         <div class="media-body">
                             <h1 class="tm-sitename text-uppercase mb-0">SIJELAPP</h1>
@@ -98,7 +92,7 @@ https://templatemo.com/tm-550-diagoona
     <script src="{{ asset('vendor/front/js/jquery-3.4.1.min.js') }}"></script>
     <script src="{{ asset('vendor/front/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('vendor/front/js/jquery.backstretch.min.js') }}"></script>
-    <script src="{{ asset('vendor/front/js/templatemo-script.js') }}"></script>
+    <script src="{{ asset('vendor/front/js/script.js') }}"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.11.3/r-2.2.9/sl-1.3.3/datatables.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script src="https://unpkg.com/@popperjs/core@2"></script>

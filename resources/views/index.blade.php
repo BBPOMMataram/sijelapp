@@ -6,16 +6,22 @@
     <main class="tm-col-right">
         <section class="tm-content">
             <form>
-            <h2 class="mb-5 tm-content-title">Tracking Sampel</h2>
-            <div><input type="text" id="resisampel" placeholder="No Resi Sampel" class="form-control px-2 rounded mb-1"
-                    autofocus></div>
-            {{-- {!! NoCaptcha::display() !!} --}}
-            <button type="button" class="btn btn-primary rounded mt-4 track">Track</button>
-        </form>
-    </section>
+                <h2 class="mb-5 tm-content-title">Tracking Sampel</h2>
+                <div><input type="text" id="resisampel" placeholder="No Resi Sampel"
+                        class="form-control px-2 rounded mb-1" autofocus></div>
+                {!! NoCaptcha::display(['data-theme' => 'dark']) !!}
+                @if ($errors->has('g-recaptcha-response'))
+                <span class="help-block">
+                    <strong>{{ $errors->first('g-recaptcha-response') }}</strong>
+                </span>
+                @endif
+                <button type="button" class="btn btn-primary rounded mt-4 track">Track</button>
+            </form>
+        </section>
     </main>
 </div>
 
+{!! NoCaptcha::renderJs() !!}
 @include('modals.tracking')
 @include('modals.tandaterima')
 @endsection
@@ -135,16 +141,28 @@
             e.preventDefault();
 
             const resisampel = $('#resisampel').val();
+
+            if(resisampel === ''){
+                Swal.fire({
+                        icon: 'warning',
+                        title: "Peringatan",
+                        html: "Isi Kode Resi terlebih dahulu !",
+                    })
+                    return
+            } 
+
             let url = "{{ route('dttrackingsampel', "_id")}}";
             url = url.replace("_id", resisampel);
             
-            let fd = new FormData($('form')[0]);
-            fd.append('_token', "{{ csrf_token() }}");
+            let data = {
+                "_token": "{{ csrf_token() }}",
+                "g-recaptcha-response": grecaptcha.getResponse(),
+            }
             
             $.ajax({
-                type: "GET",
+                type: "POST",
                 url,
-                // data: fd,
+                data,
                 // cache: false,
                 // processData: false,
                 // contentType: false,
@@ -251,7 +269,6 @@
     });
     
 </script>
-{{-- {!! NoCaptcha::renderJs('id') !!} --}}
 @endpush
 @push('styles')
 <style>
@@ -260,9 +277,12 @@
     }
 
     .dataTables_scrollHeadInner {
-        width: 100%!important;
+        width: 100% !important;
     }
 
-    thead th { white-space: nowrap; text-align: left;}
+    thead th {
+        white-space: nowrap;
+        text-align: left;
+    }
 </style>
 @endpush

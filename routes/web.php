@@ -125,7 +125,7 @@ Route::match(['get', 'post'], 'password/reset', function () {
 
 // tracking sampel
 Route::get('dtdetailterimasampel/{idProdukSampel}', [DetailTerimaSampelController::class, 'dtdetailterimasampel'])->name('dtdetailterimasampel');
-Route::get('dttrackingsampel/{id}', [FrontController::class, 'dttrackingsampel'])->name('dttrackingsampel');
+Route::post('dttrackingsampel/{id}', [FrontController::class, 'dttrackingsampel'])->name('dttrackingsampel');
 
 Route::post('submittandaterima/{id}', [FrontController::class, 'submittandaterima'])->name('submittandaterima');
 
