@@ -1,5 +1,5 @@
 <!-- Modal -->
-<div class="modal fade" id="modaltracking" tabindex="-1" role="dialog" aria-labelledby="modalTrackingTitle"
+<div class="modal fade d-block show" id="modaltracking" tabindex="-1" role="dialog" aria-labelledby="modalTrackingTitle"
   aria-hidden="true">
   <div class="modal-dialog modal-xl" role="document">
     <div class="modal-content">
@@ -11,7 +11,8 @@
       </div>
       <div class="modal-body">
         <div class="card-body">
-          <h2>Status Sampel : <b id="statussampel">Status</b></h2>
+          <h2>Status Sampel</h2>
+          <div id="statussampel">Status</div>
           <div class="row">
             <div class="col-lg-6">
               <fieldset class="p-2 pt-0 h-100">

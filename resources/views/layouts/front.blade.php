@@ -25,7 +25,7 @@
   @stack('styles')
 </head>
 
-<body>
+<body class="modal-open">
     <div class="tm-container">
         <div>
             <div class="tm-row pt-4">
