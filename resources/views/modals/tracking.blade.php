@@ -1,5 +1,5 @@
 <!-- Modal -->
-<div class="modal fade d-block show" id="modaltracking" tabindex="-1" role="dialog" aria-labelledby="modalTrackingTitle"
+<div class="modal fade" id="modaltracking" tabindex="-1" role="dialog" aria-labelledby="modalTrackingTitle"
   aria-hidden="true">
   <div class="modal-dialog modal-xl" role="document">
     <div class="modal-content">

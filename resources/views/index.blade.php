@@ -8,7 +8,7 @@
             <form>
                 <h2 class="mb-5 tm-content-title">Tracking Sampel</h2>
                 <div><input type="text" id="resisampel" placeholder="No Resi Sampel"
-                        class="form-control px-2 rounded mb-1" autofocus></div>
+                        class="form-control px-2 rounded mb-1" autocomplete="off" autofocus></div>
                 {!! NoCaptcha::display(['data-theme' => 'dark']) !!}
                 @if ($errors->has('g-recaptcha-response'))
                 <span class="help-block">

@@ -18,9 +18,15 @@ class FrontController extends Controller
 
     public function dttrackingsampel(Request $request, $id)
     {
-        $this->validate($request, [
-            'g-recaptcha-response' => 'required|captcha',
-        ]);
+        $this->validate(
+            $request,
+            [
+                'g-recaptcha-response' => 'required|captcha',
+            ],
+            [
+                'g-recaptcha-response.required' => 'Please resolve the Recapthca'
+            ]
+        );
 
         $permintaan = TerimaSampel::where('resi', $id)->latest()->first();
         if (!$permintaan) {
@@ -145,7 +151,7 @@ class FrontController extends Controller
         $data->nama_pengambil = $request->nama_pengambil;
         $data->id_status_sampel += 1;
 
-        if($data->save()){
+        if ($data->save()) {
             $signed = $request->tanda_terima;
             $encoded_image = explode(",", $signed)[1];
             $decoded_image = base64_decode($encoded_image);
