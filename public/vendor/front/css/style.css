@@ -329,3 +329,34 @@ textarea {
     .tm-service-img { margin-right: 0; }
     .tm-service-img-r { margin-left: 0; }
 }
+
+/* modal tracking */
+.modal-header {
+    background-color: #00B4D8;
+    color: #fff !important;
+}
+
+.modal-body {
+    background-color: #CAF0F8;
+    color:#000;
+}
+
+#statussampel {
+    background-color: #00B4D8;
+    padding: .3rem .7rem;
+    border-radius: 5px;
+}
+
+fieldset {
+    border: 2px solid #fff !important;
+    height: fit-content;
+}
+
+fieldset .value {
+    background-color: #004282;
+    padding: .3rem .5rem;
+    width: fit-content;
+    color: #fff;
+    /* font-weight: bold; */
+    border-radius: 5px;
+}

@@ -35,8 +35,8 @@
                             <img src="{{ Storage::url('logo.png') }}" alt="logo bpom" width="80px">
                         </i>
                         <div class="media-body">
-                            <h1 class="tm-sitename text-uppercase mb-0">SIJELAPP</h1>
-                            <p class="tm-slogon">Sistem Jejak Telusur Laporan Pengujian Pihak Ketiga</p>
+                            <h1 class="tm-sitename text-uppercase mb-0" style="-webkit-text-stroke:.5px #99cccc">SIJELAPP</h1>
+                            <p class="tm-slogon" style="-webkit-text-stroke:.1px #99cccc">Sistem Jejak Telusur Laporan Pengujian Pihak Ketiga</p>
                         </div>
                     </div>
                 </div>
@@ -71,6 +71,7 @@
                     <li class="tm-bg-control active" data-id="0"></li>
                     <li class="tm-bg-control" data-id="1"></li>
                     <li class="tm-bg-control" data-id="2"></li>
+                    <li class="tm-bg-control" data-id="4"></li>
                 </ul>
             </div>
             <div class="tm-col-right tm-col-footer">

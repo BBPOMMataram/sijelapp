@@ -4,129 +4,131 @@
   <div class="modal-dialog modal-xl" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="modaltrackingtitle" style="color: #000;">Tracking Sampel</h5>
+        <h5 class="modal-title" id="modaltrackingtitle">Tracking Sampel</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <div class="card-body text-dark">
+        <div class="card-body">
           <h2>Status Sampel : <b id="statussampel">Status</b></h2>
           <div class="row">
             <div class="col-lg-6">
-              <fieldset class="border p-2 pt-0 h-100">
-                <legend class="w-auto px-1 my-0">Data Sampel</legend>
+              <fieldset class="p-2 pt-0 h-100">
+                <legend class="w-auto px-1 my-0 font-weight-bold">Data Sampel</legend>
                 <div class="form-group">
-                  <div class="font-weight-bold">NOMOR URUT</div>
-                  <div><mark class="rounded font-weight-bold"><span id="no_urut_penerimaan">No Urut</span></mark>
+                  <div class="font-weight-light">NOMOR URUT</div>
+                  <div class="rounded p-2 bg-light w-auto font-weight-light"><span id="no_urut_penerimaan">No
+                      Urut</span>
                   </div>
                 </div>
                 <div class="form-group">
-                  <div class="font-weight-bold">KODE SAMPEL</div>
-                  <div><mark class="rounded font-weight-bold"><span id="kodesampel">KODE SAMPEL</span></mark></div>
+                  <div class="font-weight-light">KODE SAMPEL</div>
+                  <div class="rounded p-2 bg-light w-auto font-weight-light"><span id="kodesampel">KODE SAMPEL</span>
+                  </div>
                 </div>
                 <div class="form-group">
-                  <div class="font-weight-bold">NAMA</div>
-                  <div class="text-justify"><mark class="rounded font-weight-bold"><span
-                        id="namasampel">NAMA</span></mark></div>
+                  <div class="font-weight-light">NAMA</div>
+                  <div class="rounded p-2 bg-light w-auto font-weight-light"><span id="namasampel">NAMA</span></div>
                 </div>
                 <div class="form-group">
-                  <div class="font-weight-bold">KEMASAN</div>
-                  <div><mark class="rounded font-weight-bold"><span id="kemasansampel">KEMASAN</span></mark></div>
+                  <div class="font-weight-light">KEMASAN</div>
+                  <div class="rounded p-2 bg-light w-auto font-weight-light"><span id="kemasansampel">KEMASAN</span>
+                  </div>
                 </div>
                 <div class="form-group">
-                  <div class="font-weight-bold">BERAT</div>
-                  <div><mark class="rounded font-weight-bold"><span id="beratsampel">BERAT</span></mark></div>
+                  <div class="font-weight-light">BERAT</div>
+                  <div class="rounded p-2 bg-light w-auto font-weight-light"><span id="beratsampel">BERAT</span></div>
                 </div>
                 <div class="form-group">
-                  <div class="font-weight-bold">JUMLAH</div>
-                  <div><mark class="rounded font-weight-bold"><span id="jumlahsampel">JUMLAH</span></mark></div>
+                  <div class="font-weight-light">JUMLAH</div>
+                  <div class="rounded p-2 bg-light w-auto font-weight-light"><span id="jumlahsampel">JUMLAH</span></div>
                 </div>
                 <input type="hidden" id="id_permintaan">
                 <div class="btnContainer"></div>
               </fieldset>
             </div>
             <div class="col-lg-6">
-              <fieldset class="border p-2 pt-0 h-100">
-                <legend class="w-auto px-1 my-0">Tracking Sampel</legend>
+              <fieldset class="p-2 pt-0 h-100">
+                <legend class="w-auto px-1 my-0 font-weight-bold">Tracking Sampel</legend>
                 <div class="form-group">
-                  <div class="font-weight-bold">WAKTU TERIMA</div>
-                  <div><mark class="rounded font-weight-bold"><span id="waktuterima">TANGGAL</span></mark></div>
+                  <div>WAKTU TERIMA</div>
+                  <div class="value"><span id="waktuterima">TANGGAL</span></div>
                 </div>
                 <div class="form-group">
-                  <div class="font-weight-bold">WAKTU VERIFIKASI</div>
-                  <div><mark class="rounded font-weight-bold"><span id="waktuverifikasi">TANGGAL</span></mark></div>
+                  <div>WAKTU VERIFIKASI</div>
+                  <div class="value"><span id="waktuverifikasi">TANGGAL</span></div>
                 </div>
                 <div class="form-group">
-                  <div class="font-weight-bold">WAKTU KAJI ULANG</div>
-                  <div><mark class="rounded font-weight-bold"><span id="waktukajiulang">TANGGAL</span></mark></div>
+                  <div>WAKTU KAJI ULANG</div>
+                  <div class="value"><span id="waktukajiulang">TANGGAL</span></div>
                 </div>
                 <div class="form-group">
-                  <div class="font-weight-bold">WAKTU PEMBAYARAN</div>
-                  <div><mark class="rounded font-weight-bold"><span id="waktupembayaran">TANGGAL</span></mark></div>
+                  <div>WAKTU PEMBAYARAN</div>
+                  <div class="value"><span id="waktupembayaran">TANGGAL</span></div>
                 </div>
                 <div class="form-group">
-                  <div class="font-weight-bold">WAKTU PENGUJIAN</div>
-                  <div><mark class="rounded font-weight-bold"><span id="waktupengujian">TANGGAL</span></mark></div>
+                  <div>WAKTU PENGUJIAN</div>
+                  <div class="value"><span id="waktupengujian">TANGGAL</span></div>
                 </div>
                 <div class="form-group">
-                  <div class="font-weight-bold">WAKTU SELESAI UJI</div>
-                  <div><mark class="rounded font-weight-bold"><span id="waktuselesaiuji">TANGGAL</span></mark></div>
+                  <div>WAKTU SELESAI UJI</div>
+                  <div class="value"><span id="waktuselesaiuji">TANGGAL</span></div>
                 </div>
                 <div class="form-group">
-                  <div class="font-weight-bold">WAKTU LEGALISIR</div>
-                  <div><mark class="rounded font-weight-bold"><span id="waktulegalisir">TANGGAL</span></mark></div>
+                  <div>WAKTU LEGALISIR</div>
+                  <div class="value"><span id="waktulegalisir">TANGGAL</span></div>
                 </div>
                 <div class="form-group">
-                  <div class="font-weight-bold">WAKTU SELESAI</div>
-                  <div><mark class="rounded font-weight-bold"><span id="waktuselesai">TANGGAL</span></mark></div>
+                  <div>WAKTU SELESAI</div>
+                  <div class="value"><span id="waktuselesai">TANGGAL</span></div>
                 </div>
                 <div class="form-group">
-                  <div class="font-weight-bold">WAKTU DIAMBIL</div>
-                  <div><mark class="rounded font-weight-bold"><span id="waktudiambil">TANGGAL</span></mark></div>
+                  <div>WAKTU DIAMBIL</div>
+                  <div class="value"><span id="waktudiambil">TANGGAL</span></div>
                 </div>
                 <div class="form-group">
-                  <div class="font-weight-bold">WAKTU ESTIMASI</div>
-                  <div><mark class="rounded font-weight-bold"><span id="waktuestimasi">TANGGAL</span></mark></div>
+                  <div>WAKTU ESTIMASI</div>
+                  <div class="value"><span id="waktuestimasi">TANGGAL</span></div>
                 </div>
               </fieldset>
             </div>
             <div class="col">
-              <fieldset class="border p-2 pt-0">
-                <legend class="w-auto px-1 my-0">Pemilik Sampel</legend>
+              <fieldset class="p-2 pt-0">
+                <legend class="w-auto px-1 my-0 font-weight-bold">Pemilik Sampel</legend>
                 <div class="form-group">
-                  <div class="font-weight-bold">INSTANSI</div>
-                  <div><mark class="rounded font-weight-bold"><span id="namapemilik">INSTANSI</span></mark></div>
+                  <div>INSTANSI</div>
+                  <div class="value"><span id="namapemilik">INSTANSI</span></div>
                 </div>
                 <div class="form-group">
-                  <div class="font-weight-bold">ALAMAT INSTANSI</div>
-                  <div><mark class="rounded font-weight-bold"><span id="alamatpemilik">ALAMAT INSTANSI</span></mark>
+                  <div>ALAMAT INSTANSI</div>
+                  <div class="value"><span id="alamatpemilik">ALAMAT INSTANSI</mark>
                   </div>
                 </div>
                 <div class="form-group">
-                  <div class="font-weight-bold">Nama Petugas</div>
-                  <div><mark class="rounded font-weight-bold"><span id="namapetugas">Nama Petugas</span></mark></div>
+                  <div>Nama Petugas</div>
+                  <div class="value"><span id="namapetugas">Nama Petugas</span></div>
                 </div>
                 <div class="form-group">
-                  <div class="font-weight-bold">Telepon Petugas</div>
-                  <div><mark class="rounded font-weight-bold"><span id="teleponpetugas">Telepon Petugas</span></mark>
+                  <div>Telepon Petugas</div>
+                  <div class="value"><span id="teleponpetugas">Telepon Petugas</mark>
                   </div>
                 </div>
               </fieldset>
-              <fieldset class="border p-2 pt-0">
-                <legend class="w-auto px-1 my-0">Detail Sampel</legend>
-                  <table id="detailterimasampel" class="table text-dark bg-transparent w-100">
-                    <thead>
-                      <tr>
-                        <th>No</th>
-                        <th>Jenis Produk</th>
-                        <th>Parameter Uji</th>
-                        <th>Jumlah Pengujian</th>
-                        <th>Biaya</th>
-                        <th>Hasil Uji</th>
-                        <th>Tersangka</th>
-                        <th>Saksi Ahli</th>
-                        <th>Download</th>
+              <fieldset class="overflow-auto p-2 pt-0">
+                <legend class="w-auto px-1 my-0 font-weight-bold">Detail Sampel</legend>
+                <table id="detailterimasampel" class="table text-dark bg-transparent w-100">
+                  <thead>
+                    <tr>
+                      <th>No</th>
+                      <th>Jenis Produk</th>
+                      <th>Parameter Uji</th>
+                      <th>Jumlah Pengujian</th>
+                      <th>Biaya</th>
+                      <th>Hasil Uji</th>
+                      <th>Tersangka</th>
+                      <th>Saksi Ahli</th>
+                      <th>Download</th>
                     </tr>
                   </thead>
                 </table>
