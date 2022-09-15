@@ -10,6 +10,11 @@ class DashboardController extends Controller
     public function index()
     {
         $title = 'Dashboard';
+        $samplePerKategori = TerimaSampel::with('kategori')
+            ->whereYear('created_at', now()->year)
+            ->groupBy('id_kategori')
+            ->get();
+
         $data = [
             'userCount' => User::all()->count(),
             'allSampleThisYear' => TerimaSampel::whereYear('created_at', now()->year)->sum('jumlah_sampel'),
@@ -18,6 +23,11 @@ class DashboardController extends Controller
                 ->whereYear('created_at', now()->year)
                 ->sum('jumlah_sampel'),
             'sampleNapzaThisYear' => TerimaSampel::where('id_kategori', 1)->whereYear('created_at', now()->year)->sum('jumlah_sampel'), //1 id kategori napza
+            'listKategoriName' => $samplePerKategori->pluck('kategori.nama_kategori'),
+            'samplePerKategori' => TerimaSampel::with('kategori')
+                ->whereYear('created_at', now()->year)
+                ->groupBy('id_kategori')
+                ->selectRaw('*, sum(jumlah_sampel) as jumlahSampel')->get()->pluck('jumlahSampel')
         ];
         return view('admin.index', compact('title', 'data'));
     }
