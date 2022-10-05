@@ -116,7 +116,7 @@ class TrackingSampelController extends Controller
                 $status = $data->id_status_sampel;
                 $telp_petugas = '-';
                 $resi = '-';
-                $text = "berikut%20link%20untuk%20mentracking%20sampel%20skaligus%20untuk%20mendownload%20hasil%20uji%20" . env('APP_URL', 'http://localhost') . "%20dengan%20no%20resi%20";
+                $text = "berikut%20link%20untuk%20mentracking%20sampel%20skaligus%20untuk%20mendownload%20hasil%20uji%20" . env('APP_URL_BITLY', 'https://bit.ly/trackingsampelbbpommtr') . "%20dengan%20no%20resi%20";
                 if (isset($data->permintaan->pemiliksampel)) {
                     $telp_petugas = substr_replace($data->permintaan->pemiliksampel->telepon_petugas, '62', 0, 1);
                 }
