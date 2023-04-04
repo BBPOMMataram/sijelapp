@@ -1,5 +1,6 @@
 <?php
 
+use App\Events\GuestArrived;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -16,4 +17,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+Route::post('guest-arrived', function (Request $request) {
+    GuestArrived::dispatch(['name' => $request->name, 'from' => $request->from]);
+    return $request->all();
 });

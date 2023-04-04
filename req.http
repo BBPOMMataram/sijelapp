@@ -1,0 +1,8 @@
+post http://localhost:8000/api/guest-arrived
+
+###
+post https://2ea8680e-2c6f-4731-ba52-895686aaf68f.pushnotifications.pusher.com/publish_api/v1/instances/2ea8680e-2c6f-4731-ba52-895686aaf68f/publishes
+Content-Type: application/json
+Authorization: Bearer FF5B977511F3DBC81B6CFC2A6F0C096A627DB6D6177ADCB6DE89AD1CF8E9D470
+
+{"interests":["hello"],"web":{"notification":{"title":"Hello","body":"Hello, world!"}}}
