@@ -48,12 +48,12 @@
 @include('modals.master.usermanagement')
 @endsection
 @push('styles')
-    <style>
-        /* center vertical for datatables */
-        table.dataTable tbody td { 
-            vertical-align: middle;
-        }
-    </style>
+<style>
+    /* center vertical for datatables */
+    table.dataTable tbody td {
+        vertical-align: middle;
+    }
+</style>
 @endpush
 @push('scripts')
 <script>
@@ -63,7 +63,8 @@
         showConfirmButton: false,
         timer: 5000
     });
-
+    
+    $(function () {
     const dttable = $("table").DataTable({
         select: true,
         serverSide: true,
@@ -85,7 +86,6 @@
         ]
     });
 
-    $(function () {
         $('.modal').on('click', '.submit', function(evt){
             evt.preventDefault();
 
