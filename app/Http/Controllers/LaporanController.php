@@ -353,7 +353,7 @@ class LaporanController extends Controller
             ->addColumn('tandaterima', function ($data) {
                 $tt = '-';
                 if (isset($data->tracking->tanda_terima)) {
-                    $tt = '<img src="' . Storage::url($data->tracking->tanda_terima) . '" width="60px">';
+                    $tt = '<img src="' . Storage::url($data->tracking->tanda_terima) .'" width="60px">';
                 }
 
                 return $tt;

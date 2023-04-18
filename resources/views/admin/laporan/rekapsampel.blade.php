@@ -124,7 +124,8 @@
         
         $(".table").DataTable().destroy();
         let dttable = $(".table").DataTable({
-            serverSide: true,
+            // serverSide: true, //uncomment if filter is solved
+            processing: true,
             select: true,
             buttons: [
                 {

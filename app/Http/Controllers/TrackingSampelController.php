@@ -116,14 +116,14 @@ class TrackingSampelController extends Controller
                 $status = $data->id_status_sampel;
                 $telp_petugas = '-';
                 $resi = '-';
-                $text = "berikut%20link%20untuk%20mentracking%20sampel%20skaligus%20untuk%20mendownload%20hasil%20uji%20sijelapp.bbpommataram.id%20dengan%20no%20resi%20";
+                $text = "berikut%20link%20untuk%20mentracking%20sampel%20skaligus%20untuk%20mendownload%20hasil%20uji%20" . env('APP_URL_BITLY', 'https://bit.ly/trackingsampelbbpommtr') . "%20dengan%20no%20resi%20";
                 if (isset($data->permintaan->pemiliksampel)) {
-                    $telp_petugas = substr_replace($data->permintaan->pemiliksampel->telepon_petugas,'62',0,1);
+                    $telp_petugas = substr_replace($data->permintaan->pemiliksampel->telepon_petugas, '62', 0, 1);
                 }
                 if (isset($data->permintaan->resi)) {
                     $resi = $data->permintaan->resi;
                 }
-                $wa_link = "https://web.whatsapp.com/send?phone=".$telp_petugas."&text=". $text .$resi;
+                $wa_link = "https://web.whatsapp.com/send?phone=" . $telp_petugas . "&text=" . $text . $resi;
 
                 $btn = '';
                 if ($userlevel === 2) {
@@ -131,7 +131,7 @@ class TrackingSampelController extends Controller
                         $btn .= '<a href="#"><i class="fas fa-angle-double-right text-danger nextstep"></i></a>';
                     }
                 } else {
-                    $btn .= '<a href="'.$wa_link.'" target="_blank"><i class="fab fa-whatsapp text-success mr-2"></i></a>';
+                    $btn .= '<a href="' . $wa_link . '" target="_blank"><i class="fab fa-whatsapp text-success mr-2"></i></a>';
                     $btn .= '<a href="#"><i class="fas fa-angle-double-right text-danger nextstep"></i></a>';
                 }
                 $btn .= '<a href="#"><i class="fas fa-eye text-primary ml-2 show"></i></a>';
@@ -152,8 +152,7 @@ class TrackingSampelController extends Controller
                         if ($value->lhu) {
                             $btn .= '<a href="' . route('download.lhu', $value->lhu) . '"><i class="fas fa-download text-success ml-2 downloadlhu"></i></a> ';
                             // return $btn = '<i class="fas fa-check text-success"></i>';
-                        }
-                        else {
+                        } else {
                             $btn .= '- ';
                         }
                     }

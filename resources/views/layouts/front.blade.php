@@ -71,7 +71,7 @@
                     <li class="tm-bg-control active" data-id="0"></li>
                     <li class="tm-bg-control" data-id="1"></li>
                     <li class="tm-bg-control" data-id="2"></li>
-                    <li class="tm-bg-control" data-id="4"></li>
+                    <li class="tm-bg-control" data-id="3"></li>
                 </ul>
             </div>
             <div class="tm-col-right tm-col-footer">
