@@ -129,12 +129,12 @@
             select: true,
             buttons: [
                 {
-                    extend: 'print',
-                    autoPrint: false,
-                    title: "LAPORAN IMPLEMENTASI SIJELAPP",
-                    customize: function ( doc ) {
-                        $(doc.document.body).find('table').css('font-size', '5pt');
-                    }
+                    extend: 'excel',
+                    // autoPrint: false,
+                    // title: "LAPORAN IMPLEMENTASI SIJELAPP",
+                    // customize: function ( doc ) {
+                    //     $(doc.document.body).find('table').css('font-size', '5pt');
+                    // }
                 }
             ],
             dom: 'Bftipr',
