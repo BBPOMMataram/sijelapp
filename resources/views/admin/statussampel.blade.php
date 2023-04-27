@@ -225,7 +225,7 @@
             url = url.replace('_id', id);
             data = {_token: "{{ csrf_token() }}"}
 
-            const statusSampel = rowData['id_status_sampel'];
+            const statusSampel = parseInt(rowData['id_status_sampel']);
             let text = '';
             let icon = 'question';
             let processData = true;
@@ -463,8 +463,9 @@
     .select2-container .select2-selection--single {
         height: inherit;
     }
-    .swal2-popup{
-        width:850px !important;
+
+    .swal2-popup {
+        width: 850px !important;
     }
 </style>
 @endpush
