@@ -32,7 +32,6 @@ use Illuminate\Support\Facades\Storage;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
 Route::get('/', [FrontController::class, 'trackingsampel'])->name('home');
 Route::get('/tarif', [FrontController::class, 'tarifpengujian'])->name('tarifpengujian');
 Route::get('downloadlhu/{lhu}', function ($lhu) {

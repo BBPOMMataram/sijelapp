@@ -5,6 +5,7 @@
 -->
 <configuration>
   <system.webServer>
+  <customErrors mode="Off"/>
     <rewrite>
       <rules>
         <rule name="Imported Rule 1" stopProcessing="true">
