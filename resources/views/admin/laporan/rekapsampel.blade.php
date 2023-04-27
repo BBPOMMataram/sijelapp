@@ -137,7 +137,7 @@
                     // }
                 }
             ],
-            dom: 'Bftipr',
+            dom: 'Blftipr',
             ajax: {
                 url
             },
