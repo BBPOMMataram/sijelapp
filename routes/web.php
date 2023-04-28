@@ -32,12 +32,13 @@ use Illuminate\Support\Facades\Storage;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
 Route::get('/', [FrontController::class, 'trackingsampel'])->name('home');
 Route::get('/tarif', [FrontController::class, 'tarifpengujian'])->name('tarifpengujian');
-Route::get('downloadlhu/{lhu}', function($lhu){
+Route::get('downloadlhu/{lhu}', function ($lhu) {
     return Storage::download($lhu);
 })->where('lhu', '.*')
-->name('download.lhu');
+    ->name('download.lhu');
 
 Route::middleware(['auth'])->group(function () {
     Route::prefix('admin')->group(function () {
@@ -98,9 +99,11 @@ Route::middleware(['auth'])->group(function () {
             Route::get('dtjumlahsampel/{tahun}', [LaporanController::class, 'dtjumlahsampel'])->name('dtjumlahsampel');
             Route::get('rekapsampel', [LaporanController::class, 'rekapsampel'])->name('laporan.rekapsampel');
             Route::get('dtrekapsampel/{kategori?}/{tahun?}/{bulan?}', [LaporanController::class, 'dtrekapsampel'])->name('dtrekapsampel');
+            Route::get('pengguna', [LaporanController::class, 'pengguna'])->name('laporan.pengguna');
+            Route::get('dtpengguna/{tahun?}', [LaporanController::class, 'dtpengguna'])->name('dtpengguna');
         });
 
-        Route::prefix('setting')->group(function(){
+        Route::prefix('setting')->group(function () {
             Route::get('profil', [ProfilController::class, 'index'])->name('setting.profil');
         });
 

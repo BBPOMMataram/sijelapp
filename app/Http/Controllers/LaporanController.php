@@ -26,7 +26,7 @@ class LaporanController extends Controller
         return DataTables::of($data)
             ->addIndexColumn()
             ->addColumn('januarimasuk', function ($d) use ($tahun) {
-                $res = $d->whereHas('tracking', function($q){
+                $res = $d->whereHas('tracking', function ($q) {
                     $q->whereMonth('tanggal_pembayaran', '1');
                 })->where('id_kategori', $d->id_kategori)
                     // ->whereMonth('created_at', '1')
@@ -45,7 +45,7 @@ class LaporanController extends Controller
                 return $res;
             })
             ->addColumn('februarimasuk', function ($d) use ($tahun) {
-                $res = $d->whereHas('tracking', function($q){
+                $res = $d->whereHas('tracking', function ($q) {
                     $q->whereMonth('tanggal_pembayaran', '2');
                 })->where('id_kategori', $d->id_kategori)
                     // ->whereMonth('created_at', '2')
@@ -64,7 +64,7 @@ class LaporanController extends Controller
                 return $res;
             })
             ->addColumn('maretmasuk', function ($d) use ($tahun) {
-                $res = $d->whereHas('tracking', function($q){
+                $res = $d->whereHas('tracking', function ($q) {
                     $q->whereMonth('tanggal_pembayaran', '3');
                 })->where('id_kategori', $d->id_kategori)
                     // ->whereMonth('created_at', '3')
@@ -83,7 +83,7 @@ class LaporanController extends Controller
                 return $res;
             })
             ->addColumn('aprilmasuk', function ($d) use ($tahun) {
-                $res = $d->whereHas('tracking', function($q){
+                $res = $d->whereHas('tracking', function ($q) {
                     $q->whereMonth('tanggal_pembayaran', '4');
                 })->where('id_kategori', $d->id_kategori)
                     // ->whereMonth('created_at', '4')
@@ -102,7 +102,7 @@ class LaporanController extends Controller
                 return $res;
             })
             ->addColumn('meimasuk', function ($d) use ($tahun) {
-                $res = $d->whereHas('tracking', function($q){
+                $res = $d->whereHas('tracking', function ($q) {
                     $q->whereMonth('tanggal_pembayaran', '5');
                 })->where('id_kategori', $d->id_kategori)
                     // ->whereMonth('created_at', '5')
@@ -121,7 +121,7 @@ class LaporanController extends Controller
                 return $res;
             })
             ->addColumn('junimasuk', function ($d) use ($tahun) {
-                $res = $d->whereHas('tracking', function($q){
+                $res = $d->whereHas('tracking', function ($q) {
                     $q->whereMonth('tanggal_pembayaran', '6');
                 })->where('id_kategori', $d->id_kategori)
                     // ->whereMonth('created_at', '6')
@@ -140,7 +140,7 @@ class LaporanController extends Controller
                 return $res;
             })
             ->addColumn('julimasuk', function ($d) use ($tahun) {
-                $res = $d->whereHas('tracking', function($q){
+                $res = $d->whereHas('tracking', function ($q) {
                     $q->whereMonth('tanggal_pembayaran', '7');
                 })->where('id_kategori', $d->id_kategori)
                     // ->whereMonth('created_at', '7')
@@ -159,7 +159,7 @@ class LaporanController extends Controller
                 return $res;
             })
             ->addColumn('agustusmasuk', function ($d) use ($tahun) {
-                $res = $d->whereHas('tracking', function($q){
+                $res = $d->whereHas('tracking', function ($q) {
                     $q->whereMonth('tanggal_pembayaran', '8');
                 })->where('id_kategori', $d->id_kategori)
                     // ->whereMonth('created_at', '8')
@@ -178,7 +178,7 @@ class LaporanController extends Controller
                 return $res;
             })
             ->addColumn('septembermasuk', function ($d) use ($tahun) {
-                $res = $d->whereHas('tracking', function($q){
+                $res = $d->whereHas('tracking', function ($q) {
                     $q->whereMonth('tanggal_pembayaran', '9');
                 })->where('id_kategori', $d->id_kategori)
                     // ->whereMonth('created_at', '9')
@@ -197,7 +197,7 @@ class LaporanController extends Controller
                 return $res;
             })
             ->addColumn('oktobermasuk', function ($d) use ($tahun) {
-                $res = $d->whereHas('tracking', function($q){
+                $res = $d->whereHas('tracking', function ($q) {
                     $q->whereMonth('tanggal_pembayaran', '10');
                 })->where('id_kategori', $d->id_kategori)
                     // ->whereMonth('created_at', '10')
@@ -216,7 +216,7 @@ class LaporanController extends Controller
                 return $res;
             })
             ->addColumn('novembermasuk', function ($d) use ($tahun) {
-                $res = $d->whereHas('tracking', function($q){
+                $res = $d->whereHas('tracking', function ($q) {
                     $q->whereMonth('tanggal_pembayaran', '11');
                 })->where('id_kategori', $d->id_kategori)
                     // ->whereMonth('created_at', '11')
@@ -235,7 +235,7 @@ class LaporanController extends Controller
                 return $res;
             })
             ->addColumn('desembermasuk', function ($d) use ($tahun) {
-                $res = $d->whereHas('tracking', function($q){
+                $res = $d->whereHas('tracking', function ($q) {
                     $q->whereMonth('tanggal_pembayaran', '12');
                 })->where('id_kategori', $d->id_kategori)
                     // ->whereMonth('created_at', '12')
@@ -263,7 +263,7 @@ class LaporanController extends Controller
             ->addColumn('totalkeluar', function ($d) use ($tahun) {
                 $res = $d
                     ->whereHas('tracking', function ($q) {
-                        $q->whereIn(DB::RAW('month(tanggal_selesai)'), [1,2,3,4,5,6,7,8,9,10,11,12]);
+                        $q->whereIn(DB::RAW('month(tanggal_selesai)'), [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]);
                     })
                     ->where('id_kategori', $d->id_kategori)
                     ->whereYear('created_at', $tahun)
@@ -284,18 +284,18 @@ class LaporanController extends Controller
     {
         $data = TerimaSampel::with('kategori', 'pemiliksampel', 'tracking', 'produksampel.ujiproduk.parameter.metodeuji', 'produksampel.user')
             ->latest();
-            
-            if(isset($kategori) && $kategori !== 'null'){
-                $data = $data->where('id_kategori', $kategori);
-            }
 
-            if(isset($tahun)){
-                $data = $data->whereYear('created_at', $tahun);
-            }
+        if (isset($kategori) && $kategori !== 'null') {
+            $data = $data->where('id_kategori', $kategori);
+        }
 
-            if(isset($bulan)){
-                $data = $data->whereMonth('created_at', $bulan);
-            }
+        if (isset($tahun)) {
+            $data = $data->whereYear('created_at', $tahun);
+        }
+
+        if (isset($bulan)) {
+            $data = $data->whereMonth('created_at', $bulan);
+        }
 
         return DataTables::of($data)
             ->addIndexColumn()
@@ -353,12 +353,53 @@ class LaporanController extends Controller
             ->addColumn('tandaterima', function ($data) {
                 $tt = '-';
                 if (isset($data->tracking->tanda_terima)) {
-                    $tt = '<img src="' . Storage::url($data->tracking->tanda_terima) ?? '#'. '" width="60px">';
+                    $tt = '<img src="' . Storage::url($data->tracking->tanda_terima) ?? '#' . '" width="60px">';
                 }
 
                 return $tt;
             })
             ->rawColumns(['tandaterima'])
+            ->toJson();
+    }
+
+
+    public function pengguna()
+    {
+        $title = 'REKAP LAPORAN PENGUJIAN PIHAK KETIGA';
+        $bidang = Kategori::where('status', 1)->get();
+        return view('admin.laporan.pengguna', compact('title', 'bidang'));
+    }
+
+    public function dtpengguna($tahun = null)
+    {
+        $data = DB::table('permintaan')
+            ->select(
+                'pemilik_sampel.nama_pemilik',
+                'tracking_sampel.tanggal_pembayaran',
+                'pemilik_sampel.nama_petugas',
+                'pemilik_sampel.telepon_petugas',
+                'pemilik_sampel.email_petugas',
+                'created_at'
+            )
+            ->join('pemilik_sampel', 'permintaan.id_pemilik', '=', 'pemilik_sampel.id_pemilik')
+            ->join('tracking_sampel', 'permintaan.id_permintaan', '=', 'tracking_sampel.id_permintaan')
+            ->groupBy('pemilik_sampel.nama_petugas')
+            ->latest();
+
+        if (isset($tahun)) {
+            $data = $data->whereYear('created_at', $tahun);
+        }
+
+        return DataTables::of($data)
+            ->addIndexColumn()
+            ->addColumn('tanggalterima', function ($data) {
+                $tglterima = '-';
+                if (isset($data->tanggal_pembayaran)) {
+                    $tglterima = date('d M Y', strtotime($data->tanggal_pembayaran));
+                }
+
+                return $tglterima;
+            })
             ->toJson();
     }
 }
