@@ -10,9 +10,8 @@
                 <div class="card">
                     <div class="card-header">
                         <select name="tahun" id="tahun" class="form-control w-auto">
-                            @for ($i = 2022; $i < 2025; $i++)
-                                <option value="{{ $i }}">{{ $i }}</option>
-                            @endfor
+                            @for ($i = 2022; $i < 2025; $i++) <option value="{{ $i }}">{{ $i }}</option>
+                                @endfor
                         </select>
                     </div>
                     <!-- /.card-header -->
@@ -88,7 +87,7 @@
         $(".table").DataTable().destroy();
         $(".table").DataTable({
             ordering: false,
-            serverSide: true,
+            serverSide: false,
             select: true,
             pageLength: 25,
             buttons: [
