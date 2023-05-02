@@ -100,7 +100,7 @@ Route::middleware(['auth'])->group(function () {
             Route::get('rekapsampel', [LaporanController::class, 'rekapsampel'])->name('laporan.rekapsampel');
             Route::get('dtrekapsampel/{kategori?}/{tahun?}/{bulan?}', [LaporanController::class, 'dtrekapsampel'])->name('dtrekapsampel');
             Route::get('pengguna', [LaporanController::class, 'pengguna'])->name('laporan.pengguna');
-            Route::get('dtpengguna/{tahun?}', [LaporanController::class, 'dtpengguna'])->name('dtpengguna');
+            Route::get('dtpengguna/{tahun?}/{bulan?}', [LaporanController::class, 'dtpengguna'])->name('dtpengguna');
         });
 
         Route::prefix('setting')->group(function () {

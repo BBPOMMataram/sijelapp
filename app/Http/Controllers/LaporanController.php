@@ -370,7 +370,7 @@ class LaporanController extends Controller
         return view('admin.laporan.pengguna', compact('title', 'bidang'));
     }
 
-    public function dtpengguna($tahun = null)
+    public function dtpengguna($tahun = null, $bulan = null)
     {
         $data = DB::table('permintaan')
             ->select(
@@ -388,6 +388,10 @@ class LaporanController extends Controller
 
         if (isset($tahun)) {
             $data = $data->whereYear('created_at', $tahun);
+        }
+
+        if (isset($bulan)) {
+            $data = $data->whereMonth('created_at', $bulan);
         }
 
         return DataTables::of($data)
