@@ -22,7 +22,9 @@ class LaporanController extends Controller
     {
         $data = TerimaSampel::with(['kategori', 'tracking'])
             // ->whereYear('created_at', $tahun)
-            ->groupBy('id_kategori');
+            ->groupBy('id_kategori')
+            ->orderBy('id_kategori');
+
         return DataTables::of($data)
             ->addIndexColumn()
             ->addColumn('januarimasuk', function ($d) use ($tahun) {

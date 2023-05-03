@@ -102,7 +102,7 @@
                 url
             },
             columns: [
-                {data: 'DT_RowIndex', searchable: false, orderable: false},
+                {data: 'DT_RowIndex', searchable: false},
                 {data: 'kategori.nama_kategori'},
                 {data: 'januarimasuk'},
                 {data: 'januarikeluar'},
