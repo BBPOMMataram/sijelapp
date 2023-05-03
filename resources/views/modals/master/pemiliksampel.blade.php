@@ -21,6 +21,18 @@
               <input type="text" class="form-control" id="namapetugas" name="namapetugas" placeholder="Nama Petugas">
             </div>
             <div class="form-group">
+              <label for="nikpetugas">NIK Petugas</label>
+              <input type="text" class="form-control" id="nikpetugas" name="nikpetugas" placeholder="NIK Petugas">
+            </div>
+            <div class="form-group">
+              <label for="nippetugas">NIP Petugas</label>
+              <input type="text" class="form-control" id="nippetugas" name="nippetugas" placeholder="NIP Petugas">
+            </div>
+            <div class="form-group">
+              <label for="npwppetugas">NPWP Petugas</label>
+              <input type="text" class="form-control" id="npwppetugas" name="npwppetugas" placeholder="NPWP Petugas">
+            </div>
+            <div class="form-group">
               <label for="teleponpetugas">Telepon Petugas</label>
               <input type="text" class="form-control" id="teleponpetugas" name="teleponpetugas"
                 placeholder="Telepon Petugas">

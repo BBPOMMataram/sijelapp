@@ -22,18 +22,21 @@ class PemilikSampelController extends Controller
             ->rawColumns(['actions'])
             ->toJson();
     }
-    
+
     public function index()
     {
         $title = 'Pemilik Sampel';
         return view('admin.master.pemiliksampel', compact('title'));
     }
-    
+
     public function store(Request $request)
     {
         $this->validate($request, [
             'instansi' => 'required',
             'namapetugas' => 'required',
+            'nikpetugas' => 'required',
+            'nippetugas' => 'required',
+            'npwppetugas' => 'required',
             'teleponpetugas' => 'required',
             'alamatinstansi' => 'required',
             'emailpetugas' => 'required|email',
@@ -45,6 +48,9 @@ class PemilikSampelController extends Controller
 
         $data->nama_pemilik = $request->instansi;
         $data->nama_petugas = $request->namapetugas;
+        $data->nik_petugas = $request->nikpetugas;
+        $data->nip_petugas = $request->nippetugas;
+        $data->npwp_petugas = $request->npwppetugas;
         $data->telepon_petugas = $request->teleponpetugas;
         $data->email_petugas = $request->emailpetugas;
         $data->pangkat_petugas = $request->pangkatpetugas;
@@ -54,12 +60,15 @@ class PemilikSampelController extends Controller
 
         return response(['status' => 1, 'msg' => 'Tambah data berhasil.']);
     }
-    
+
     public function update(Request $request, $id)
     {
         $this->validate($request, [
             'instansi' => 'required',
             'namapetugas' => 'required',
+            'nikpetugas' => 'required',
+            'nippetugas' => 'required',
+            'npwppetugas' => 'required',
             'teleponpetugas' => 'required',
             'alamatinstansi' => 'required',
             'emailpetugas' => 'required|email',
@@ -71,12 +80,16 @@ class PemilikSampelController extends Controller
 
         $data->nama_pemilik = $request->instansi;
         $data->nama_petugas = $request->namapetugas;
+        $data->nik_petugas = $request->nikpetugas;
+        $data->nip_petugas = $request->nippetugas;
+        $data->npwp_petugas = $request->npwppetugas;
         $data->telepon_petugas = $request->teleponpetugas;
         $data->email_petugas = $request->emailpetugas;
         $data->pangkat_petugas = $request->pangkatpetugas;
         $data->jabatan_petugas = $request->jabatanpetugas;
         $data->alamat_pemilik = $request->alamatinstansi;
-        if(!$data->isDirty()){
+
+        if (!$data->isDirty()) {
             return response(['status' => 0, 'msg' => 'Tidak ada perubahan data.']);
         }
         $data->save();

@@ -24,6 +24,9 @@
                                         <th class="align-middle">No</th>
                                         <th class="align-middle">Nama Instansi</th>
                                         <th class="align-middle">Nama Petugas</th>
+                                        <th class="align-middle">NIP Petugas</th>
+                                        <th class="align-middle">NIK Petugas</th>
+                                        <th class="align-middle">NPWP Petugas</th>
                                         <th class="align-middle">Telepon Petugas</th>
                                         <th class="align-middle">Email Petugas</th>
                                         <th class="align-middle">Pangkat Petugas</th>
@@ -66,6 +69,9 @@
                 {data: 'DT_RowIndex', searchable: false, orderable: false},
                 {data: 'nama_pemilik'},
                 {data: 'nama_petugas'},
+                {data: 'nip_petugas'},
+                {data: 'nik_petugas'},
+                {data: 'npwp_petugas'},
                 {data: 'telepon_petugas'},
                 {data: 'email_petugas'},
                 {data: 'pangkat_petugas'},
@@ -162,6 +168,12 @@
             $('#namapetugas').val(rowData['nama_petugas']).prop('disabled', true);
             $('#teleponpetugas').val(rowData['telepon_petugas']).prop('disabled', true);
             $('#alamatinstansi').val(rowData['alamat_pemilik']).prop('disabled', true);
+            $('#emailpetugas').val(rowData['email_petugas']).prop('disabled', true);
+            $('#pangkatpetugas').val(rowData['pangkat_petugas']).prop('disabled', true);
+            $('#jabatanpetugas').val(rowData['jabatan_petugas']).prop('disabled', true);
+            $('#nippetugas').val(rowData['nip_petugas']).prop('disabled', true);
+            $('#nikpetugas').val(rowData['nik_petugas']).prop('disabled', true);
+            $('#npwppetugas').val(rowData['npwp_petugas']).prop('disabled', true);
             $('.submit').css('display', 'none')
             $('.modal-title').text('Detail data');
             // $('#id').val(id);
@@ -186,6 +198,9 @@
             $('#pangkatpetugas').val(rowData['pangkat_petugas']);
             $('#jabatanpetugas').val(rowData['jabatan_petugas']);
             $('#alamatinstansi').val(rowData['alamat_pemilik']);
+            $('#nippetugas').val(rowData['nip_petugas']);
+            $('#nikpetugas').val(rowData['nik_petugas']);
+            $('#npwppetugas').val(rowData['npwp_petugas']);
             $('#id').val(id);
             $('.modal-title').text('Ubah Data');
         });
