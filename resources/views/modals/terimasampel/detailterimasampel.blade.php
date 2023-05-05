@@ -22,14 +22,14 @@
               <div class="col-4">
                 <div class="form-group">
                   <label for="nomor_surat">Nomor Surat</label>
-                  <input type="text" class="form-control" id="nomor_surat" name="nomor_surat"
-                    placeholder="Nomor Surat">
+                  <input type="text" class="form-control" id="nomor_surat" name="nomor_surat" placeholder="Nomor Surat">
                 </div>
               </div>
               <div class="col-4">
                 <div class="form-group">
                   <label for="tanggal_surat">Tanggal Surat</label>
-                  <input type="date" class="form-control" id="tanggal_surat" name="tanggal_surat" placeholder="Tanggal Surat">
+                  <input type="date" class="form-control" id="tanggal_surat" name="tanggal_surat"
+                    placeholder="Tanggal Surat">
                 </div>
               </div>
               <div class="col-4">
@@ -41,11 +41,12 @@
               <div class="col-12">
                 <div class="form-group">
                   <label for="perihal">Perihal Surat</label>
-                  {{-- <input type="text" class="form-control" id="perihal" name="perihal" placeholder="Perihal Surat"> --}}
+                  {{-- <input type="text" class="form-control" id="perihal" name="perihal" placeholder="Perihal Surat">
+                  --}}
                   <select name="perihal" id="perihal" class="form-control select2">
                     <option value="">==Pilih perihal==</option>
                     @foreach ($perihal as $item)
-                      <option value="{{ $item->name }}">{{ $item->name }}</option>
+                    <option value="{{ $item->name }}">{{ $item->name }}</option>
                     @endforeach
                   </select>
                 </div>
@@ -56,18 +57,26 @@
                   <select name="wadah1" id="wadah1" class="form-control select2">
                     <option value="">==Pilih wadah1==</option>
                     @foreach ($wadah1 as $item)
-                      <option value="{{ $item->name }}">{{ $item->name }}</option>
+                    <option value="{{ $item->name }}">{{ $item->name }}</option>
                     @endforeach
                   </select>
-                  </div>
+                </div>
               </div>
+              @if ($isKepolisian)
+              <div class="col-12">
+                <div class="form-group">
+                  <label for="wadah2kep">Wadah 2</label>
+                  <textarea name="wadah2kep" id="wadah2kep" rows="3" class="form-control"></textarea>
+                </div>
+              </div>
+              @else
               <div class="col-12">
                 <div class="form-group">
                   <label for="wadah">Wadah 2</label>
                   <select name="wadah2" id="wadah2" class="form-control select2">
                     <option value="">==Pilih wadah2==</option>
                     @foreach ($wadah2 as $item)
-                      <option value="{{ $item->name }}">{{ $item->name }}</option>
+                    <option value="{{ $item->name }}">{{ $item->name }}</option>
                     @endforeach
                   </select>
                 </div>
@@ -78,20 +87,21 @@
                   <textarea name="berat" id="berat" rows="3" class="form-control"></textarea>
                 </div>
               </div>
+              @endif
             </div>
             <div class="row">
               <div class="col-9">
-                  <label for="id_parameter">Parameter Uji</label>
-                  <select type="text" id="id_parameter" name="id_parameter" class="select2"></select>
+                <label for="id_parameter">Parameter Uji</label>
+                <select type="text" id="id_parameter" name="id_parameter" class="select2"></select>
               </div>
               <div class="col-2">
-                  <label for="jumlah_pengujian">Jumlah Uji</label>
-                  <input type="number" class="form-control" id="jumlah_pengujian" name="jumlah_pengujian" value="1"
-                    placeholder="Jumlah Uji" min="1">
+                <label for="jumlah_pengujian">Jumlah Uji</label>
+                <input type="number" class="form-control" id="jumlah_pengujian" name="jumlah_pengujian" value="1"
+                  placeholder="Jumlah Uji" min="1">
               </div>
               <div class="col-1">
                 <br>
-                  <button id='addparameteruji' class="btn btn-outline-light font-weight-bold mt-2 add">+</button>
+                <button id='addparameteruji' class="btn btn-outline-light font-weight-bold mt-2 add">+</button>
               </div>
             </div>
             <div id="listparameteruji" class="mt-2 row">

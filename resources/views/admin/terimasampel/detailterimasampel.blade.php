@@ -15,17 +15,20 @@
                         </h3>
                         <div class="card-tools">
                             <ul class="nav nav-pills ml-auto">
-                                    {{-- <li class="nav-item mr-1">
-                                    <a target="_blank" href="{{ route('print.basegel', $id) }}" class="btn btn-light"><i class="fas fa-print mr-1"></i>BA Segel</a>
-                                    </li> --}}
+                                {{-- <li class="nav-item mr-1">
+                                    <a target="_blank" href="{{ route('print.basegel', $id) }}" class="btn btn-light"><i
+                                            class="fas fa-print mr-1"></i>BA Segel</a>
+                                </li> --}}
                                 <li class="nav-item mr-1">
-                                  <a target="_blank" href="{{ route('print.kajiulang', $id) }}" class="btn btn-light"><i class="fas fa-print mr-1"></i>Kaji Ulang</a>
+                                    <a target="_blank" href="{{ route('print.kajiulang', $id) }}"
+                                        class="btn btn-light"><i class="fas fa-print mr-1"></i>Kaji Ulang</a>
                                 </li>
                                 <li class="nav-item mr-3">
-                                  <a target="_blank" href="{{ route('print.fplp', $id) }}" class="btn btn-light"><i class="fas fa-print mr-1"></i>FPLP</a>
+                                    <a target="_blank" href="{{ route('print.fplp', $id) }}" class="btn btn-light"><i
+                                            class="fas fa-print mr-1"></i>FPLP</a>
                                 </li>
                             </ul>
-                          </div>
+                        </div>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
@@ -137,7 +140,7 @@
             {data: 'tersangka', render: function(data, type, row){ return data ? data : '-'; }},
             {data: 'hasil_uji', render: function(data, type, row){ return data ? data : '-'; }},
             {data: 'user.name', render: function(data, type, row){ return data ? data : '-'; }},
-            {data: 'actions', className: 'text-center align-middle'},
+            {data: 'actions', className: 'text-center align-middle text-nowrap'},
         ]
     });
 

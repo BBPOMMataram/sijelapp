@@ -91,6 +91,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('printkajiulang/{idpermintaan}', [DetailTerimaSampelController::class, 'printkajiulang'])->name('print.kajiulang');
         Route::get('printfplp/{idpermintaan}', [DetailTerimaSampelController::class, 'printfplp'])->name('print.fplp');
         Route::get('printbasegel/{idproduksampel}', [DetailTerimaSampelController::class, 'printbasegel'])->name('print.basegel');
+        Route::get('printbasegelkep/{idproduksampel}', [DetailTerimaSampelController::class, 'printbasegelkep'])->name('print.basegelkep');
         Route::get('printbapenimbangan/{idproduksampel}', [DetailTerimaSampelController::class, 'printbapenimbangan'])->name('print.bapenimbangan');
 
         // report
