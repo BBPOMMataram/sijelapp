@@ -97,6 +97,18 @@
                 trigger: 'mouseenter',
                 animation: 'scale',
             })
+
+            tippy('.basegelkep', {
+                content: 'BA Pembukaan Segel Polisi',
+                trigger: 'mouseenter',
+                animation: 'scale',
+            });
+
+            tippy('.pengantar', {
+                content: 'Pengantar',
+                trigger: 'mouseenter',
+                animation: 'scale',
+            });
         },
         serverSide: true,
         select: true,

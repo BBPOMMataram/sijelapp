@@ -28,12 +28,13 @@ class DetailTerimaSampelController extends Controller
             })
             ->addColumn('actions', function ($data) {
                 $btn = '<a href="#"><i class="fas fa-pen text-info edit"></i></a>';
+                $btn .= '<a href="' . route('print.pengantar', $data->id_produk_sampel) . '" target="_blank"><i class="fas fa-print text-success ml-2 pengantar"></i></a>';
 
                 if (str_contains($data->permintaan->kategori->nama_kategori, 'polisi')) {
-                    $btn .= '<a href="' . route('print.basegelkep', $data->id_produk_sampel) . '" target="_blank"><i class="fas fa-print text-warning mx-2 basegel"></i></a>';
+                    $btn .= '<a href="' . route('print.basegelkep', $data->id_produk_sampel) . '" target="_blank"><i class="fas fa-print text-warning ml-2 basegelkep"></i></a>';
                 } else {
-                    $btn .= '<a href="' . route('print.basegel', $data->id_produk_sampel) . '" target="_blank"><i class="fas fa-print text-primary mx-2 basegel"></i></a>';
-                    $btn .= '<a href="' . route('print.bapenimbangan', $data->id_produk_sampel) . '" target="_blank"><i class="fas fa-print text-danger bapenimbangan"></i></a>';
+                    $btn .= '<a href="' . route('print.basegel', $data->id_produk_sampel) . '" target="_blank"><i class="fas fa-print text-primary ml-2 basegel"></i></a>';
+                    $btn .= '<a href="' . route('print.bapenimbangan', $data->id_produk_sampel) . '" target="_blank"><i class="fas fa-print text-danger ml-2 bapenimbangan"></i></a>';
                 }
 
                 if ($data->lhu) {
@@ -291,12 +292,30 @@ class DetailTerimaSampelController extends Controller
 
         $tglterbilang = ucwords($day . ' Tanggal ' . $this->terbilang($date) . ' Bulan ' . $month . ' Tahun ' . $this->terbilang($year));
 
-        $title = 'BA PEMBUKAAN SEGEL BARANG BUKTI';
+        $title = 'BA PEMBUKAAN SEGEL BARANG BUKTI POLISI';
         $produksampel = ProdukSampel::with(['ujiproduk', 'ujiproduk.parameter.metodeuji', 'permintaan.kategori', 'permintaan.pemiliksampel'])->find($id);
         // $permintaan = TerimaSampel::with('pemiliksampel')->find($produksampel->id_permintaan);
         // $produksampel->tanggal_surat = $produksampel->tanggal_surat->isoFormat('D MMM Y');
         $users = User::all();
 
         return view('prints.basegelkep', compact('title', 'produksampel', 'tglterbilang', 'users'));
+    }
+
+    public function printpengantar($id)
+    {
+        $day = now()->dayName;
+        $date = now()->day;
+        $month = now()->monthName;
+        $year = now()->year;
+
+        $tglterbilang = ucwords($day . ' Tanggal ' . $this->terbilang($date) . ' Bulan ' . $month . ' Tahun ' . $this->terbilang($year));
+
+        $title = 'PENGANTAR';
+        $produksampel = ProdukSampel::with(['ujiproduk', 'ujiproduk.parameter.metodeuji', 'permintaan.kategori', 'permintaan.pemiliksampel'])->find($id);
+        // $permintaan = TerimaSampel::with('pemiliksampel')->find($produksampel->id_permintaan);
+        // $produksampel->tanggal_surat = $produksampel->tanggal_surat->isoFormat('D MMM Y');
+        $users = User::all();
+
+        return view('prints.pengantar', compact('title', 'produksampel', 'tglterbilang', 'users'));
     }
 }
