@@ -308,14 +308,15 @@ class DetailTerimaSampelController extends Controller
         $month = now()->monthName;
         $year = now()->year;
 
+
         $tglterbilang = ucwords($day . ' Tanggal ' . $this->terbilang($date) . ' Bulan ' . $month . ' Tahun ' . $this->terbilang($year));
+        $date = $date . ' ' . $month . ' ' . $year;
 
         $title = 'PENGANTAR';
         $produksampel = ProdukSampel::with(['ujiproduk', 'ujiproduk.parameter.metodeuji', 'permintaan.kategori', 'permintaan.pemiliksampel'])->find($id);
         // $permintaan = TerimaSampel::with('pemiliksampel')->find($produksampel->id_permintaan);
         // $produksampel->tanggal_surat = $produksampel->tanggal_surat->isoFormat('D MMM Y');
         $users = User::all();
-
-        return view('prints.pengantar', compact('title', 'produksampel', 'tglterbilang', 'users'));
+        return view('prints.pengantar', compact('title', 'produksampel', 'tglterbilang', 'users', 'date'));
     }
 }

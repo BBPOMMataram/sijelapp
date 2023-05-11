@@ -13,6 +13,7 @@
                         <textarea id="pengantar" name="pengantar" style="height: 160vh; width: 717px;">
                             <div class="inner-wrapper">
                                 <div style="width:75px; display: inline-block; margin-top:100px;">Nomor </div>: <span>R-PP.01.01.18A.18A1.</span>
+                                <span style="display: inline-block; margin-left:200px;">Mataram, {{$date}}</span>
                             </div>
                             <div class="inner-wrapper">
                                 <div style="width:75px; display: inline-block; margin-top:15px;">Lampiran </div>: <span>1 (satu) berkas</span>
@@ -26,11 +27,15 @@
                             </div>
 
                             <div class="inner-wrapper">
+                                <div style="margin-top:20px; margin-bottom:30px;">{{ $produksampel->permintaan->pemiliksampel->alamat_pemilik }}</div>
+                            </div>
+
+                            <div class="inner-wrapper">
                                 <p id="isisurat" style="line-height: 2em">
                                     Menindaklanjuti surat dari Kepala {{ $produksampel->permintaan->pemiliksampel->nama_pemilik }} nomor: {{ $produksampel->nomor_surat ?? '==nosurat tidak ditemukan==' }}
                                     tanggal {{ $produksampel->tanggal_surat ? $produksampel->tanggal_surat->isoFormat('D MMMM    Y') : '==tglsurat tidak ditemukan==' }} perihal <i>{{ $produksampel->perihal ?? '==perihal tidak ditemukan==' }}</i>,
                                     bersama ini kami sampaikan Hasil Pengujian laboratorium terhadap barang bukti dimaksud 
-                                    sesuai Laporan Pengujian Laboratorium Nomor : {{ '==nomor pengujian tidak ditemukan=='}} tanggal {{ $produksampel->tanggal_surat ? $produksampel->tanggal_surat->isoFormat('D MMMM    Y') : '==tglsurat tidak ditemukan==' }}
+                                    sesuai Laporan Pengujian Laboratorium Nomor : {{ $produksampel->kode_sampel ?: '==nomor pengujian tidak ditemukan==' }} tanggal {{ $produksampel->tanggal_surat ? $produksampel->tanggal_surat->isoFormat('D MMMM    Y') : '==tglsurat tidak ditemukan==' }}
                                     sebagaimana terlampir.
                                     </p>
                                     <p>Demikian disampaikan untuk maklum.</p>
