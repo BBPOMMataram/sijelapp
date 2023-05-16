@@ -42,6 +42,7 @@
               <select name="level" id="level" class="form-control">
                 <option value="1">Petugas MA</option>
                 <option value="2">Petugas Pengujian</option>
+                <option value="3">Petugas Penindakan</option>
               </select>
             </div>
             <div class="form-group">

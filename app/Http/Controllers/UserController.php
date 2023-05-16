@@ -25,27 +25,30 @@ class UserController extends Controller
                     }
                     return $btn;
                 })
-                ->addColumn('image', function($data){
-                    $result = '<img src="'.Storage::url($data->image).'" alt="profile photo" width="50px" />';
+                ->addColumn('image', function ($data) {
+                    $result = '<img src="' . Storage::url($data->image) . '" alt="profile photo" width="50px" />';
                     return $result;
                 })
-                ->addColumn('level_string', function($data){
+                ->addColumn('level_string', function ($data) {
                     $result = '';
-                        switch ($data->level) {
-                            case 0:
-                                $result = 'Super Admin';
-                                break;
-                            case 1:
-                                $result = 'Petugas MA';
-                                break;
-                            case 2:
-                                $result = 'Petugas Pengujian';
-                                break;
-            
-                            default:
-                                $result = 'Not defined';
-                                break;
-                        }
+                    switch ($data->level) {
+                        case 0:
+                            $result = 'Super Admin';
+                            break;
+                        case 1:
+                            $result = 'Petugas MA';
+                            break;
+                        case 2:
+                            $result = 'Petugas Pengujian';
+                            break;
+                        case 3:
+                            $result = 'Petugas Penindakan';
+                            break;
+
+                        default:
+                            $result = 'Not defined';
+                            break;
+                    }
                     return $result;
                 })
                 ->rawColumns(['actions', 'image'])
@@ -91,7 +94,7 @@ class UserController extends Controller
         $this->validate($request, [
             'name' => 'required',
             // 'username' => ['required', Rule::unique('users')->ignore($id)],
-            'email' => ['required','email', Rule::unique('users')->ignore($id)],
+            'email' => ['required', 'email', Rule::unique('users')->ignore($id)],
             'level' => 'required|digits_between:0,2',
         ]);
 
@@ -102,7 +105,7 @@ class UserController extends Controller
         $data->fullname = $request->fullname;
         $data->pangkat = $request->pangkat;
         $data->jabatan = $request->jabatan;
-        
+
         if ($data->level === 0 && $request->level != 0) {
             return response(['status' => 0, 'msg' => 'Tidak boleh merubah level superuser !!']);
         }
@@ -144,7 +147,7 @@ class UserController extends Controller
         $data = User::find($id);
         $data->password = Hash::make('password');
         $data->save();
-  
+
         return response(['status' => 1, 'msg' => 'Reset password berhasil.']);
     }
 
@@ -153,7 +156,7 @@ class UserController extends Controller
         $this->validate($request, [
             'profilephoto' => 'required|image|mimes:png,jpg,jpeg,gif|max:10000'
         ]);
-        
+
         $data = User::find($id);
         if ($data->image !== 'noimage.png') {
             Storage::delete($data->image);
@@ -162,7 +165,7 @@ class UserController extends Controller
         $path = $request->profilephoto->storeAs('profiles', $filename);
         $data->image = $path;
         $data->save();
-        
+
         return back()->with('status', 'Update success.');
     }
 }
