@@ -196,10 +196,10 @@
   <script src="/js/app.js"></script>
   <script>
     $(function(){
-      if(parseInt({{auth()->user()->level}}) == 1 ){
+      if(parseInt({{auth()->user()->level}}) == 0 ){
         Echo.channel('guest-arrived-channel')
         .listen('GuestArrived', (e) => {
-          alert('guest arrived')
+          alert(`Hii ${e.msg.data.name} is coming !`)
         })
       }
     })

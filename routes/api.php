@@ -20,6 +20,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 
-Route::get('notif', function () {
-    GuestArrived::dispatch(['data' => 'message ini broo', 'data2' => 'message 2']);
+Route::post('notif', function (Request $request) {
+    $data = $request->all();
+    GuestArrived::dispatch(['data' => $data]);
 });
