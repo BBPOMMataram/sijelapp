@@ -1,7 +1,0 @@
-post http://localhost:8000/api/notif
-Content-Type: application/json
-
-{
-    "name": "Arfan",
-    "from": "Mataram"
-}
