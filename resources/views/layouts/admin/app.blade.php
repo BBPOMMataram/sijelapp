@@ -196,10 +196,45 @@
   <script src="/js/app.js"></script>
   <script>
     $(function(){
-      if(parseInt({{auth()->user()->level}}) == 0 ){
+      const levelUser = parseInt({{auth()->user()->level}})
+
+      if( levelUser === 0 || levelUser === 1 ){
         Echo.channel('guest-arrived-channel')
-        .listen('GuestArrived', (e) => {
-          alert(`Hii ${e.msg.data.name} is coming !`)
+        .listen('GuestArrived', ({msg}) => {
+          const data = msg.data
+          
+          Swal.fire({
+            icon: 'warning', 
+            title: 'Ada tamu datang!',
+            html: `
+            <div class='text-left'>
+              <div>
+                <span class='d-inline-block w-25'>Nama</span><span>: ${data.nama}</span>
+              </div>
+              <div>
+                <span class='d-inline-block w-25'>Instansi</span><span>: ${data.instansi}</span>
+              </div>
+              <div>
+                <span class='d-inline-block w-25'>HP</span><span>: ${data.hp}</span>
+              </div>
+              <div>
+                <span class='d-inline-block w-25'>Layanan</span><span>: ${data.layanan}</span>
+              </div>
+              <div>
+                <span class='d-inline-block w-25'>Alamat</span><span>: ${data.alamat}</span>
+              </div>
+              <div>
+                <span class='d-inline-block w-25'>Email</span><span>: ${data.email}</span>
+              </div>
+              <div>
+                <span class='d-inline-block w-25'>Pangkat</span><span>: ${data.pangkat}</span>
+              </div>
+              <div>
+                <span class='d-inline-block w-25'>Jabatan</span><span>: ${data.jabatan}</span>
+              </div>
+            </div>
+            `
+          })
         })
       }
     })
