@@ -48,44 +48,44 @@
 @include('modals.master.usermanagement')
 @endsection
 @push('styles')
-    <style>
-        /* center vertical for datatables */
-        table.dataTable tbody td { 
-            vertical-align: middle;
-        }
-    </style>
+<style>
+    /* center vertical for datatables */
+    table.dataTable tbody td {
+        vertical-align: middle;
+    }
+</style>
 @endpush
 @push('scripts')
 <script>
-    var Toast = Swal.mixin({
-        toast: true,
-        position: 'top-end',
-        showConfirmButton: false,
-        timer: 5000
-    });
-
-    const dttable = $("table").DataTable({
-        select: true,
-        serverSide: true,
-        ajax: {
-            url: "{{ route('usermanagement.index') }}"
-        },
-        columns: [
-            {data: 'DT_RowIndex', searchable: false, orderable: false},
-            {data: 'name'},
-            {data: 'username'},
-            {data: 'email'},
-            {data: 'fullname'},
-            {data: 'pangkat'},
-            {data: 'jabatan'},
-            {data: 'image', className: 'text-center'},
-            {data: 'level_string'},
-            {data: 'actions', className: 'text-center align-middle'},
-            {data: 'level', visible: false}, //for an each on show data
-        ]
-    });
-
     $(function () {
+        var Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 5000
+        });
+
+        const dttable = $("table").DataTable({
+            select: true,
+            serverSide: true,
+            ajax: {
+                url: "{{ route('usermanagement.index') }}"
+            },
+            columns: [
+                {data: 'DT_RowIndex', searchable: false, orderable: false},
+                {data: 'name'},
+                {data: 'username'},
+                {data: 'email'},
+                {data: 'fullname'},
+                {data: 'pangkat'},
+                {data: 'jabatan'},
+                {data: 'image', className: 'text-center'},
+                {data: 'level_string'},
+                {data: 'actions', className: 'text-center align-middle'},
+                {data: 'level', visible: false}, //for an each on show data
+            ]
+        });
+
         $('.modal').on('click', '.submit', function(evt){
             evt.preventDefault();
 
