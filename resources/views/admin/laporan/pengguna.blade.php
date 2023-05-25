@@ -69,56 +69,56 @@
 @endsection
 @push('scripts')
 <script>
-    function refill(tahun, bulan){
-        let url = "{{ route('dtpengguna') }}";
-
-        if (tahun) {
-            url = "{{ route('dtpengguna', ["_tahun"]) }}";
-            
-            if(bulan){
-                url = "{{ route('dtpengguna', ["_tahun","_bulan"]) }}";
-                url = url.replace('_tahun', tahun);
-                url = url.replace('_bulan', bulan);
-            }else{
-                url = url.replace('_tahun', tahun);
-            }
-        }
-        
-        $(".table").DataTable().destroy();
-        let dttable = $(".table").DataTable({
-            // serverSide: true, //uncomment if filter is solved
-            processing: true,
-            select: true,
-            buttons: [
-                {
-                    extend: 'excel',
-                }
-            ],
-            dom: 'Blftipr',
-            ajax: {
-                url
-            },
-            orderCellsTop: true,
-            columns: [
-                {data: 'DT_RowIndex', searchable: false, orderable: false},
-                {data: 'nama_pemilik', render: function(data){ return data ? data : '-' }},
-                {data: 'tanggalterima'},
-                {data: 'nama_petugas', render: function(data){ return data ? data : '-' }},
-                {data: 'telepon_petugas', render: function(data){ return data ? data : '-' }},
-                {data: 'email_petugas', render: function(data){ return data ? data : '-' }},
-            ]
-        });
-
-        //untuk urutkan no saat redraw misal di search filter
-        dttable.on( 'order.dt search.dt', function () {
-            dttable.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
-                cell.innerHTML = i+1;
-                dttable.cell(cell).invalidate('dom'); 
-            } );
-        } ).draw();
-    }
-
     $(function () {
+        function refill(tahun, bulan){
+            let url = "{{ route('dtpengguna') }}";
+
+            if (tahun) {
+                url = "{{ route('dtpengguna', ["_tahun"]) }}";
+                
+                if(bulan){
+                    url = "{{ route('dtpengguna', ["_tahun","_bulan"]) }}";
+                    url = url.replace('_tahun', tahun);
+                    url = url.replace('_bulan', bulan);
+                }else{
+                    url = url.replace('_tahun', tahun);
+                }
+            }
+            
+            $(".table").DataTable().destroy();
+            let dttable = $(".table").DataTable({
+                // serverSide: true, //uncomment if filter is solved
+                processing: true,
+                select: true,
+                buttons: [
+                    {
+                        extend: 'excel',
+                    }
+                ],
+                dom: 'Blftipr',
+                ajax: {
+                    url
+                },
+                orderCellsTop: true,
+                columns: [
+                    {data: 'DT_RowIndex', searchable: false, orderable: false},
+                    {data: 'nama_pemilik', render: function(data){ return data ? data : '-' }},
+                    {data: 'tanggalterima'},
+                    {data: 'nama_petugas', render: function(data){ return data ? data : '-' }},
+                    {data: 'telepon_petugas', render: function(data){ return data ? data : '-' }},
+                    {data: 'email_petugas', render: function(data){ return data ? data : '-' }},
+                ]
+            });
+
+            //untuk urutkan no saat redraw misal di search filter
+            dttable.on( 'order.dt search.dt', function () {
+                dttable.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
+                    cell.innerHTML = i+1;
+                    dttable.cell(cell).invalidate('dom'); 
+                } );
+            } ).draw();
+        }
+
         $.fn.dataTable.ext.errMode = 'throw';
         
         refill();

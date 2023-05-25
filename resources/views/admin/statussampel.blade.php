@@ -47,127 +47,127 @@
 @endsection
 @push('scripts')
 <script>
-    var Toast = Swal.mixin({
-        toast: true,
-        position: 'top-end',
-        showConfirmButton: false,
-        timer: 2000
-    });
-
-    const dttable = $("#tblstatussampel").DataTable({
-        "drawCallback": function(settings){
-            tippy('.nextstep', {
-                content: 'Next Step',
-                trigger: 'mouseenter',
-                animation: 'scale',
-            });
-
-            tippy('.show', {
-                content: 'View',
-                trigger: 'mouseenter',
-                animation: 'scale',
-            })
-        },
-        ordering: false,
-        serverSide: true,
-        select: true,
-        ajax: {
-            url: "{{ route('dtstatussampel') }}"
-        },
-        columns: [
-            {data: 'permintaan.no_urut_penerimaan'},
-            {data: 'permintaan.kode_sampel'},
-            {data: 'permintaan.pemiliksampel.nama_pemilik'},
-            {data: 'permintaan.pemiliksampel.nama_petugas'},
-            {data: 'permintaan.pemiliksampel.telepon_petugas'},
-            {data: 'permintaan.pemiliksampel.email_petugas'},
-            {data: 'permintaan.resi', render: function(data){ return data ? data : '-'; }},
-            {data: 'status.label'},
-            {data: 'lhu', className: 'text-center align-middle'},
-            {data: 'actions', className: 'text-center align-middle'},
-            {data: 'id_status_sampel', visible: false},
-        ],
-    });
-
-    //fill select kategori
-    function fillstatussampel() {
-        $.ajax({
-            type: "GET",
-            url: "{{ route('liststatussampel') }}",
-            success: function (response) {
-                $("#id_status_sampel").append("<option value=''>==Pilih Status==</option>"); 
-                var len = 0;
-                if(response != null){
-                    len = response.length;
-                }
-
-                if(len > 0){
-                    // Read data and create <option >
-                    for(var i=0; i<len; i++){
-
-                    var id = response[i].id;
-                    var label = response[i].label;
-
-                    var option = "<option value='"+id+"'>"+label+"</option>";
-                        
-                    $("#id_status_sampel").append(option); 
-                    }
-                }
-            }
+    $(function () {
+        var Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 2000
         });
-    }
 
-    function dtdetailterimasampel(idpermintaan){
-        let url = "{{ route('dtdetailterimasampel', "_id") }}";
-        url = url.replace('_id', idpermintaan);
+        const dttable = $("#tblstatussampel").DataTable({
+            "drawCallback": function(settings){
+                tippy('.nextstep', {
+                    content: 'Next Step',
+                    trigger: 'mouseenter',
+                    animation: 'scale',
+                });
 
-        $("#detailterimasampel").DataTable().destroy();
-        $("#detailterimasampel").DataTable({
+                tippy('.show', {
+                    content: 'View',
+                    trigger: 'mouseenter',
+                    animation: 'scale',
+                })
+            },
+            ordering: false,
             serverSide: true,
             select: true,
             ajax: {
-                url
+                url: "{{ route('dtstatussampel') }}"
             },
             columns: [
-                {data: 'DT_RowIndex', searchable: false, orderable: false},
-                {data: 'nama_produk', render: function(data, type, row){ return row.kode_sampel ? data + ' (' + row.kode_sampel + ')' : data}},
-                {data: 'ujiproduk', render: function(data, type, row){
-                    let res = '';
-                    for (const key in data) {
-                        if(data[key].parameter){
-                            res += data[key].parameter.parameter_uji+'<br />';
-                        }else{
-                            res += 'not found <br />';
-                        }
-                    }
-                    return res;
-                    }, className: 'text-nowrap'},
-                {data: 'ujiproduk', render: function(data, type, row){
-                    let res = '';
-                    for (const key in data) {
-                        res += data[key].jumlah_pengujian+'<br />';
-                    }
-                    return res;
-                    }},
-                {data: 'ujiproduk', render: function(data, type, row){
-                    let res = '';
-                    for (const key in data) {
-                        if(data[key].parameter){
-                            res += data[key].parameter.metodeuji.biaya * data[key].jumlah_pengujian+'<br />';
-                        }else{
-                            res += 'not found <br />';
-                        }
-                    }
-                    return res;
-                    }},
-                {data: 'hasil_uji', render: function(data, type, row){ return data ? data : '-'; }},
-                {data: 'tersangka', render: function(data, type, row){ return data ? data : '-'; }},
-                {data: 'user.name', render: function(data, type, row){ return data ? data : '-'; }},
-            ]
+                {data: 'permintaan.no_urut_penerimaan'},
+                {data: 'permintaan.kode_sampel'},
+                {data: 'permintaan.pemiliksampel.nama_pemilik'},
+                {data: 'permintaan.pemiliksampel.nama_petugas'},
+                {data: 'permintaan.pemiliksampel.telepon_petugas'},
+                {data: 'permintaan.pemiliksampel.email_petugas'},
+                {data: 'permintaan.resi', render: function(data){ return data ? data : '-'; }},
+                {data: 'status.label'},
+                {data: 'lhu', className: 'text-center align-middle'},
+                {data: 'actions', className: 'text-center align-middle'},
+                {data: 'id_status_sampel', visible: false},
+            ],
         });
-    }
 
-    $(function () {
+        //fill select kategori
+        function fillstatussampel() {
+            $.ajax({
+                type: "GET",
+                url: "{{ route('liststatussampel') }}",
+                success: function (response) {
+                    $("#id_status_sampel").append("<option value=''>==Pilih Status==</option>"); 
+                    var len = 0;
+                    if(response != null){
+                        len = response.length;
+                    }
+
+                    if(len > 0){
+                        // Read data and create <option >
+                        for(var i=0; i<len; i++){
+
+                        var id = response[i].id;
+                        var label = response[i].label;
+
+                        var option = "<option value='"+id+"'>"+label+"</option>";
+                            
+                        $("#id_status_sampel").append(option); 
+                        }
+                    }
+                }
+            });
+        }
+
+        function dtdetailterimasampel(idpermintaan){
+            let url = "{{ route('dtdetailterimasampel', "_id") }}";
+            url = url.replace('_id', idpermintaan);
+
+            $("#detailterimasampel").DataTable().destroy();
+            $("#detailterimasampel").DataTable({
+                serverSide: true,
+                select: true,
+                ajax: {
+                    url
+                },
+                columns: [
+                    {data: 'DT_RowIndex', searchable: false, orderable: false},
+                    {data: 'nama_produk', render: function(data, type, row){ return row.kode_sampel ? data + ' (' + row.kode_sampel + ')' : data}},
+                    {data: 'ujiproduk', render: function(data, type, row){
+                        let res = '';
+                        for (const key in data) {
+                            if(data[key].parameter){
+                                res += data[key].parameter.parameter_uji+'<br />';
+                            }else{
+                                res += 'not found <br />';
+                            }
+                        }
+                        return res;
+                        }, className: 'text-nowrap'},
+                    {data: 'ujiproduk', render: function(data, type, row){
+                        let res = '';
+                        for (const key in data) {
+                            res += data[key].jumlah_pengujian+'<br />';
+                        }
+                        return res;
+                        }},
+                    {data: 'ujiproduk', render: function(data, type, row){
+                        let res = '';
+                        for (const key in data) {
+                            if(data[key].parameter){
+                                res += data[key].parameter.metodeuji.biaya * data[key].jumlah_pengujian+'<br />';
+                            }else{
+                                res += 'not found <br />';
+                            }
+                        }
+                        return res;
+                        }},
+                    {data: 'hasil_uji', render: function(data, type, row){ return data ? data : '-'; }},
+                    {data: 'tersangka', render: function(data, type, row){ return data ? data : '-'; }},
+                    {data: 'user.name', render: function(data, type, row){ return data ? data : '-'; }},
+                ]
+            });
+        }
+
         fillstatussampel();
         $('.select2').select2();
 

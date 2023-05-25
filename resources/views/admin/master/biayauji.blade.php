@@ -47,58 +47,58 @@
 @endsection
 @push('scripts')
 <script>
-    var Toast = Swal.mixin({
-        toast: true,
-        position: 'top-end',
-        showConfirmButton: false,
-        timer: 5000
-    });
-
-    const dttable = $("#biayauji").DataTable({
-        select: true,
-        serverSide: true,
-        select: true,
-        ajax: {
-            url: "{{ route('dtbiayauji') }}"
-        },
-        columns: [
-            {data: 'DT_RowIndex', searchable: false, orderable: false},
-            // {data: 'parameter_uji'},
-            // {data: 'metodeuji.metode'},
-            // {data: 'metodeuji.kode_layanan'},
-            // {data: 'metodeuji.biaya', render: $.fn.dataTable.render.number(',', null, null, 'Rp. ')},
-            {data: 'actions', className: 'text-center align-middle'},
-        ]
-    });
-    
-    // function filljenisproduk() {
-    //     $.ajax({
-    //         type: "GET",
-    //         url: "{{ route('dtjenissampel') }}",
-    //         success: function (response) {
-    //             $("#jenisproduk").append("<option value=''>==Pilih Jenis Produk==</option>"); 
-    //             var len = 0;
-    //             if(response['data'] != null){
-    //                 len = response['data'].length;
-    //             }
-
-    //             if(len > 0){
-    //                 // Read data and create <option >
-    //                 for(var i=0; i<len; i++){
-
-    //                 var id = response['data'][i].id;
-    //                 var nama_sampel = response['data'][i].nama_sampel;
-
-    //                 var option = "<option value='"+id+"'>"+nama_sampel+"</option>";
-                        
-    //                 $("#jenisproduk").append(option); 
-    //                 }
-    //             }
-    //         }
-    //     });
-    // }
-
     $(function () {
+        var Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 5000
+        });
+
+        const dttable = $("#biayauji").DataTable({
+            select: true,
+            serverSide: true,
+            select: true,
+            ajax: {
+                url: "{{ route('dtbiayauji') }}"
+            },
+            columns: [
+                {data: 'DT_RowIndex', searchable: false, orderable: false},
+                // {data: 'parameter_uji'},
+                // {data: 'metodeuji.metode'},
+                // {data: 'metodeuji.kode_layanan'},
+                // {data: 'metodeuji.biaya', render: $.fn.dataTable.render.number(',', null, null, 'Rp. ')},
+                {data: 'actions', className: 'text-center align-middle'},
+            ]
+        });
+        
+        // function filljenisproduk() {
+        //     $.ajax({
+        //         type: "GET",
+        //         url: "{{ route('dtjenissampel') }}",
+        //         success: function (response) {
+        //             $("#jenisproduk").append("<option value=''>==Pilih Jenis Produk==</option>"); 
+        //             var len = 0;
+        //             if(response['data'] != null){
+        //                 len = response['data'].length;
+        //             }
+
+        //             if(len > 0){
+        //                 // Read data and create <option >
+        //                 for(var i=0; i<len; i++){
+
+        //                 var id = response['data'][i].id;
+        //                 var nama_sampel = response['data'][i].nama_sampel;
+
+        //                 var option = "<option value='"+id+"'>"+nama_sampel+"</option>";
+                            
+        //                 $("#jenisproduk").append(option); 
+        //                 }
+        //             }
+        //         }
+        //     });
+        // }
+
         fillmetodeuji();
         // filljenisproduk();
 
@@ -326,13 +326,14 @@
 </script>
 @endpush
 @push('styles')
-    <style>
-        /* for select2 */
-        span.select2 {
-            width: 100% !important;
-        }
-        .select2-container .select2-selection--single {
-            height: inherit;
-        }
-    </style>
+<style>
+    /* for select2 */
+    span.select2 {
+        width: 100% !important;
+    }
+
+    .select2-container .select2-selection--single {
+        height: inherit;
+    }
+</style>
 @endpush

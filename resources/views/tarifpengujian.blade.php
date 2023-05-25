@@ -29,35 +29,34 @@
 
 @push('scripts')
 <script>
+    $(function () {
+        function filllistsampel() {
+            $.ajax({
+                type: "GET",
+                url: "{{ route('dthargaproduk') }}",
+                success: function (response) {
+                    $("#idSampel").append("<option value=''>==Pilih Jenis Produk==</option>"); 
+                    var len = 0;
+                    if(response['data'] != null){
+                        len = response['data'].length;
+                    }
 
-    function filllistsampel() {
-        $.ajax({
-            type: "GET",
-            url: "{{ route('dthargaproduk') }}",
-            success: function (response) {
-                $("#idSampel").append("<option value=''>==Pilih Jenis Produk==</option>"); 
-                var len = 0;
-                if(response['data'] != null){
-                    len = response['data'].length;
-                }
+                    if(len > 0){
+                        // Read data and create <option >
+                        for(var i=0; i<len; i++){
 
-                if(len > 0){
-                    // Read data and create <option >
-                    for(var i=0; i<len; i++){
+                        var id = response['data'][i].id_produk;
+                        var nama_produk = response['data'][i].nama_produk;
 
-                    var id = response['data'][i].id_produk;
-                    var nama_produk = response['data'][i].nama_produk;
-
-                    var option = "<option value='"+id+"'>"+nama_produk+"</option>";
-                        
-                    $("#idSampel").append(option); 
+                        var option = "<option value='"+id+"'>"+nama_produk+"</option>";
+                            
+                        $("#idSampel").append(option); 
+                        }
                     }
                 }
-            }
-        });
-    }
+            });
+        }
 
-    $(function () {
         $('.select2').select2();
 
         filllistsampel();

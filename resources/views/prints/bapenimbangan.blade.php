@@ -18,7 +18,7 @@
                                 <select name="pembukasegel" id="pembukasegel" class="form-control select2">
                                     <option value="">==Pilih penimbang==</option>
                                     @foreach ($users as $item)
-                                        <option value="{{ $item->fullname }}">{{ $item->fullname }}</option>
+                                    <option value="{{ $item->fullname }}">{{ $item->fullname }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -27,7 +27,8 @@
                                 <select name="saksi1" id="saksi1" class="form-control select2">
                                     <option value="" data-pangkat="" data-jabatan="">==Pilih saksi 1==</option>
                                     @foreach ($users as $item)
-                                        <option value="{{ $item->fullname }}" data-pangkat="{{ $item->pangkat }}" data-jabatan="{{ $item->jabatan }}">{{ $item->fullname }}</option>
+                                    <option value="{{ $item->fullname }}" data-pangkat="{{ $item->pangkat }}"
+                                        data-jabatan="{{ $item->jabatan }}">{{ $item->fullname }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -254,24 +255,24 @@
     referrerpolicy="origin">
 </script>
 <script>
-    tinymce.init({
-        selector: '#bapenimbangan',
-        content_css: "/vendor/admin/dist/css/bapenimbangan.css",
-        plugins: 'print',
-        // menubar: false,
-        toolbar: 'print | undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | outdent indent',
-        branding: false,
-        setup: function(editor){
-            editor.on('init', function(e){
-                const hisisurat = tinymce.activeEditor.dom.getSize('isisurat').h + 19;
-                tinymce.activeEditor.dom.setStyle(tinymce.activeEditor.dom.select('#isisuratcontainer'), 'height', hisisurat+'px');
-                tinymce.get('bapenimbangan').dom.setHTML("titikisisurat", '--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------');
-            })
-        },
-        content_style: "body {font-size: 11pt; font-family: Arial}",
-    });
-
     $(function () {
+        tinymce.init({
+            selector: '#bapenimbangan',
+            content_css: "/vendor/admin/dist/css/bapenimbangan.css",
+            plugins: 'print',
+            // menubar: false,
+            toolbar: 'print | undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | outdent indent',
+            branding: false,
+            setup: function(editor){
+                editor.on('init', function(e){
+                    const hisisurat = tinymce.activeEditor.dom.getSize('isisurat').h + 19;
+                    tinymce.activeEditor.dom.setStyle(tinymce.activeEditor.dom.select('#isisuratcontainer'), 'height', hisisurat+'px');
+                    tinymce.get('bapenimbangan').dom.setHTML("titikisisurat", '--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------');
+                })
+            },
+            content_style: "body {font-size: 11pt; font-family: Arial}",
+        });
+
         $('body').on('change', '#pembukasegel', function(e){
             const pembukasegel = $(this).val();
             // if(pembukasegel){

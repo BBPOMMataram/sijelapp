@@ -41,36 +41,36 @@
 @include('modals.master.wadah1')
 @endsection
 @push('styles')
-    <style>
-        /* center vertical for datatables */
-        table.dataTable tbody td { 
-            vertical-align: middle;
-        }
-    </style>
+<style>
+    /* center vertical for datatables */
+    table.dataTable tbody td {
+        vertical-align: middle;
+    }
+</style>
 @endpush
 @push('scripts')
 <script>
-    var Toast = Swal.mixin({
-        toast: true,
-        position: 'top-end',
-        showConfirmButton: false,
-        timer: 5000
-    });
-
-    const dttable = $("table").DataTable({
-        select: true,
-        serverSide: true,
-        ajax: {
-            url: "{{ route('wadah1.index') }}"
-        },
-        columns: [
-            {data: 'DT_RowIndex', searchable: false, orderable: false},
-            {data: 'name'},
-            {data: 'actions', className: 'text-center align-middle'},
-        ]
-    });
-
     $(function () {
+        var Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 5000
+        });
+
+        const dttable = $("table").DataTable({
+            select: true,
+            serverSide: true,
+            ajax: {
+                url: "{{ route('wadah1.index') }}"
+            },
+            columns: [
+                {data: 'DT_RowIndex', searchable: false, orderable: false},
+                {data: 'name'},
+                {data: 'actions', className: 'text-center align-middle'},
+            ]
+        });
+
         $('.modal').on('click', '.submit', function(evt){
             evt.preventDefault();
 

@@ -29,114 +29,114 @@
 @push('scripts')
 <script src="https://cdn.jsdelivr.net/npm/signature_pad@2.3.2/dist/signature_pad.min.js"></script>
 <script>
-    tippy('#resisampel', {
-        content: 'input resi',
-        trigger: 'mouseenter',
-        animation: 'scale',
-      });
-
-
-      function dtdetailterimasampel(idpermintaan){
-        let url = "{{ route('dtdetailterimasampel', "_id") }}";
-        url = url.replace('_id', idpermintaan);
-
-        $("#detailterimasampel").DataTable().destroy();
-        $("#detailterimasampel").DataTable({
-            searching: false,
-            serverSide: true,
-            select: true,
-            scrollX: true,
-            ajax: {
-                url
-            },
-            columns: [
-                {data: 'DT_RowIndex', searchable: false, orderable: false},
-                {data: 'nama_produk', render: function(data, type, row){ return row.kode_sampel ? data + ' (' + row.kode_sampel + ')' : data}},
-                {data: 'ujiproduk', render: function(data, type, row){
-                    let res = '';
-                    for (const key in data) {
-                        if(data[key].parameter){
-                            res += '- ' + data[key].parameter.parameter_uji+'<br />';
-                        }else{
-                            res += 'not found <br />';
-                        }
-                    }
-                    return res;
-                    }},
-                {data: 'ujiproduk', render: function(data, type, row){
-                    let res = '';
-                    for (const key in data) {
-                        res += data[key].jumlah_pengujian+'<br />';
-                    }
-                    return res;
-                    }},
-                {data: 'ujiproduk', render: function(data, type, row){
-                    let res = '';
-                    for (const key in data) {
-                        if(data[key].parameter){
-                            res += data[key].parameter.metodeuji.biaya * data[key].jumlah_pengujian+'<br />';
-                        }else{
-                            res += 'not found <br />';
-                        }
-                    }
-                    return res;
-                    }},
-                {data: 'hasil_uji', render: function(data, type, row){ return data ? data : '-'; }},
-                {data: 'tersangka', render: function(data, type, row){ return data ? data : '-'; }},
-                {data: 'user.name', render: function(data, type, row){ return data ? data : '-'; }},
-                {data: 'download'},
-            ]
-        });
-    }
-
-    function filldata(rowData) {
-        //fill form
-        //detail sampel
-        dtdetailterimasampel(rowData['id_permintaan']);
-
-        $('#modaltrackingtitle').text("Tracking Sampel No Resi : "+rowData.permintaan.resi)
-        // data status
-        $('#statussampel').text(rowData.status.label)
-        //data sampel
-        $('#no_urut_penerimaan').text(rowData.permintaan.no_urut_penerimaan)
-        $('#kodesampel').text(rowData.permintaan.kode_sampel)
-        $('#namasampel').text(rowData.permintaan.nama_sampel)
-        $('#kemasansampel').text(rowData.permintaan.kemasan_sampel)
-        $('#beratsampel').text(rowData.permintaan.berat_sampel)
-        $('#jumlahsampel').text(rowData.permintaan.jumlah_sampel)
-        // data pemilik
-        $('#namapemilik').text(rowData.permintaan.pemiliksampel.nama_pemilik)
-        $('#alamatpemilik').text(rowData.permintaan.pemiliksampel.alamat_pemilik)
-        $('#namapetugas').text(rowData.permintaan.pemiliksampel.nama_petugas)
-        $('#teleponpetugas').text(rowData.permintaan.pemiliksampel.telepon_petugas)
-        // data tracking
-        $('#waktuterima').text(rowData.permintaan.created_at);
-        $('#waktuverifikasi').text(rowData.tanggal_verifikasi);
-        $('#waktukajiulang').text(rowData.tanggal_kaji_ulang);
-        $('#waktupembayaran').text(rowData.tanggal_pembayaran);
-        $('#waktupengujian').text(rowData.tanggal_pengujian);
-        $('#waktuselesaiuji').text(rowData.tanggal_selesai_uji);
-        $('#waktulegalisir').text(rowData.tanggal_legalisir);
-        $('#waktuselesai').text(rowData.tanggal_selesai);
-        $('#waktudiambil').text(rowData.tanggal_diambil);
-        $('#waktuestimasi').text(rowData.tanggal_estimasi);
-
-        // tgl selesai untuk memastikan btn tampil saat sudah selesai 
-        // dan tgl diambil untuk menyembunyikan btn ambil sampel setelah sampel sudah diambil
-        if (rowData.tanggal_selesai !== '-' && rowData.tanggal_diambil === '-') {
-            const btnAmbil = '<button class="btn btn-sm btn-info rounded" id="ambilsampel">AMBIL SAMPEL</button>';
-            $('.btnContainer').empty();
-            $('.btnContainer').append(btnAmbil);
-            $('#id_permintaan').val(rowData['id_permintaan'])
-        }else{
-            $('.btnContainer').empty();
-        }
-    }
-    
-    var canvas = document.querySelector("canvas");
-    var signaturePad = new SignaturePad(canvas);
-    
     $(function () {
+        tippy('#resisampel', {
+            content: 'input resi',
+            trigger: 'mouseenter',
+            animation: 'scale',
+        });
+
+
+        function dtdetailterimasampel(idpermintaan){
+            let url = "{{ route('dtdetailterimasampel', "_id") }}";
+            url = url.replace('_id', idpermintaan);
+
+            $("#detailterimasampel").DataTable().destroy();
+            $("#detailterimasampel").DataTable({
+                searching: false,
+                serverSide: true,
+                select: true,
+                scrollX: true,
+                ajax: {
+                    url
+                },
+                columns: [
+                    {data: 'DT_RowIndex', searchable: false, orderable: false},
+                    {data: 'nama_produk', render: function(data, type, row){ return row.kode_sampel ? data + ' (' + row.kode_sampel + ')' : data}},
+                    {data: 'ujiproduk', render: function(data, type, row){
+                        let res = '';
+                        for (const key in data) {
+                            if(data[key].parameter){
+                                res += '- ' + data[key].parameter.parameter_uji+'<br />';
+                            }else{
+                                res += 'not found <br />';
+                            }
+                        }
+                        return res;
+                        }},
+                    {data: 'ujiproduk', render: function(data, type, row){
+                        let res = '';
+                        for (const key in data) {
+                            res += data[key].jumlah_pengujian+'<br />';
+                        }
+                        return res;
+                        }},
+                    {data: 'ujiproduk', render: function(data, type, row){
+                        let res = '';
+                        for (const key in data) {
+                            if(data[key].parameter){
+                                res += data[key].parameter.metodeuji.biaya * data[key].jumlah_pengujian+'<br />';
+                            }else{
+                                res += 'not found <br />';
+                            }
+                        }
+                        return res;
+                        }},
+                    {data: 'hasil_uji', render: function(data, type, row){ return data ? data : '-'; }},
+                    {data: 'tersangka', render: function(data, type, row){ return data ? data : '-'; }},
+                    {data: 'user.name', render: function(data, type, row){ return data ? data : '-'; }},
+                    {data: 'download'},
+                ]
+            });
+        }
+
+        function filldata(rowData) {
+            //fill form
+            //detail sampel
+            dtdetailterimasampel(rowData['id_permintaan']);
+
+            $('#modaltrackingtitle').text("Tracking Sampel No Resi : "+rowData.permintaan.resi)
+            // data status
+            $('#statussampel').text(rowData.status.label)
+            //data sampel
+            $('#no_urut_penerimaan').text(rowData.permintaan.no_urut_penerimaan)
+            $('#kodesampel').text(rowData.permintaan.kode_sampel)
+            $('#namasampel').text(rowData.permintaan.nama_sampel)
+            $('#kemasansampel').text(rowData.permintaan.kemasan_sampel)
+            $('#beratsampel').text(rowData.permintaan.berat_sampel)
+            $('#jumlahsampel').text(rowData.permintaan.jumlah_sampel)
+            // data pemilik
+            $('#namapemilik').text(rowData.permintaan.pemiliksampel.nama_pemilik)
+            $('#alamatpemilik').text(rowData.permintaan.pemiliksampel.alamat_pemilik)
+            $('#namapetugas').text(rowData.permintaan.pemiliksampel.nama_petugas)
+            $('#teleponpetugas').text(rowData.permintaan.pemiliksampel.telepon_petugas)
+            // data tracking
+            $('#waktuterima').text(rowData.permintaan.created_at);
+            $('#waktuverifikasi').text(rowData.tanggal_verifikasi);
+            $('#waktukajiulang').text(rowData.tanggal_kaji_ulang);
+            $('#waktupembayaran').text(rowData.tanggal_pembayaran);
+            $('#waktupengujian').text(rowData.tanggal_pengujian);
+            $('#waktuselesaiuji').text(rowData.tanggal_selesai_uji);
+            $('#waktulegalisir').text(rowData.tanggal_legalisir);
+            $('#waktuselesai').text(rowData.tanggal_selesai);
+            $('#waktudiambil').text(rowData.tanggal_diambil);
+            $('#waktuestimasi').text(rowData.tanggal_estimasi);
+
+            // tgl selesai untuk memastikan btn tampil saat sudah selesai 
+            // dan tgl diambil untuk menyembunyikan btn ambil sampel setelah sampel sudah diambil
+            if (rowData.tanggal_selesai !== '-' && rowData.tanggal_diambil === '-') {
+                const btnAmbil = '<button class="btn btn-sm btn-info rounded" id="ambilsampel">AMBIL SAMPEL</button>';
+                $('.btnContainer').empty();
+                $('.btnContainer').append(btnAmbil);
+                $('#id_permintaan').val(rowData['id_permintaan'])
+            }else{
+                $('.btnContainer').empty();
+            }
+        }
+        
+        var canvas = document.querySelector("canvas");
+        var signaturePad = new SignaturePad(canvas);
+    
         $('body').on('click', 'button.track', function(e){
             e.preventDefault();
 

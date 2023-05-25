@@ -73,17 +73,17 @@
     referrerpolicy="origin">
 </script>
 <script>
-    tinymce.init({
-        selector: '#pengantar',
-        content_css: "/vendor/admin/dist/css/basegel.css",
-        plugins: 'print',
-        //menubar: false,
-        toolbar: "print",
-        branding: false,
-        content_style: "body {font-size: 11pt; font-family: Arial}",
-    });
-
     $(function () {
+        tinymce.init({
+            selector: '#pengantar',
+            content_css: "/vendor/admin/dist/css/basegel.css",
+            plugins: 'print',
+            //menubar: false,
+            toolbar: "print",
+            branding: false,
+            content_style: "body {font-size: 11pt; font-family: Arial}",
+        });
+
         $('body').on('change', '#pembukasegel', function(e){
             const pembukasegel = $(this).val();
             // if(pembukasegel){
