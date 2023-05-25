@@ -65,190 +65,190 @@
 @endsection
 @push('scripts')
 <script>
-    var Toast = Swal.mixin({
-        toast: true,
-        position: 'top-end',
-        showConfirmButton: false,
-        timer: 5000
-    });
-
-    const dttable = $("#terimasampel").DataTable({
-        "drawCallback": function(settings){
-            tippy('.basegel', {
-                content: 'BA Pembukaan Segel',
-                trigger: 'mouseenter',
-                animation: 'scale',
-            });
-
-            tippy('.bapenimbangan', {
-                content: 'BA Penimbangan',
-                trigger: 'mouseenter',
-                animation: 'scale',
-            })
-
-            tippy('.downloadlhu', {
-                content: 'Download LHU',
-                trigger: 'mouseenter',
-                animation: 'scale',
-            })
-
-            tippy('.edit', {
-                content: 'Edit',
-                trigger: 'mouseenter',
-                animation: 'scale',
-            })
-
-            tippy('.basegelkep', {
-                content: 'BA Pembukaan Segel Polisi',
-                trigger: 'mouseenter',
-                animation: 'scale',
-            });
-
-            tippy('.pengantar', {
-                content: 'Pengantar',
-                trigger: 'mouseenter',
-                animation: 'scale',
-            });
-        },
-        serverSide: true,
-        select: true,
-        ajax: {
-            url: "{{ route('dtdetailterimasampel', $id) }}"
-        },
-        columns: [
-            {data: 'DT_RowIndex', searchable: false, orderable: false},
-            {data: 'nama_produk', render: function(data, type, row){ return row.kode_sampel ? data + ' (' + row.kode_sampel + ')' : data}},
-            {data: 'ujiproduk', render: function(data, type, row){
-                let res = '';
-                for (const key in data) {
-                    if(data[key].parameter){
-                        res += data[key].parameter.parameter_uji+'<br />';
-                    }else{
-                        res += 'not found <br />';
-                    }
-                }
-                return res;
-                }},
-            {data: 'ujiproduk', render: function(data, type, row){
-                let res = '';
-                for (const key in data) {
-                    res += '<tr>'+data[key].jumlah_pengujian+'</tr><br />';
-                }
-                return res;
-                }},
-            {data: 'ujiproduk', render: function(data, type, row){
-                let res = '';
-                for (const key in data) {
-                    if(data[key].parameter){
-                        res += '<tr>'+data[key].parameter.metodeuji.biaya * data[key].jumlah_pengujian+'</tr><br />';
-                    }else{
-                        res += 'not found <br />';
-                    }
-                }
-                return res;
-                }},
-            {data: 'nomor_surat', render: function(data, type, row){ return data ? data : '-'; }},
-            {data: 'tanggal_surat'},
-            {data: 'tersangka', render: function(data, type, row){ return data ? data : '-'; }},
-            {data: 'hasil_uji', render: function(data, type, row){ return data ? data : '-'; }},
-            {data: 'user.name', render: function(data, type, row){ return data ? data : '-'; }},
-            {data: 'actions', className: 'text-center align-middle text-nowrap'},
-        ]
-    });
-
-    //delete parameter in list modal
-    function deleteparameteruji(val, id_produk_sampel){
-        let url = "{{ route('deleteparameteruji', "_id") }}";
-        url = url.replace('_id', val);
-
-        $.ajax({
-            type: "DELETE",
-            url: url,
-            data: {
-            _token: "{{ csrf_token() }}"
-            },
-            success: function (response) {
-                Toast.fire({
-                    icon: 'success',
-                    title: '&nbsp;' + response.msg,
-                })
-                dttable.ajax.reload(null, false);
-                updateListEdit(id_produk_sampel);
-            }
-        });
-    }
-
-    function updateListEdit(idProdukSampel){
-        let urlParameterUji = "{{ route('datadetailparameteruji', "_idProd") }}"
-        urlParameterUji = urlParameterUji.replace('_idProd', idProdukSampel);
-        $.ajax({
-            type: "GET",
-            url: urlParameterUji,
-            success: function (res) {
-                $('#listparameterujiedit').empty();
-                let list = '';
-                for (const key in res) {
-                    if(res[key].parameter){
-                        list += '<li>'+res[key].parameter.parameter_uji+'('+res[key].parameter.metodeuji.metode+')'+'('+res[key].jumlah_pengujian+') <i onclick="deleteparameteruji('+ res[key].id_uji_produk +','+ idProdukSampel +')" class="fas fa-trash text-danger" style="cursor:pointer;"></i></li>';
-                    }else{
-                        list += '<li>Not found('+res[key].jumlah_pengujian+') <i onclick="deleteparameteruji('+ res[key].id_uji_produk +','+ id_produk_sampel +')" class="fas fa-trash text-danger" style="cursor:pointer;"></i></li>';
-                    }
-                }
-                $('#listparameterujiedit').append('<ol>'+ list +'</ol>');
-            }
-        });
-    }
-
-    function updateList(p_uji, j_uji, p_uji_text){
-        let data = '<div class="col-12 form-group row">';
-            data += '<input type="hidden" name="p_uji[]" value="'+p_uji+'" />';
-            data += '<div class="col-10">';
-            data += '<input class="form-control" value="'+p_uji_text+'" readonly/>';
-            data += '</div>';
-            data += '<div class="col-1">';
-            data += '<input name="j_uji[]" class="form-control" value="'+j_uji+'" readonly/>';
-            data += '</div>';
-            data += '<div class="col-1">';
-            data += '<button class="btn btn-danger delete"><i class="fa fa-trash"></i></button>';
-            data += '</div>';
-            data += '</div>';
-
-        $('#listparameteruji').append(data);
-    }
-
-    function filljenissampel() {
-        $.ajax({
-            type: "GET",
-            url: "{{ route('dtdetailterimasampel', $id) }}",
-            success: function (response) {
-                // $("#jenisproduk").append("<option value=''>==Pilih Jenis Produk==</option>"); 
-                $("#jenisproduk").empty();
-                var len = 0;
-                if(response['data'] != null){
-                    len = response['data'].length;
-                }
-
-                if(len > 0){
-                    // Read data and create <option >
-                    for(var i=0; i<len; i++){
-
-                    var id = response['data'][i].id_produk_sampel;
-                    var namaproduk = response['data'][i].nama_produk;
-
-                    var option = "<option value='"+id+"'>"+namaproduk+"</option>";
-
-                    //when array ujiproduk is empty
-                    if (response['data'][i].ujiproduk && response['data'][i].ujiproduk.length) {
-                        continue;
-                    }
-                    $("#jenisproduk").append(option); 
-                    }
-                }
-            }
-        });
-    }
-
     $(function () {
+        var Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 5000
+        });
+
+        const dttable = $("#terimasampel").DataTable({
+            "drawCallback": function(settings){
+                tippy('.basegel', {
+                    content: 'BA Pembukaan Segel',
+                    trigger: 'mouseenter',
+                    animation: 'scale',
+                });
+
+                tippy('.bapenimbangan', {
+                    content: 'BA Penimbangan',
+                    trigger: 'mouseenter',
+                    animation: 'scale',
+                })
+
+                tippy('.downloadlhu', {
+                    content: 'Download LHU',
+                    trigger: 'mouseenter',
+                    animation: 'scale',
+                })
+
+                tippy('.edit', {
+                    content: 'Edit',
+                    trigger: 'mouseenter',
+                    animation: 'scale',
+                })
+
+                tippy('.basegelkep', {
+                    content: 'BA Pembukaan Segel Polisi',
+                    trigger: 'mouseenter',
+                    animation: 'scale',
+                });
+
+                tippy('.pengantar', {
+                    content: 'Pengantar',
+                    trigger: 'mouseenter',
+                    animation: 'scale',
+                });
+            },
+            serverSide: true,
+            select: true,
+            ajax: {
+                url: "{{ route('dtdetailterimasampel', $id) }}"
+            },
+            columns: [
+                {data: 'DT_RowIndex', searchable: false, orderable: false},
+                {data: 'nama_produk', render: function(data, type, row){ return row.kode_sampel ? data + ' (' + row.kode_sampel + ')' : data}},
+                {data: 'ujiproduk', render: function(data, type, row){
+                    let res = '';
+                    for (const key in data) {
+                        if(data[key].parameter){
+                            res += data[key].parameter.parameter_uji+'<br />';
+                        }else{
+                            res += 'not found <br />';
+                        }
+                    }
+                    return res;
+                    }},
+                {data: 'ujiproduk', render: function(data, type, row){
+                    let res = '';
+                    for (const key in data) {
+                        res += '<tr>'+data[key].jumlah_pengujian+'</tr><br />';
+                    }
+                    return res;
+                    }},
+                {data: 'ujiproduk', render: function(data, type, row){
+                    let res = '';
+                    for (const key in data) {
+                        if(data[key].parameter){
+                            res += '<tr>'+data[key].parameter.metodeuji.biaya * data[key].jumlah_pengujian+'</tr><br />';
+                        }else{
+                            res += 'not found <br />';
+                        }
+                    }
+                    return res;
+                    }},
+                {data: 'nomor_surat', render: function(data, type, row){ return data ? data : '-'; }},
+                {data: 'tanggal_surat'},
+                {data: 'tersangka', render: function(data, type, row){ return data ? data : '-'; }},
+                {data: 'hasil_uji', render: function(data, type, row){ return data ? data : '-'; }},
+                {data: 'user.name', render: function(data, type, row){ return data ? data : '-'; }},
+                {data: 'actions', className: 'text-center align-middle text-nowrap'},
+            ]
+        });
+
+        //delete parameter in list modal
+        function deleteparameteruji(val, id_produk_sampel){
+            let url = "{{ route('deleteparameteruji', "_id") }}";
+            url = url.replace('_id', val);
+
+            $.ajax({
+                type: "DELETE",
+                url: url,
+                data: {
+                _token: "{{ csrf_token() }}"
+                },
+                success: function (response) {
+                    Toast.fire({
+                        icon: 'success',
+                        title: '&nbsp;' + response.msg,
+                    })
+                    dttable.ajax.reload(null, false);
+                    updateListEdit(id_produk_sampel);
+                }
+            });
+        }
+
+        function updateListEdit(idProdukSampel){
+            let urlParameterUji = "{{ route('datadetailparameteruji', "_idProd") }}"
+            urlParameterUji = urlParameterUji.replace('_idProd', idProdukSampel);
+            $.ajax({
+                type: "GET",
+                url: urlParameterUji,
+                success: function (res) {
+                    $('#listparameterujiedit').empty();
+                    let list = '';
+                    for (const key in res) {
+                        if(res[key].parameter){
+                            list += '<li>'+res[key].parameter.parameter_uji+'('+res[key].parameter.metodeuji.metode+')'+'('+res[key].jumlah_pengujian+') <i onclick="deleteparameteruji('+ res[key].id_uji_produk +','+ idProdukSampel +')" class="fas fa-trash text-danger" style="cursor:pointer;"></i></li>';
+                        }else{
+                            list += '<li>Not found('+res[key].jumlah_pengujian+') <i onclick="deleteparameteruji('+ res[key].id_uji_produk +','+ id_produk_sampel +')" class="fas fa-trash text-danger" style="cursor:pointer;"></i></li>';
+                        }
+                    }
+                    $('#listparameterujiedit').append('<ol>'+ list +'</ol>');
+                }
+            });
+        }
+
+        function updateList(p_uji, j_uji, p_uji_text){
+            let data = '<div class="col-12 form-group row">';
+                data += '<input type="hidden" name="p_uji[]" value="'+p_uji+'" />';
+                data += '<div class="col-10">';
+                data += '<input class="form-control" value="'+p_uji_text+'" readonly/>';
+                data += '</div>';
+                data += '<div class="col-1">';
+                data += '<input name="j_uji[]" class="form-control" value="'+j_uji+'" readonly/>';
+                data += '</div>';
+                data += '<div class="col-1">';
+                data += '<button class="btn btn-danger delete"><i class="fa fa-trash"></i></button>';
+                data += '</div>';
+                data += '</div>';
+
+            $('#listparameteruji').append(data);
+        }
+
+        function filljenissampel() {
+            $.ajax({
+                type: "GET",
+                url: "{{ route('dtdetailterimasampel', $id) }}",
+                success: function (response) {
+                    // $("#jenisproduk").append("<option value=''>==Pilih Jenis Produk==</option>"); 
+                    $("#jenisproduk").empty();
+                    var len = 0;
+                    if(response['data'] != null){
+                        len = response['data'].length;
+                    }
+
+                    if(len > 0){
+                        // Read data and create <option >
+                        for(var i=0; i<len; i++){
+
+                        var id = response['data'][i].id_produk_sampel;
+                        var namaproduk = response['data'][i].nama_produk;
+
+                        var option = "<option value='"+id+"'>"+namaproduk+"</option>";
+
+                        //when array ujiproduk is empty
+                        if (response['data'][i].ujiproduk && response['data'][i].ujiproduk.length) {
+                            continue;
+                        }
+                        $("#jenisproduk").append(option); 
+                        }
+                    }
+                }
+            });
+        }
+
         fillparameteruji();
         // filljenissampel();
 
