@@ -409,6 +409,7 @@
             $.each(rowData, function (i, v) { 
                 $('input[name='+i+']').val(v);
                 $('select[name='+i+']').val(v).trigger('change');
+                $('textarea[name='+i+']').val(v);
                 if (i === 'ujiproduk') {
                     let list = '';
                     for (const key in v) {
