@@ -54,6 +54,13 @@
           </a>
           <ul class="nav nav-treeview">
             <li class="nav-item">
+              <a href="{{ route('instansipemilik.index') }}"
+                class="nav-link @if(Request::is('admin/master/instansipemilik')) active @endif">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Instansi Pemilik Sampel</p>
+              </a>
+            </li>
+            <li class="nav-item">
               <a href="{{ route('pemiliksampel.index') }}"
                 class="nav-link @if(Request::is('admin/master/pemiliksampel')) active @endif">
                 <i class="far fa-circle nav-icon"></i>

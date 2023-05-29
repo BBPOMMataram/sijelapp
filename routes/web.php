@@ -4,6 +4,7 @@ use App\Http\Controllers\BiayaSampelController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DetailTerimaSampelController;
 use App\Http\Controllers\FrontController;
+use App\Http\Controllers\InstansiPemilikSampelController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\MetodeUjiController;
@@ -17,6 +18,7 @@ use App\Http\Controllers\TrackingSampelController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Wadah1Controller;
 use App\Http\Controllers\Wadah2Controller;
+use App\Models\InstansiPemilikSampel;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -55,6 +57,7 @@ Route::middleware(['auth'])->group(function () {
                 'wadah1' => Wadah1Controller::class,
                 'wadah2' => Wadah2Controller::class,
                 'perihalsurat' => PerihalSuratController::class,
+                'instansipemilik' => InstansiPemilikSampelController::class,
             ]);
             Route::put('changephoto/{id}', [UserController::class, 'changephoto'])->name('usermanagement.changephoto');
             Route::put('resetpwd/{id}', [UserController::class, 'resetpwd'])->name('usermanagement.resetpwd');
@@ -62,6 +65,7 @@ Route::middleware(['auth'])->group(function () {
             Route::get('dtkategori', [KategoriController::class, 'dtkategori'])->name('dtkategori');
             Route::get('dtmetodeuji', [MetodeUjiController::class, 'dtmetodeuji'])->name('dtmetodeuji');
             Route::get('dtparameteruji', [ParameterUjiController::class, 'dtparameteruji'])->name('dtparameteruji');
+            Route::get('instansipemilik_dt', [InstansiPemilikSampelController::class, 'instansipemilik_dt'])->name('instansipemilik_dt');
         });
         Route::resource('terimasampel', TerimaSampelController::class);
         Route::get('dtterimasampel', [TerimaSampelController::class, 'dtterimasampel'])->name('dtterimasampel');
