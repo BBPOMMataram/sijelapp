@@ -293,6 +293,8 @@
             $('.modal-title').text('Form Tambah Data');
             $('#namasampel_cont').closest('fieldset').removeClass('d-none');
             $('#kode_sampel').attr('title', '');
+
+            $('.modal-backdrop').remove();
         });
 
         //fill select kategori
@@ -369,6 +371,10 @@
 
         $('.modal').on('change', '#id_kategori', function(e){
             e.preventDefault();
+
+            if (!$(this).val()){
+                return ;
+            }
             let url = "{{ route('lastnourut',"_id") }}"
             url = url.replace("_id", $(this).val());
             const btnSubmit = $('button.submit'); //for avoid adding 1 when not in submit mode

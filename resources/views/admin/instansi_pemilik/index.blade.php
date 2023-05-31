@@ -227,7 +227,14 @@
             $('.submit').css('display', 'inline-block');
             $('#id').val(null);
             $('#fileImg').next('.custom-file-label').html('Choose a file'); //reset the "Choose a file" label
-            dttable.ajax.reload(null, false);}
+            dttable.ajax.reload(null, false);
+        }
+
+        $("#modal").keyup(function(event) {
+            if (event.keyCode === 13) {
+                $(".submit").click();
+            }
+        });
     }); // end function ready
 </script>
 @endpush

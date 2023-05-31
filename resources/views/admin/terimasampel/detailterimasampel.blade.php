@@ -572,6 +572,8 @@
             $('#addparameteruji').removeClass('edit')
             $('#addparameteruji').addClass('add')
             $('button.submit').removeClass('d-none');
+            
+            $('.modal-backdrop').remove();
         });
 
         //when modal open autofocus first field
