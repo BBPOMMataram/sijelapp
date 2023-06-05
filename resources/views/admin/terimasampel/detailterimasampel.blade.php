@@ -158,7 +158,15 @@
         });
 
         //delete parameter in list modal
-        function deleteparameteruji(val, id_produk_sampel){
+        $('#modaldetailterimasampel').on('click', '.deleteparameteruji', function(){
+            const idUji = $(this).data('iduji')
+            const idProduk = $(this).data('idproduk')
+
+            deleteparameteruji(idUji, idProduk)
+        })
+
+        
+        const deleteparameteruji = (val, id_produk_sampel) => {
             let url = "{{ route('deleteparameteruji', "_id") }}";
             url = url.replace('_id', val);
 
@@ -190,9 +198,9 @@
                     let list = '';
                     for (const key in res) {
                         if(res[key].parameter){
-                            list += '<li>'+res[key].parameter.parameter_uji+'('+res[key].parameter.metodeuji.metode+')'+'('+res[key].jumlah_pengujian+') <i onclick="deleteparameteruji('+ res[key].id_uji_produk +','+ idProdukSampel +')" class="fas fa-trash text-danger" style="cursor:pointer;"></i></li>';
+                            list += '<li>'+res[key].parameter.parameter_uji+'('+res[key].parameter.metodeuji.metode+')'+'('+res[key].jumlah_pengujian+') <i data-idproduk="'+idProdukSampel+'" data-iduji="'+res[key].id_uji_produk+'" class="fas fa-trash text-danger deleteparameteruji" style="cursor:pointer;"></i></li>';
                         }else{
-                            list += '<li>Not found('+res[key].jumlah_pengujian+') <i onclick="deleteparameteruji('+ res[key].id_uji_produk +','+ id_produk_sampel +')" class="fas fa-trash text-danger" style="cursor:pointer;"></i></li>';
+                            list += '<li>Not found('+res[key].jumlah_pengujian+') <i class="fas fa-trash text-danger deleteparameteruji" style="cursor:pointer;"></i></li>';
                         }
                     }
                     $('#listparameterujiedit').append('<ol>'+ list +'</ol>');
@@ -363,9 +371,9 @@
                     let list = '';
                     for (const key in v) {
                         if(v[key].parameter){
-                            list += '<li>'+v[key].parameter.parameter_uji+'('+v[key].jumlah_pengujian+') <i onclick="deleteparameteruji('+ v[key].id_uji_produk +','+ id +')" class="fas fa-trash text-danger" style="cursor:pointer;"></i></li>';
+                            list += '<li>'+v[key].parameter.parameter_uji+'('+v[key].jumlah_pengujian+') <i data-iduji="'+ v[key].id_uji_produk +'" data-idproduk="'+ id +'" class="fas fa-trash text-danger deleteparameteruji" style="cursor:pointer;"></i></li>';
                         }else{
-                            list += '<li>Not found('+v[key].jumlah_pengujian+') <i onclick="deleteparameteruji('+ v[key].id_uji_produk +','+ id +')" class="fas fa-trash text-danger" style="cursor:pointer;"></i></li>';
+                            list += '<li>Not found('+v[key].jumlah_pengujian+') <i data-iduji="'+ v[key].id_uji_produk +'" data-idproduk="'+ id +'" class="fas fa-trash text-danger deleteparameteruji" style="cursor:pointer;"></i></li>';
                         }
                     }
                     $('#listparameteruji').append('<ol>'+ list +'</ol>');
@@ -414,9 +422,9 @@
                     let list = '';
                     for (const key in v) {
                         if(v[key].parameter){
-                            list += '<li>'+v[key].parameter.parameter_uji+'('+v[key].parameter.metodeuji.metode+')'+'('+v[key].jumlah_pengujian+') <i onclick="deleteparameteruji('+ v[key].id_uji_produk +','+ id +')" class="fas fa-trash text-danger" style="cursor:pointer;"></i></li>';
+                            list += '<li>'+v[key].parameter.parameter_uji+'('+v[key].parameter.metodeuji.metode+')'+'('+v[key].jumlah_pengujian+') <i data-idproduk="'+id+'" data-iduji="'+v[key].id_uji_produk +'" class="fas fa-trash text-danger deleteparameteruji" style="cursor:pointer;"></i></li>';
                         }else{
-                            list += '<li>Not found('+v[key].jumlah_pengujian+') <i onclick="deleteparameteruji('+ v[key].id_uji_produk +','+ id +')" class="fas fa-trash text-danger" style="cursor:pointer;"></i></li>';
+                            list += '<li>Not found('+v[key].jumlah_pengujian+') <i data-idproduk="'+id+'" data-iduji="'+v[key].id_uji_produk +'" class="fas fa-trash text-danger deleteparameteruji" style="cursor:pointer;"></i></li>';
                         }
                     }
                     $('#listparameterujiedit').append('<ol>'+ list +'</ol>');
