@@ -20,9 +20,9 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://unpkg.com/tippy.js@6/animations/scale.css" />
     <link rel="stylesheet" type="text/css"
-    href="https://cdn.datatables.net/v/dt/dt-1.11.3/r-2.2.9/sl-1.3.3/datatables.min.css" />
-  <link rel="stylesheet" href="{{ asset('vendor/admin/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css') }}">
-  @stack('styles')
+        href="https://cdn.datatables.net/v/dt/dt-1.11.3/r-2.2.9/sl-1.3.3/datatables.min.css" />
+    <link rel="stylesheet" href="{{ asset('vendor/admin/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css') }}">
+    @stack('styles')
 </head>
 
 <body class="modal-open">
@@ -32,11 +32,13 @@
                 <div class="tm-col-left">
                     <div class="tm-site-header media">
                         <i class="mt-1 tm-logo">
-                            <img src="{{ Storage::url('logo.png') }}" alt="logo bpom" width="80px">
+                            <a href="admin"><img src="{{ Storage::url('logo.png') }}" alt="logo bpom" width="80px"></a>
                         </i>
                         <div class="media-body">
-                            <h1 class="tm-sitename text-uppercase mb-0" style="-webkit-text-stroke:.5px #99cccc">SIJELAPP</h1>
-                            <p class="tm-slogon" style="-webkit-text-stroke:.1px #99cccc">Sistem Jejak Telusur Laporan Pengujian Pihak Ketiga</p>
+                            <h1 class="tm-sitename text-uppercase mb-0" style="-webkit-text-stroke:.5px #99cccc">
+                                SIJELAPP</h1>
+                            <p class="tm-slogon" style="-webkit-text-stroke:.1px #99cccc">Sistem Jejak Telusur Laporan
+                                Pengujian Pihak Ketiga</p>
                         </div>
                     </div>
                 </div>
@@ -94,12 +96,13 @@
     <script src="{{ asset('vendor/front/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('vendor/front/js/jquery.backstretch.min.js') }}"></script>
     <script src="{{ asset('vendor/front/js/script.js') }}"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.11.3/r-2.2.9/sl-1.3.3/datatables.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.11.3/r-2.2.9/sl-1.3.3/datatables.min.js">
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script src="https://unpkg.com/@popperjs/core@2"></script>
     <script src="https://unpkg.com/tippy.js@6"></script>
-  <script src="{{ asset('vendor/admin/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
-  @stack('scripts')
+    <script src="{{ asset('vendor/admin/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
+    @stack('scripts')
 </body>
 
 </html>

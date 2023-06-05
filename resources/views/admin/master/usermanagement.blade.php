@@ -216,7 +216,7 @@
             //fill form
             $.each(rowData, function (i, v) { 
                 if (i === 'image') {
-                    let el = '<div class="form-group">';
+                    let el = '<div class="form-group" id="img-container">';
                         el += v;
                         el += '</div>';
                     $('.form-group').last().after(el);
@@ -249,7 +249,7 @@
             //fill form editing
             $.each(rowData, function (i, v) { 
                 if (i === 'image') {
-                    let el = '<div class="form-group">';
+                    let el = '<div class="form-group" id="img-container">';
                         el += v;
                         el += '</div>';
                     $('.form-group').last().after(el);
@@ -276,7 +276,7 @@
 
             $('#level option[value="0"]').remove();
             $('#image').removeClass('d-none');
-            $('.form-group').last().remove();
+            $('#img-container').remove();
             $('.alert').removeClass('d-none');
             $('.submit').removeClass('d-none');
             $('.modal-title').text('Form Tambah Data');
