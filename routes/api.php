@@ -1,6 +1,6 @@
 <?php
 
-use App\Events\GuestArrived;
+use App\Http\Controllers\GuestBookController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -19,8 +19,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-
-Route::post('notif', function (Request $request) {
-    $data = $request->all();
-    GuestArrived::dispatch(['data' => $data]);
-});
+Route::post('guestbook', [GuestBookController::class, 'store']);
+Route::get('guest-sijelapp', [GuestBookController::class, 'getAllGuests_Sijelapp']);
