@@ -8,7 +8,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <h5 class="text-right mr-4 text-info" id="modal-mode">Add a new data</h5>
+                <h5 class="text-right mr-4 text-secondary" id="modal-mode">Add a new data</h5>
                 <!-- general form elements -->
                 <!-- form start -->
                 <form onsubmit="return false">

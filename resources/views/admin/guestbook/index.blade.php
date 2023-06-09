@@ -10,9 +10,9 @@
                 <div class="card">
                     <div class="card-header">
                         <h3 class="card-title">
-                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal">
+                            {{-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal">
                                 +
-                            </button>
+                            </button> --}}
                         </h3>
                     </div>
                     <!-- /.card-header -->

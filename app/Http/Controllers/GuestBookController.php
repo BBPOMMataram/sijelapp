@@ -51,11 +51,15 @@ class GuestBookController extends Controller
         $data->email = $request->email;
         $data->pangkat = $request->pangkat;
         $data->jabatan = $request->jabatan;
+        $data->selfie = $request->file("selfie");
 
-        if ($request->selfie) {
-            $filename = $data->id . '.' . $request->selfie->getClientOriginalExtension();
-            $path = $request->selfie->storeAs('guests', $filename);
+        try {
+            $folderName = 'guest-images';
+            // $path = Storage::put($folderName, $data->selfie);
+            $path = $request->file("selfie")->store($folderName);
             $data->selfie = $path;
+        } catch (\Exception $th) {
+            return response()->json(['message' => $th->getMessage()], 400);
         }
 
         $data->save();
@@ -100,7 +104,7 @@ class GuestBookController extends Controller
                 return $btn;
             })
             ->addColumn('selfie', function ($data) {
-                $result = '<img src="' . $data->image . '" alt="profile photo" width="50px" />';
+                $result = '<img src="' . $data->selfie . '" alt="profile photo" width="50px" />';
                 return $result;
             })
             ->addColumn('service', function ($data) {
