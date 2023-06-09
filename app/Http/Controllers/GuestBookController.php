@@ -6,9 +6,16 @@ use App\Events\GuestArrived;
 use App\Models\GuestBook;
 use App\Models\PemilikSampel;
 use Illuminate\Http\Request;
+use Yajra\DataTables\Facades\DataTables;
 
 class GuestBookController extends Controller
 {
+    public function index2()
+    {
+        $title = 'Data Tamu';
+        return view('admin.guestbook.index', compact('title'));
+    }
+
     public function index(Request $request)
     {
         $value_per_page = $request->query('value_per_page');
@@ -78,5 +85,28 @@ class GuestBookController extends Controller
         }
 
         return response()->json($guest);
+    }
+
+    public function guestbook_dt()
+    {
+        $data = GuestBook::with('serviceType')->latest();
+        return DataTables::of($data)
+            ->addIndexColumn()
+            ->addColumn('actions', function ($data) {
+                $btn = '<a href="#"><i class="fas fa-eye text-primary show"></i></a>';
+                // $btn .= '<a href="#"><i class="fas fa-pen text-info edit mx-1"></i></a>';
+                // $btn .= '<a href="#"><i class="fas fa-trash text-danger delete"></i></a>';
+
+                return $btn;
+            })
+            ->addColumn('selfie', function ($data) {
+                $result = '<img src="' . $data->image . '" alt="profile photo" width="50px" />';
+                return $result;
+            })
+            ->addColumn('service', function ($data) {
+                return $data->serviceType->name;
+            })
+            ->rawColumns(['actions', 'selfie'])
+            ->toJson();
     }
 }

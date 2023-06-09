@@ -4,6 +4,7 @@ use App\Http\Controllers\BiayaSampelController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DetailTerimaSampelController;
 use App\Http\Controllers\FrontController;
+use App\Http\Controllers\GuestBookController;
 use App\Http\Controllers\InstansiPemilikSampelController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\LaporanController;
@@ -58,7 +59,9 @@ Route::middleware(['auth'])->group(function () {
                 'wadah2' => Wadah2Controller::class,
                 'perihalsurat' => PerihalSuratController::class,
                 'instansipemilik' => InstansiPemilikSampelController::class,
+                'guestbook' => GuestBookController::class
             ]);
+            Route::get('guestbook_index', [GuestBookController::class, 'index2'])->name('guestbook.index2');
             Route::put('changephoto/{id}', [UserController::class, 'changephoto'])->name('usermanagement.changephoto');
             Route::put('resetpwd/{id}', [UserController::class, 'resetpwd'])->name('usermanagement.resetpwd');
             Route::get('dtpemiliksampel', [PemilikSampelController::class, 'dtpemiliksampel'])->name('dtpemiliksampel');
@@ -66,6 +69,7 @@ Route::middleware(['auth'])->group(function () {
             Route::get('dtmetodeuji', [MetodeUjiController::class, 'dtmetodeuji'])->name('dtmetodeuji');
             Route::get('dtparameteruji', [ParameterUjiController::class, 'dtparameteruji'])->name('dtparameteruji');
             Route::get('instansipemilik_dt', [InstansiPemilikSampelController::class, 'instansipemilik_dt'])->name('instansipemilik_dt');
+            Route::get('guestbook_dt', [GuestBookController::class, 'guestbook_dt'])->name('guestbook_dt');
         });
         Route::resource('terimasampel', TerimaSampelController::class);
         Route::get('dtterimasampel', [TerimaSampelController::class, 'dtterimasampel'])->name('dtterimasampel');

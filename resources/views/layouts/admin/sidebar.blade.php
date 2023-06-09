@@ -132,6 +132,13 @@
               </a>
             </li>
             @endif
+            <li class="nav-item">
+              <a href="{{ route('guestbook.index2') }}"
+                class="nav-link @if(Request::is('admin/master/guestbook')) active @endif">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Tamu</p>
+              </a>
+            </li>
           </ul>
         </li>
         <li class="nav-item">
