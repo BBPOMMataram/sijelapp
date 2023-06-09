@@ -214,28 +214,28 @@
             html: `
             <div class='text-left'>
               <div>
-                <span class='d-inline-block w-25'>Nama</span><span>: ${data.nama}</span>
+                <span class='d-inline-block' style="width:4rem;">Nama</span><span>: ${data.name || '-'}</span>
               </div>
               <div>
-                <span class='d-inline-block w-25'>Instansi</span><span>: ${data.instansi}</span>
+                <span class='d-inline-block' style="width:4rem;">Instansi</span><span>: ${data.company || '-'}</span>
               </div>
               <div>
-                <span class='d-inline-block w-25'>HP</span><span>: ${data.hp}</span>
+                <span class='d-inline-block' style="width:4rem;">HP</span><span>: ${data.hp || '-'}</span>
               </div>
               <div>
-                <span class='d-inline-block w-25'>Layanan</span><span>: ${data.layanan}</span>
+                <span class='d-inline-block' style="width:4rem;">Layanan</span><span>: ${data.service || '-'}</span>
               </div>
               <div>
-                <span class='d-inline-block w-25'>Alamat</span><span>: ${data.alamat}</span>
+                <span class='d-inline-block' style="width:4rem;">Alamat</span><span>: ${data.address || '-'}</span>
               </div>
               <div>
-                <span class='d-inline-block w-25'>Email</span><span>: ${data.email}</span>
+                <span class='d-inline-block' style="width:4rem;">Email</span><span>: ${data.email || '-'}</span>
               </div>
               <div>
-                <span class='d-inline-block w-25'>Pangkat</span><span>: ${data.pangkat}</span>
+                <span class='d-inline-block' style="width:4rem;">Pangkat</span><span>: ${data.pangkat || '-'}</span>
               </div>
               <div>
-                <span class='d-inline-block w-25'>Jabatan</span><span>: ${data.jabatan}</span>
+                <span class='d-inline-block' style="width:4rem;">Jabatan</span><span>: ${data.jabatan || '-'}</span>
               </div>
             </div>
             `

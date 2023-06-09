@@ -19,5 +19,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::get('guest-book/search/{name}', [GuestBookController::class, 'getByName']); // route for autofill
 Route::post('guestbook', [GuestBookController::class, 'store']);
 Route::get('guest-sijelapp', [GuestBookController::class, 'getAllGuests_Sijelapp']);
+Route::get('guest-book', [GuestBookController::class, 'index']);

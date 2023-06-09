@@ -9,6 +9,24 @@ use Illuminate\Http\Request;
 
 class GuestBookController extends Controller
 {
+    public function index(Request $request)
+    {
+        $value_per_page = $request->query('value_per_page');
+
+        //handle request without pagination
+        if (!$value_per_page) {
+            $data = GuestBook::all();
+            return response()->json($data);
+        }
+
+        $data = GuestBook::paginate($value_per_page);
+        //add query string to all response links
+        $data->appends(['value_per_page' => $value_per_page]);
+
+
+        return response()->json($data);
+    }
+
     public function store(Request $request)
     {
         $this->validate($request, [
@@ -44,5 +62,21 @@ class GuestBookController extends Controller
     {
         $data = PemilikSampel::all();
         return $data;
+    }
+
+    public function getByName($name)
+    {
+        $guest = GuestBook::where('name', $name)->first();
+        if (!$guest) {
+            $guest = PemilikSampel::where('nama_petugas', $name)->first();
+            $guest->hp = $guest->telepon_petugas;
+            $guest->email = $guest->email_petugas;
+            $guest->pangkat = $guest->pangkat_petugas;
+            $guest->jabatan = $guest->jabatan_petugas;
+            $guest->company = $guest->nama_pemilik;
+            $guest->address = $guest->alamat_pemilik;
+        }
+
+        return response()->json($guest);
     }
 }
