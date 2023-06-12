@@ -64,6 +64,8 @@ class GuestBookController extends Controller
 
         $data->save();
 
+        $data->service = $data->serviceType->name;
+
         GuestArrived::dispatch(['data' => $data]);
 
         return response()->json(['status' => 1, 'msg' => 'Saved', 'data' => $data]);

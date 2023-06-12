@@ -211,6 +211,8 @@
           Swal.fire({
             icon: 'warning', 
             title: 'Ada tamu datang!',
+            showConfirmButton: false,
+            allowEnterKey: false,
             html: `
             <div class='text-left'>
               <div>
@@ -238,7 +240,13 @@
                 <span class='d-inline-block' style="width:4rem;">Jabatan</span><span>: ${data.jabatan || '-'}</span>
               </div>
             </div>
-            `
+            `,
+            footer: `<a target="_blank" href="/admin/master/guestbook_index">
+              <button type="button" class="swal2-confirm swal2-styled"style="display: inline-block;">Lihat</button>
+              </a>
+            <button type="button" onclick="swal.close(); return false;" class="swal2-cancel swal2-styled" aria-label="" style="display: inline-block;">Tutup</button>
+            `,
+            position: 'bottom-end'
           })
         })
       }
