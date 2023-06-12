@@ -58,6 +58,13 @@
         const dttable = $("table").DataTable({
             select: true,
             serverSide: true,
+            dom: "Bfrtlip",
+            buttons: [
+                {
+                    text:'Excel',
+                    extend: 'excelHtml5'
+                }
+            ],
             ajax: {
                 url: "{{ route('guestbook_dt') }}"
             },
