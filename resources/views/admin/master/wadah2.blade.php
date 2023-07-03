@@ -41,15 +41,16 @@
 @include('modals.master.wadah2')
 @endsection
 @push('styles')
-    <style>
-        /* center vertical for datatables */
-        table.dataTable tbody td { 
-            vertical-align: middle;
-        }
-    </style>
+<style>
+    /* center vertical for datatables */
+    table.dataTable tbody td {
+        vertical-align: middle;
+    }
+</style>
 @endpush
 @push('scripts')
 <script>
+    $(function () {
     var Toast = Swal.mixin({
         toast: true,
         position: 'top-end',
@@ -70,7 +71,6 @@
         ]
     });
 
-    $(function () {
         $('.modal').on('click', '.submit', function(evt){
             evt.preventDefault();
 
