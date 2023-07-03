@@ -14,7 +14,8 @@
             {{-- <input type="hidden" name="id" id="id"> --}}
             <div class="form-group">
               <label for="name">Nama</label>
-              <input type="text" class="form-control" id="name" name="name" placeholder="Nama">
+              {{-- <input type="text" class="form-control" id="name" name="name" placeholder="Nama"> --}}
+              <textarea class="form-control" name="name" id="name" cols="30" rows="10" placeholder="wadah 2"></textarea>
             </div>
           </div>
           <!-- /.card-body -->
