@@ -185,7 +185,7 @@
                             <div style="width: 54%; float: left; margin-top: 10px;">
                                 <p style="font-size: 11px;">PNBP Balai Besar POM</p><br>
                                 <p style="font-size: 11px; margin-top: -32px;">di Mataram</p><br><br>            
-                                <p style="font-size: 11px;">Miftahul Azizah, A.Md.</p><br>
+                                <p style="font-size: 11px;">{{auth()->user()->name}}</p><br>
                             </div>
                             <div style="width: 25%; float: right; margin-top: 10px;">
                                 <p style="font-size: 11px;">Mataram, {{ now()->isoFormat('D MMMM Y') }}</p><br>
