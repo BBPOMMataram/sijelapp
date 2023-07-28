@@ -6,6 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>SIJELAPP | Admin</title>
 
+  {{-- favicon --}}
+  <link rel="icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet"
     href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -159,7 +161,7 @@
   <!-- AdminLTE App -->
   <script src="{{ asset('vendor/admin/dist/js/adminlte.js') }}"></script>
   <!-- AdminLTE for demo purposes -->
-  <script src="{{ asset('vendor/admin/dist/js/demo.js') }}"></script>
+  {{-- <script src="{{ asset('vendor/admin/dist/js/demo.js') }}"></script> --}}
   <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
   {{-- <script src="{{ asset('vendor/admin/dist/js/pages/dashboard.js') }}"></script> --}}
   {{-- <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.11.3/datatables.min.js"></script> --}}

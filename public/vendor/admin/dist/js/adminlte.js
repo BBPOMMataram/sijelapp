@@ -2717,7 +2717,7 @@
       var _this = this;
 
       var $toggleSelector = this._element;
-      $toggleSelector.find('input:checkbox:checked').parents('li').toggleClass(CLASS_NAME_TODO_LIST_DONE);
+      // $toggleSelector.find('input:checkbox:checked').parents('li').toggleClass(CLASS_NAME_TODO_LIST_DONE);
       $toggleSelector.on('change', 'input:checkbox', function (event) {
         _this.toggle($__default['default'](event.target));
       });

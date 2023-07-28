@@ -15,11 +15,13 @@ use App\Http\Controllers\Pengaturan\ProfilController;
 use App\Http\Controllers\PerihalSuratController;
 use App\Http\Controllers\StatusUjiController;
 use App\Http\Controllers\TerimaSampelController;
+use App\Http\Controllers\TodoListController;
 use App\Http\Controllers\TrackingSampelController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Wadah1Controller;
 use App\Http\Controllers\Wadah2Controller;
 use App\Models\InstansiPemilikSampel;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -43,8 +45,20 @@ Route::get('downloadlhu/{lhu}', function ($lhu) {
 })->where('lhu', '.*')
     ->name('download.lhu');
 
+    Route::get('testing', function(Request $request){
+        $timezone = $request->header('Timezone');
+
+        return $timezone ?: 'ga ada';
+    });
+    
 Route::middleware(['auth'])->group(function () {
     Route::prefix('admin')->group(function () {
+        Route::get('todolist', [TodoListController::class, 'getTodoList'])->name('getTodoList');
+        Route::post('todolist', [TodoListController::class, 'store'])->name('todolist.store');
+        Route::patch('todolist/{todo}', [TodoListController::class, 'update'])->name('todolist.update');
+        Route::post('todolist/{todo}', [TodoListController::class, 'setDone'])->name('todolist.setDone');
+        Route::delete('todolist/{todo}', [TodoListController::class, 'destroy'])->name('todolist.destroy');
+
         Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
         Route::prefix('master')->group(function () {
             Route::resources([

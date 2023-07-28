@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\TerimaSampel;
+use App\Models\TodoList;
 use App\Models\User;
+use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
@@ -29,6 +31,8 @@ class DashboardController extends Controller
                 ->groupBy('id_kategori')
                 ->selectRaw('*, sum(jumlah_sampel) as jumlahSampel')->get()->pluck('jumlahSampel')
         ];
-        return view('admin.index', compact('title', 'data'));
+        
+        return view('admin.dashboard.index', compact('title', 'data'));
     }
+
 }
