@@ -158,7 +158,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('logout', function () {
         Auth::logout();
         return redirect()->route('login');
-    })->name('logout');
+    })->name('logout-admin');
 });
 
 Auth::routes();

@@ -221,7 +221,7 @@
           </ul>
         </li>
         <li class="nav-item">
-          <a href="{{ route('logout') }}" class="nav-link @if(Request::is('admin/sampelsudahdiambil')) active @endif">
+          <a href="{{ route('logout-admin') }}" class="nav-link @if(Request::is('admin/sampelsudahdiambil')) active @endif">
             <i class="nav-icon fas fa-door-open"></i>
             <p>
               Keluar
