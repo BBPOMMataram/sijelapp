@@ -38,6 +38,28 @@ use Illuminate\Support\Facades\Storage;
 |
 */
 
+Route::get('production-optimization', function () {
+    Artisan::call('route:cache');
+    Artisan::call('view:cache');
+    Artisan::call('config:cache');
+    
+    return 'optimization done';
+});
+
+Route::get('remove-cache', function () {
+    Artisan::call('route:clear');
+    Artisan::call('view:clear');
+    Artisan::call('config:clear');
+    
+    return 'cache cleared';
+});
+
+
+
+Route::get('/storagelink', function () {
+    Artisan::call('storage:link');
+});
+
 Route::get('/', [FrontController::class, 'trackingsampel'])->name('home');
 Route::get('/tarif', [FrontController::class, 'tarifpengujian'])->name('tarifpengujian');
 Route::get('downloadlhu/{lhu}', function ($lhu) {
@@ -160,7 +182,3 @@ Route::get('dtbiayauji', [BiayaSampelController::class, 'dtbiayauji'])->name('dt
 Route::get('dtjenissampel', [BiayaSampelController::class, 'dtjenissampel'])->name('dtjenissampel');
 
 Route::get('dthargaproduk/{id?}', [BiayaSampelController::class, 'dthargaproduk'])->name('dthargaproduk');
-
-Route::get('/storagelink', function () {
-    Artisan::call('storage:link');
-});
