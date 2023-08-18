@@ -31,7 +31,8 @@
             right: 100px;
             top: 50px;
             border-radius: 100%;
-            background-color: red;
+            border: 2px solid red;
+            z-index: 99;
         }
     </style>
 </head>
