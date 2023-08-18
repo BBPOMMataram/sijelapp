@@ -23,9 +23,24 @@
         href="https://cdn.datatables.net/v/dt/dt-1.11.3/r-2.2.9/sl-1.3.3/datatables.min.css" />
     <link rel="stylesheet" href="{{ asset('vendor/admin/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css') }}">
     @stack('styles')
+
+    {{-- HAPUS NANTI --}}
+    <style>
+        #logo_78 img {
+            position: fixed;
+            right: 100px;
+            top: 50px;
+            border-radius: 100%;
+            background-color: red;
+        }
+    </style>
 </head>
 
-<body class="modal-open">
+<body id="modal-open">
+    {{-- HAPUS NANTI --}}
+    <div id="logo_78">
+        <img src="logo_78.gif" alt="logo 78" width="100px" height="100px">
+    </div>
     <div class="tm-container">
         <div>
             <div class="tm-row pt-4">

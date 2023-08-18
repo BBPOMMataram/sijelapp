@@ -54,10 +54,26 @@
     }
   </style>
   @stack('styles')
+  {{-- HAPUS NANTI --}}
+  <style>
+    #logo_78 img {
+      position: fixed;
+      right: 100px;
+      top: 50px;
+      border-radius: 100%;
+      background-color: red;
+      z-index: 99;
+    }
+  </style>
+
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed text-sm">
   <div class="wrapper">
+    {{-- HAPUS NANTI --}}
+    <div id="logo_78">
+      <img src="/logo_78.gif" alt="logo 78" width="100px" height="100px">
+    </div>
 
     <!-- Preloader -->
     <div class="preloader flex-column justify-content-center align-items-center">
