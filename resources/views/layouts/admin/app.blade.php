@@ -55,7 +55,7 @@
   </style>
   @stack('styles')
   {{-- HAPUS NANTI --}}
-  <style>
+  {{-- <style>
     #logo_78 img {
       position: fixed;
       right: 100px;
@@ -64,16 +64,16 @@
       border: 2px solid red;
       z-index: 99;
     }
-  </style>
+  </style> --}}
 
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed text-sm">
   <div class="wrapper">
     {{-- HAPUS NANTI --}}
-    <div id="logo_78">
+    {{-- <div id="logo_78">
       <img src="/logo_78.gif" alt="logo 78" width="100px" height="100px">
-    </div>
+    </div> --}}
 
     <!-- Preloader -->
     <div class="preloader flex-column justify-content-center align-items-center">

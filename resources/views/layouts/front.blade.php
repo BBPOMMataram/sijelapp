@@ -25,7 +25,7 @@
     @stack('styles')
 
     {{-- HAPUS NANTI --}}
-    <style>
+    {{-- <style>
         #logo_78 img {
             position: fixed;
             right: 100px;
@@ -34,14 +34,14 @@
             border: 2px solid red;
             z-index: 99;
         }
-    </style>
+    </style> --}}
 </head>
 
 <body id="modal-open">
     {{-- HAPUS NANTI --}}
-    <div id="logo_78">
+    {{-- <div id="logo_78">
         <img src="logo_78.gif" alt="logo 78" width="100px" height="100px">
-    </div>
+    </div> --}}
     <div class="tm-container">
         <div>
             <div class="tm-row pt-4">
