@@ -156,7 +156,7 @@
             
             let data = {
                 "_token": "{{ csrf_token() }}",
-                "g-recaptcha-response": grecaptcha.getResponse(),
+                // "g-recaptcha-response": grecaptcha.getResponse(),
             }
             
             $.ajax({
