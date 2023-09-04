@@ -18,15 +18,15 @@ class FrontController extends Controller
 
     public function dttrackingsampel(Request $request, $id)
     {
-        $this->validate(
-            $request,
-            [
-                'g-recaptcha-response' => 'required|captcha',
-            ],
-            [
-                'g-recaptcha-response.required' => 'Please resolve the Recapthca'
-            ]
-        );
+        // $this->validate(
+        //     $request,
+        //     [
+        //         'g-recaptcha-response' => 'required|captcha',
+        //     ],
+        //     [
+        //         'g-recaptcha-response.required' => 'Please resolve the Recapthca'
+        //     ]
+        // );
 
         $permintaan = TerimaSampel::where('resi', $id)->latest()->first();
         if (!$permintaan) {

@@ -9,12 +9,12 @@
                 <h2 class="mb-5 tm-content-title">Tracking Sampel</h2>
                 <div><input type="text" id="resisampel" placeholder="No Resi Sampel"
                         class="form-control px-2 rounded mb-1" autocomplete="off" autofocus></div>
-                {!! NoCaptcha::display(['data-theme' => 'dark']) !!}
+                {{-- {!! NoCaptcha::display(['data-theme' => 'dark']) !!}
                 @if ($errors->has('g-recaptcha-response'))
                 <span class="help-block">
                     <strong>{{ $errors->first('g-recaptcha-response') }}</strong>
                 </span>
-                @endif
+                @endif --}}
                 <button type="button" class="btn btn-primary rounded mt-4 track">Track</button>
             </form>
         </section>
