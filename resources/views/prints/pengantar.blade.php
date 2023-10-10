@@ -44,7 +44,7 @@
                             <div style="position: relative;">
                                 <div style="width:50%; position: absolute; right:0; top:20px;">
                                     <div style="text-align: center; margin-bottom:120px;">Kepala Balai Besar POM di Mataram</div>
-                                    <div style="text-align: center;"">Dra. I Gusti Ayu Adhi Aryapatni, Apt.</div>
+                                    <div style="text-align: center;"">Yosef Dwi Irwan, S.Si, Apt.</div>
                                 </div>
                                 
                                 <div style="position: absolute; top:150px;">
