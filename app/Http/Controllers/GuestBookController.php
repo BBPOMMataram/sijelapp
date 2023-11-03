@@ -112,6 +112,9 @@ class GuestBookController extends Controller
             ->addColumn('service', function ($data) {
                 return $data->serviceType->name;
             })
+            ->addColumn('created_at', function ($data) {
+                return $data->created_at->isoFormat('dddd D MMM Y \j\a\m H:mm:ss');
+            })
             ->rawColumns(['actions', 'selfie'])
             ->toJson();
     }

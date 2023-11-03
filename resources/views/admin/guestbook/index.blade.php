@@ -30,6 +30,7 @@
                                         <th class="align-middle">Email</th>
                                         <th class="align-middle">Pangkat</th>
                                         <th class="align-middle">Jabatan</th>
+                                        <th class="align-middle">Waktu</th>
                                         <th class="align-middle">Actions</th>
                                     </tr>
                                 </thead>
@@ -78,6 +79,7 @@
                 {data: 'email'},
                 {data: 'pangkat'},
                 {data: 'jabatan'},
+                {data: 'created_at'},
                 {data: 'actions', className: 'text-center align-middle'},
             ]
         });
