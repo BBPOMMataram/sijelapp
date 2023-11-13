@@ -23,6 +23,7 @@
                                     <tr>
                                         <th class="align-middle">No</th>
                                         <th class="align-middle">Nama</th>
+                                        <th class="align-middle">Foto</th>
                                         <th class="align-middle">Layanan</th>
                                         <th class="align-middle">HP</th>
                                         <th class="align-middle">Instansi</th>
@@ -72,6 +73,7 @@
             columns: [
                 {data: 'DT_RowIndex', searchable: false, orderable: false},
                 {data: 'name'},
+                {data: 'selfie'},
                 {data: 'service'},
                 {data: 'hp'},
                 {data: 'company'},
